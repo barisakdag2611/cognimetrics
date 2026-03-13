@@ -125,6 +125,57 @@ export default function MethodologyPage({ onBack }) {
         real implications for understanding how a person thinks.
       </p>
 
+      <h2>The g Factor Problem — And How Structure Resolves It</h2>
+      <p>
+        The <em>g factor</em> (general intelligence) is the most replicated finding in
+        differential psychology: a single latent variable that accounts for 40-60% of
+        variance across all cognitive tasks. Yet modern theories struggle to explain
+        <em>what g actually is</em>.
+      </p>
+      <p>
+        <strong>Process Overlap Theory</strong> (Kovacs & Conway, 2016) argues that g emerges
+        because diverse cognitive tasks share overlapping neural processes — there is no
+        single "g module," only statistical overlap. <strong>Mutualism</strong> (van der Maas
+        et al., 2006) proposes that g emerges from positive developmental interactions
+        between initially independent abilities. <strong>Network theory</strong> models
+        cognition as interconnected nodes where g is a global network property.
+      </p>
+      <p>
+        These theories capture something real but miss the deeper pattern. Cross-structural
+        isomorphism reveals why:
+      </p>
+      <p>
+        <strong>g is not a thing — it is a structural invariant.</strong> Just as energy
+        manifests as heat, light, motion, and potential — different surface forms of the
+        same underlying quantity — g manifests as fluid reasoning, crystallized knowledge,
+        working memory, and processing speed. These are not "correlated abilities." They
+        are <em>different expressions of the same latent structural capacity</em>.
+      </p>
+      <p>
+        This is why every cognitive task loads on g: not because they share "overlapping
+        processes" (which is descriptive, not explanatory), but because they all draw on
+        the same structural capacity for <em>binding, transforming, and maintaining
+        relational representations</em>. The surface varies. The structure is invariant.
+      </p>
+      <p>
+        This isomorphic view unifies the competing theories:
+      </p>
+      <ul>
+        <li>Process Overlap Theory is correct that tasks share processes — but the
+        sharing is <em>structural</em>, not accidental</li>
+        <li>Mutualism is correct that abilities develop together — because they are
+        <em>manifestations of the same underlying capacity</em></li>
+        <li>Network theory is correct that g is a global property — because
+        <em>structural invariants are by definition global</em></li>
+      </ul>
+      <p>
+        CogniMetrics is built on this understanding. We don't just measure "correlated
+        abilities." We measure different surface expressions of the same structural
+        capacity — and the decomposition framework (R, T, B, N, D dimensions) is our
+        method for ensuring that items tap into the right structural demands regardless
+        of their surface content.
+      </p>
+
       <h2>Theoretical Framework: CHC</h2>
       <p>
         CogniMetrics is aligned with the <strong>Cattell-Horn-Carroll (CHC) theory</strong> —
@@ -177,6 +228,72 @@ export default function MethodologyPage({ onBack }) {
           </tr>
         </tbody>
       </table>
+
+      <h2>Structural Item Decomposition</h2>
+      <p>
+        Every item in CogniMetrics is decomposed into five orthogonal cognitive demand
+        dimensions. Item parameters are <em>derived</em> from this decomposition — not
+        estimated from normative data or guessed by the test designer.
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th>Symbol</th>
+            <th>What It Measures</th>
+            <th>Range</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Relational Complexity</td>
+            <td><code>R</code></td>
+            <td>How many relations must be simultaneously represented</td>
+            <td>1-5</td>
+          </tr>
+          <tr>
+            <td>Transformation Type</td>
+            <td><code>T</code></td>
+            <td>Kind of mental operation required (identify → meta-transform)</td>
+            <td>1-5</td>
+          </tr>
+          <tr>
+            <td>Binding Load</td>
+            <td><code>B</code></td>
+            <td>How many elements must be held in active working memory</td>
+            <td>2-9</td>
+          </tr>
+          <tr>
+            <td>Novelty Demand</td>
+            <td><code>N</code></td>
+            <td>How much prior knowledge helps vs. misleads</td>
+            <td>1-4</td>
+          </tr>
+          <tr>
+            <td>Distractor Quality</td>
+            <td><code>D</code></td>
+            <td>How closely wrong answers mimic the correct one</td>
+            <td>1-4</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        The IRT difficulty parameter (b) is computed as:
+      </p>
+      <p style={{ textAlign: 'center', fontFamily: 'var(--mono)', fontSize: 14, margin: '16px 0', padding: '16px', background: 'var(--bg-card)', borderRadius: '8px' }}>
+        b = -3.0 + 0.50&middot;R + 0.30&middot;T + 0.25&middot;max(0, B-2) + 0.35&middot;N + 0.20&middot;D
+      </p>
+      <p>
+        The discrimination parameter (a) is derived from the item's g-loading and structural
+        complexity. More complex items discriminate better because they cannot be solved by
+        surface-level shortcuts.
+      </p>
+      <p>
+        This means: <strong>the parameter IS the structure</strong>. An item with R=3, T=3,
+        B=6 will have difficulty b ≈ +1.85 whether it's a visual matrix, a verbal analogy,
+        or a number sequence — because the cognitive demand is structurally identical.
+        This is cross-structural isomorphism applied to psychometric calibration.
+      </p>
 
       <h2>Scoring Model: IRT 2PL</h2>
       <p>
