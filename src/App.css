@@ -209,6 +209,33 @@
   flex-shrink: 0;
 }
 
+.landing-promo {
+  text-align: center;
+}
+
+.promo-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 8px 24px;
+  border-radius: 20px;
+  animation: promoPulse 2s infinite;
+}
+
+@keyframes promoPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+  50% { box-shadow: 0 0 0 12px rgba(16, 185, 129, 0); }
+}
+
+.promo-countdown {
+  font-size: 13px;
+  color: var(--success);
+  margin-top: 6px;
+  font-family: var(--mono);
+}
+
 .landing-creator {
   margin-top: 32px;
   font-size: 13px;
