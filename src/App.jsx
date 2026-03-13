@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import LanguageSelect from './components/LanguageSelect';
 import LandingPage from './components/LandingPage';
 import TestRunner from './components/TestRunner';
 import ResultsPage from './components/ResultsPage';
@@ -7,12 +8,20 @@ import { translations } from './data/translations';
 import './App.css';
 
 function App() {
-  const [page, setPage] = useState('landing');
+  const [page, setPage] = useState('lang-select');
   const [testResults, setTestResults] = useState(null);
-  const [lang, setLang] = useState('en');
+  const [lang, setLang] = useState(null);
 
-  const t = translations[lang];
-  const toggleLang = useCallback(() => setLang(l => l === 'en' ? 'tr' : 'en'), []);
+  const t = lang ? translations[lang] : null;
+
+  const selectLang = useCallback((l) => {
+    setLang(l);
+    setPage('landing');
+  }, []);
+
+  const toggleLang = useCallback(() => {
+    setLang(l => l === 'en' ? 'tr' : 'en');
+  }, []);
 
   const startTest = useCallback(() => setPage('test'), []);
   const showResults = useCallback((results) => {
@@ -24,6 +33,10 @@ function App() {
     setPage('landing');
     setTestResults(null);
   }, []);
+
+  if (page === 'lang-select') {
+    return <LanguageSelect onSelect={selectLang} />;
+  }
 
   return (
     <div className="app">

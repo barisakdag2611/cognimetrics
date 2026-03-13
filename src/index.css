@@ -1,24 +1,45 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
 :root {
-  --bg-primary: #0a0a1a;
-  --bg-secondary: #111127;
-  --bg-card: #16163a;
-  --bg-card-hover: #1c1c4a;
-  --text-primary: #e2e8f0;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
-  --accent: #6366f1;
-  --accent-light: #818cf8;
-  --accent-glow: rgba(99, 102, 241, 0.3);
-  --success: #10b981;
-  --warning: #f59e0b;
-  --danger: #ef4444;
-  --border: rgba(99, 102, 241, 0.15);
-  --border-strong: rgba(99, 102, 241, 0.3);
-  --radius: 12px;
-  --radius-sm: 8px;
-  --font: 'Inter', system-ui, -apple-system, sans-serif;
+  /* Muhaymin-inspired palette — scholarly, warm, elite */
+  --bg-primary: #0d1117;
+  --bg-secondary: #131920;
+  --bg-card: rgba(201, 168, 76, 0.04);
+  --bg-card-hover: rgba(201, 168, 76, 0.08);
+
+  --gold: #c9a84c;
+  --gold-light: #e8d5a0;
+  --gold-dim: #8b7355;
+  --gold-glow: rgba(201, 168, 76, 0.15);
+
+  --teal: #2c5f6e;
+  --teal-light: #3d8a9e;
+  --teal-dark: #1a3d47;
+
+  --cream: #fefcf8;
+  --cream-dim: #c4b99a;
+  --parchment: #e8dcc8;
+
+  --text-primary: #e8dcc8;
+  --text-secondary: #a89b7e;
+  --text-muted: #6b6050;
+
+  --accent: var(--gold);
+  --accent-light: var(--gold-light);
+  --accent-glow: var(--gold-glow);
+
+  --success: #7ab87a;
+  --warning: #d4a843;
+  --danger: #c45c5c;
+
+  --border: rgba(201, 168, 76, 0.12);
+  --border-strong: rgba(201, 168, 76, 0.25);
+
+  --radius: 4px;
+  --radius-sm: 3px;
+
+  --serif: 'Cormorant Garamond', 'Georgia', serif;
+  --sans: 'Inter', system-ui, -apple-system, sans-serif;
   --mono: 'JetBrains Mono', ui-monospace, monospace;
 }
 
@@ -29,7 +50,7 @@
 }
 
 body {
-  font-family: var(--font);
+  font-family: var(--sans);
   background: var(--bg-primary);
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
@@ -42,30 +63,29 @@ body {
 }
 
 button {
-  font-family: var(--font);
+  font-family: var(--sans);
   cursor: pointer;
   border: none;
   outline: none;
 }
 
 input {
-  font-family: var(--font);
+  font-family: var(--sans);
   outline: none;
 }
 
 ::selection {
-  background: var(--accent);
-  color: white;
+  background: var(--gold);
+  color: var(--bg-primary);
 }
 
-/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
 }
 ::-webkit-scrollbar-track {
   background: var(--bg-primary);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--border-strong);
-  border-radius: 3px;
+  background: var(--gold-dim);
+  border-radius: 2px;
 }
