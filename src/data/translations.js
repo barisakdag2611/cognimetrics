@@ -1,0 +1,142 @@
+export const translations = {
+  en: {
+    // Landing
+    brand: "COGNIMETRICS",
+    title: "Measure Your Mind",
+    subtitle: "A structurally rigorous cognitive assessment built on Item Response Theory and CHC framework. No norms needed — pure structural measurement.",
+    feature1Label: "7 Cognitive Domains",
+    feature1Desc: "Gf (WM + WMC), Gc, Gwm, Gs, Gq",
+    feature2Label: "IRT 2PL Scoring",
+    feature2Desc: "MLE theta estimation, no norm dependency",
+    feature3Label: "Verified Certificate",
+    feature3Desc: "PDF with HMAC-SHA256 verification code",
+    whyTitle: "Why CogniMetrics?",
+    why1: "Gf split into WM-weighted & WMC-weighted",
+    why2: "Cross-structural isomorphism design",
+    why3: "Ceiling at IQ 160 with calibrated hard items",
+    why4: "Full methodology transparency",
+    startBtn: "Start Assessment",
+    priceText: "$9.99 · ~45 minutes · Up to IQ 160",
+    methodologyBtn: "View Methodology",
+    statCeiling: "Max Ceiling",
+    statSubtests: "Subtests",
+    statModel: "IRT Model",
+    statFactors: "CHC Factors",
+    createdBy: "Created by",
+
+    // Test
+    subtestOf: "Subtest",
+    begin: "Begin",
+    quit: "Quit",
+    items: "items",
+    submit: "Submit",
+    memorizeForward: "Memorize the sequence",
+    memorizeBackward: "Memorize, then type BACKWARDS",
+    typeForward: "Type the digits in order",
+    typeBackward: "Type the digits in REVERSE order",
+    backward: "BACKWARD — type in reverse order",
+    speedInstructions: "Match the target symbol as quickly and accurately as possible.",
+    speedTime: "seconds for",
+    speedTrials: "trials",
+    memoryInstructions: "Numbers will appear one at a time. Memorize them, then type them back. For \"backward\" items, type the sequence in reverse order.",
+
+    // Results
+    factorScores: "Factor Scores",
+    subtestBreakdown: "Subtest Breakdown",
+    verificationCode: "Verification Code",
+    testId: "Test ID",
+    downloadPdf: "Download PDF Certificate",
+    home: "Home",
+    disclaimer: "This assessment provides a structural estimate of cognitive ability. It is not a clinical diagnosis.",
+    date: "Date",
+    duration: "Duration",
+
+    // Subtests
+    pm: { name: "Pattern Matrices", desc: "Visual pattern completion requiring simultaneous rule tracking and active manipulation in working memory" },
+    rr: { name: "Relational Reasoning", desc: "Multi-step logical deduction requiring large relational structures to be held simultaneously" },
+    cl: { name: "Conceptual Links", desc: "Verbal analogies measuring depth of abstract conceptual reasoning" },
+    wd: { name: "Word Depth", desc: "Vocabulary depth — precision of semantic knowledge" },
+    ms: { name: "Memory Sequences", desc: "Forward and backward digit span — pure working memory capacity" },
+    qr: { name: "Quantitative Reasoning", desc: "Number pattern recognition and mathematical rule extraction" },
+    sm: { name: "Speed Match", desc: "Perceptual symbol matching under time pressure — processing speed" },
+
+    // Language
+    langSwitch: "TR",
+  },
+
+  tr: {
+    // Landing
+    brand: "COGNIMETRICS",
+    title: "Zihnini Ölç",
+    subtitle: "Madde Tepki Kuramı ve CHC çerçevesi üzerine inşa edilmiş yapısal bilişsel değerlendirme. Norma gerek yok — saf yapısal ölçüm.",
+    feature1Label: "7 Bilişsel Alan",
+    feature1Desc: "Gf (WM + WMC), Gc, Gwm, Gs, Gq",
+    feature2Label: "IRT 2PL Puanlama",
+    feature2Desc: "MLE theta tahmini, norma bağımlılık yok",
+    feature3Label: "Doğrulanmış Sertifika",
+    feature3Desc: "HMAC-SHA256 doğrulama kodlu PDF",
+    whyTitle: "Neden CogniMetrics?",
+    why1: "Gf, WM-ağırlıklı ve WMC-ağırlıklı olarak ikiye ayrılır",
+    why2: "Çapraz-yapısal izomorfizm tasarımı",
+    why3: "Kalibre edilmiş zor maddelerle IQ 160 tavanı",
+    why4: "Tam metodoloji şeffaflığı",
+    startBtn: "Teste Başla",
+    priceText: "₺95 · ~45 dakika · IQ 160'a kadar",
+    methodologyBtn: "Metodolojiyi Gör",
+    statCeiling: "Maks Tavan",
+    statSubtests: "Alt Test",
+    statModel: "IRT Modeli",
+    statFactors: "CHC Faktörü",
+    createdBy: "Tasarlayan",
+
+    // Test
+    subtestOf: "Alt Test",
+    begin: "Başla",
+    quit: "Çık",
+    items: "madde",
+    submit: "Gönder",
+    memorizeForward: "Diziyi ezberle",
+    memorizeBackward: "Ezberle, sonra TERSİNDEN yaz",
+    typeForward: "Rakamları sırasıyla yaz",
+    typeBackward: "Rakamları TERS sırayla yaz",
+    backward: "TERS — ters sırayla yaz",
+    speedInstructions: "Hedef sembolü olabildiğince hızlı ve doğru eşleştir.",
+    speedTime: "saniye,",
+    speedTrials: "deneme",
+    memoryInstructions: "Rakamlar tek tek görünecek. Ezberle, sonra yaz. \"Ters\" maddelerde diziyi ters sırayla yaz.",
+
+    // Results
+    factorScores: "Faktör Puanları",
+    subtestBreakdown: "Alt Test Detayları",
+    verificationCode: "Doğrulama Kodu",
+    testId: "Test ID",
+    downloadPdf: "PDF Sertifika İndir",
+    home: "Ana Sayfa",
+    disclaimer: "Bu değerlendirme bilişsel yeteneğin yapısal bir tahminini sunar. Klinik bir tanı değildir.",
+    date: "Tarih",
+    duration: "Süre",
+
+    // Subtests
+    pm: { name: "Örüntü Matrisleri", desc: "Çalışma belleğinde eş zamanlı kural izleme ve aktif manipülasyon gerektiren görsel örüntü tamamlama" },
+    rr: { name: "İlişkisel Akıl Yürütme", desc: "Büyük ilişkisel yapıların eş zamanlı tutulmasını gerektiren çok adımlı mantıksal çıkarım" },
+    cl: { name: "Kavramsal Bağlantılar", desc: "Soyut kavramsal akıl yürütme derinliğini ölçen sözel analojiler" },
+    wd: { name: "Sözcük Derinliği", desc: "Sözcük dağarcığı derinliği — anlamsal bilginin kesinliği" },
+    ms: { name: "Bellek Dizileri", desc: "İleri ve geri rakam dizisi — saf çalışma belleği kapasitesi" },
+    qr: { name: "Nicel Akıl Yürütme", desc: "Sayı örüntüsü tanıma ve matematiksel kural çıkarımı" },
+    sm: { name: "Hız Eşleme", desc: "Zaman baskısı altında algısal sembol eşleme — işlem hızı" },
+
+    // Language
+    langSwitch: "EN",
+  },
+};
+
+// Subtest ID → translation key mapping
+export const subtestTransKeys = {
+  pattern_matrices: "pm",
+  relational_reasoning: "rr",
+  conceptual_links: "cl",
+  word_depth: "wd",
+  memory_sequences: "ms",
+  quantitative_reasoning: "qr",
+  speed_match: "sm",
+};

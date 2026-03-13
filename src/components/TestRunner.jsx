@@ -4,6 +4,8 @@ import {
   wordDepth, memorySequences, quantitativeReasoning,
   speedMatch, subtests
 } from '../data/itemBank';
+import { conceptualLinksTR, wordDepthTR, relationalReasoningTR } from '../data/itemBankTR';
+import { subtestTransKeys } from '../data/translations';
 import {
   scoreSubtests, calculateCompositeIQ, calculateFactorScores,
   scoreSpeedMatch, generateVerificationCode, generateTestId, thetaToIQ
@@ -14,13 +16,15 @@ const SUBTEST_ORDER = [
   'word_depth', 'memory_sequences', 'quantitative_reasoning', 'speed_match'
 ];
 
-const ITEM_DATA = {
-  pattern_matrices: patternMatrices,
-  relational_reasoning: relationalReasoning,
-  conceptual_links: conceptualLinks,
-  word_depth: wordDepth,
-  quantitative_reasoning: quantitativeReasoning,
-};
+function getItemData(lang) {
+  return {
+    pattern_matrices: patternMatrices,
+    relational_reasoning: lang === 'tr' ? relationalReasoningTR : relationalReasoning,
+    conceptual_links: lang === 'tr' ? conceptualLinksTR : conceptualLinks,
+    word_depth: lang === 'tr' ? wordDepthTR : wordDepth,
+    quantitative_reasoning: quantitativeReasoning,
+  };
+}
 
 const WEIGHTS = {
   pattern_matrices: 0.20,
@@ -97,7 +101,8 @@ function renderDots(count) {
   );
 }
 
-export default function TestRunner({ onComplete, onQuit }) {
+export default function TestRunner({ t, lang, onComplete, onQuit }) {
+  const ITEM_DATA = getItemData(lang);
   const [phase, setPhase] = useState('intro'); // intro, item, memory-show, memory-input, speed, done
   const [subtestIndex, setSubtestIndex] = useState(0);
   const [itemIndex, setItemIndex] = useState(0);
@@ -387,36 +392,35 @@ export default function TestRunner({ onComplete, onQuit }) {
     return (
       <div className="test-runner">
         <TestHeader
+          t={t}
           subtest={currentSubtest}
           progress={progress}
           timeLeft={null}
           onQuit={onQuit}
-          itemText={`Subtest ${subtestIndex + 1}/${SUBTEST_ORDER.length}`}
+          itemText={`${t.subtestOf} ${subtestIndex + 1}/${SUBTEST_ORDER.length}`}
         />
         <div className="test-body">
           <div className="subtest-intro">
             <div className="subtest-intro-icon">{currentSubtest?.icon}</div>
-            <div className="subtest-intro-name">{currentSubtest?.name}</div>
+            <div className="subtest-intro-name">{t[subtestTransKeys[currentSubtestId]]?.name || currentSubtest?.name}</div>
             <div className="subtest-intro-factor">{currentSubtest?.factor}</div>
-            <div className="subtest-intro-desc">{currentSubtest?.description}</div>
+            <div className="subtest-intro-desc">{t[subtestTransKeys[currentSubtestId]]?.desc || currentSubtest?.description}</div>
             <div className="subtest-intro-meta">
-              <span>{currentSubtest?.itemCount} items</span>
+              <span>{currentSubtest?.itemCount} {t.items}</span>
               <span>~{currentSubtest?.estimatedTime}</span>
             </div>
             {currentSubtestId === 'memory_sequences' && (
               <p style={{ color: 'var(--text-muted)', fontSize: 14, marginBottom: 16 }}>
-                Numbers will appear one at a time. Memorize them, then type them back.
-                For "backward" items, type the sequence in reverse order.
+                {t.memoryInstructions}
               </p>
             )}
             {currentSubtestId === 'speed_match' && (
               <p style={{ color: 'var(--text-muted)', fontSize: 14, marginBottom: 16 }}>
-                Match the target symbol as quickly and accurately as possible.
-                You have {speedMatch.timeLimit} seconds for {speedMatch.totalTrials} trials.
+                {t.speedInstructions} {speedMatch.timeLimit} {t.speedTime} {speedMatch.totalTrials} {t.speedTrials}.
               </p>
             )}
             <button className="btn-primary" onClick={startSubtest}>
-              Begin
+              {t.begin}
             </button>
           </div>
         </div>
@@ -432,6 +436,7 @@ export default function TestRunner({ onComplete, onQuit }) {
     return (
       <div className="test-runner">
         <TestHeader
+          t={t}
           subtest={currentSubtest}
           progress={progress}
           timeLeft={timeLeft}
@@ -496,6 +501,7 @@ export default function TestRunner({ onComplete, onQuit }) {
     return (
       <div className="test-runner">
         <TestHeader
+          t={t}
           subtest={currentSubtest}
           progress={progress}
           timeLeft={null}
@@ -504,7 +510,7 @@ export default function TestRunner({ onComplete, onQuit }) {
         />
         <div className="test-body">
           <div className="memory-instruction">
-            {item.type === 'backward' ? 'Memorize, then type BACKWARDS' : 'Memorize the sequence'}
+            {item.type === 'backward' ? t.memorizeBackward : t.memorizeForward}
           </div>
           <div className="memory-display">
             {item.sequence.slice(0, memoryDigitIndex).map((digit, i) => (
@@ -513,7 +519,7 @@ export default function TestRunner({ onComplete, onQuit }) {
           </div>
           {item.type === 'backward' && (
             <div style={{ color: 'var(--warning)', fontSize: 13, marginTop: 16 }}>
-              BACKWARD — type in reverse order
+              {t.backward}
             </div>
           )}
         </div>
@@ -527,6 +533,7 @@ export default function TestRunner({ onComplete, onQuit }) {
     return (
       <div className="test-runner">
         <TestHeader
+          t={t}
           subtest={currentSubtest}
           progress={progress}
           timeLeft={null}
@@ -536,8 +543,8 @@ export default function TestRunner({ onComplete, onQuit }) {
         <div className="test-body">
           <div className="memory-instruction">
             {item.type === 'backward'
-              ? `Type the ${item.sequence.length} digits in REVERSE order`
-              : `Type the ${item.sequence.length} digits in order`
+              ? `${item.sequence.length} ${t.typeBackward}`
+              : `${item.sequence.length} ${t.typeForward}`
             }
           </div>
           <div className="memory-input-area">
@@ -565,7 +572,7 @@ export default function TestRunner({ onComplete, onQuit }) {
               onClick={handleMemorySubmit}
               style={{ opacity: memoryInput.length === item.sequence.length ? 1 : 0.5 }}
             >
-              Submit
+              {t.submit}
             </button>
           </div>
         </div>
@@ -578,6 +585,7 @@ export default function TestRunner({ onComplete, onQuit }) {
     return (
       <div className="test-runner">
         <TestHeader
+          t={t}
           subtest={currentSubtest}
           progress={progress}
           timeLeft={timeLeft}
@@ -605,7 +613,7 @@ export default function TestRunner({ onComplete, onQuit }) {
   return null;
 }
 
-function TestHeader({ subtest, progress, timeLeft, onQuit, itemText }) {
+function TestHeader({ t, subtest, progress, timeLeft, onQuit, itemText }) {
   const timerClass = timeLeft !== null
     ? timeLeft <= 5 ? 'test-timer danger'
     : timeLeft <= 15 ? 'test-timer warning'
@@ -622,7 +630,7 @@ function TestHeader({ subtest, progress, timeLeft, onQuit, itemText }) {
         {timeLeft !== null && (
           <span className={timerClass}>{timeLeft}s</span>
         )}
-        <button className="test-quit" onClick={onQuit}>Quit</button>
+        <button className="test-quit" onClick={onQuit}>{t?.quit || 'Quit'}</button>
       </div>
       <div className="test-progress-bar">
         <div className="test-progress-fill" style={{ width: `${progress}%` }} />
