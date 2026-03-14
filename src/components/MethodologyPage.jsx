@@ -1,403 +1,692 @@
-export default function MethodologyPage({ onBack }) {
+export default function MethodologyPage({ t, lang, onBack }) {
+  const isTR = lang === 'tr';
+
   return (
     <div className="methodology">
       <button className="back-btn" onClick={onBack}>
-        &larr; Back
+        &larr; {isTR ? 'Geri' : 'Back'}
       </button>
 
-      <h1>Methodology</h1>
+      <h1>{isTR ? 'Metodoloji' : 'Methodology'}</h1>
+      <div style={{ fontFamily: 'var(--inscription)', fontSize: 13, letterSpacing: '4px', color: 'var(--gold-dim)', marginBottom: 4 }}>STRVCTVRA MENTIS</div>
       <p className="methodology-subtitle">
-        Why CogniMetrics exists, how it works, and why it measures what it claims to measure.
+        {isTR
+          ? 'Bu testin nasıl tasarlandığını, neyi ölçtüğünü ve her yapısal kararın ardındaki gerekçeyi açık biçimde ortaya koyan bir metin.'
+          : 'A transparent account of how this test was designed, what it measures, and why each structural choice was made.'}
       </p>
 
-      <h2>The Problem with Existing IQ Tests</h2>
-      <p>
-        Most online IQ tests fall into two categories: <strong>entertainment quizzes</strong> that
-        produce flattering but meaningless numbers, or <strong>overpriced clinical knockoffs</strong>
-        that copy established test formats without understanding why those formats work.
-      </p>
-      <p>
-        The fundamental issue is a confusion between <em>surface structure</em> and
-        <em>deep structure</em>. A matrix completion task doesn't measure fluid reasoning
-        because it uses matrices — it measures fluid reasoning because of the <em>cognitive
-        operations</em> required to solve it: simultaneous rule extraction, relational binding,
-        and novel pattern detection. The matrix is a vehicle, not the measurement itself.
-      </p>
-      <p>
-        This means you don't need to copy Raven's Progressive Matrices to measure what
-        Raven's measures. You need to create tasks that impose the same <em>structural
-        demands</em> on cognition — regardless of surface appearance. This principle is
-        called <strong>cross-structural isomorphism</strong>.
-      </p>
+      <h2>{isTR ? 'Online IQ Testlerinin Boş Kalan İddiası' : 'The Hollow Claim of Online IQ Tests'}</h2>
+      {isTR ? (<>
+        <p>
+          İnternetteki IQ testlerinin büyük çoğunluğu yapısal olarak içi boş araçlardır. Sorular bazen
+          inandırıcı görünür — Raven'dan devşirilmiş matris bulmacaları, bilinen bataryalardan
+          alınmış sayı dizileri — ama altta yatan ölçüm modeli yoktur. Biçimler kopyalanır;
+          o biçimlerin hangi bilişsel işlemleri izole etmek için tasarlandığına dair
+          herhangi bir kavrayış barındırmazlar.
+        </p>
+        <p>
+          Bir testin yüzeyini alıp yapısal gerekliliklerini görmezden gelmek, fotokopi
+          edilmiş bir stetoskopun tanı aracına benzediği kadar değerlendirmeye benzeyen
+          bir şey üretir. Biçim doğrudur. Hiçbir şey işlev görmez.
+        </p>
+        <p>
+          Bu test tamamen farklı bir öncülden yola çıktı: "IQ testleri neye benzer?" değil,
+          "hangi bilişsel işlemleri gerçekten gerektirir ve bu işlemler ilk ilkelerden
+          yeniden inşa edilebilir mi?"
+        </p>
+      </>) : (<>
+        <p>
+          Most online IQ tests are architecturally hollow. The questions sometimes appear
+          credible — matrix puzzles borrowed from Raven's, number sequences lifted from
+          established batteries — but the underlying measurement model is absent. Formats
+          are replicated without any understanding of the cognitive operations those formats
+          were designed to isolate.
+        </p>
+        <p>
+          Copying the surface of a test while ignoring its structural demands produces
+          something that resembles assessment the way a photocopied stethoscope resembles
+          a diagnostic instrument. The shape is right. Nothing functions.
+        </p>
+        <p>
+          This test began from a different premise entirely: not "what do IQ tests look like?"
+          but "what cognitive operations do they actually require, and can those operations
+          be reconstructed from first principles?"
+        </p>
+      </>)}
 
-      <h2>Cross-Structural Isomorphism</h2>
-      <p>
-        An isomorphism is a structure-preserving mapping between two systems. Two tasks are
-        cross-structurally isomorphic if they require the same latent cognitive operations
-        despite having different surface features.
-      </p>
-      <p>
-        Consider: "What comes next: 2, 4, 8, 16, ___?" and a visual pattern where shapes
-        double in each frame. These look nothing alike, but both require the same cognitive
-        operation — identifying a multiplicative progression rule and applying it to generate
-        a novel output. They are structurally isomorphic.
-      </p>
-      <p>
-        CogniMetrics is built entirely on this principle. Every item is designed by
-        identifying the <strong>structural demands</strong> of established cognitive measures
-        and creating original items that preserve those demands. The result is a test that
-        measures the same constructs as clinical instruments — not because it copies them,
-        but because it shares their deep structure.
-      </p>
+      <h2>{isTR ? 'Çapraz-Yapısal İzomorfizm' : 'Cross-Structural Isomorphism'}</h2>
+      {isTR ? (<>
+        <p>
+          İki şey, yüzeyde tamamen farklı göründükleri hâlde aynı yapıyı paylaşıyorlarsa
+          izomorfiktir. Bir harita ve temsil ettiği arazi. Bir müzik partisyonu ve ürettiği ses.
+          7 rakamı ve duvara çizilmiş yedi çetele işareti.
+        </p>
+        <p>
+          Bu bir metafor değildir. Tasarımın kurucu ilkesidir.
+        </p>
+        <p>
+          Klasik bir matris tamamlama maddesinin gerçekte ne talep ettiğini düşünün. Satırlar
+          ve sütunlar boyunca kural çıkarımı. Birden fazla dönüşümün eşzamanlı muhafazası.
+          Tüm kısıtlamaları aynı anda karşılayan özgün bir elemanın üretilmesi. Bunlar
+          <em> derin yapıyı</em> oluşturur — şekiller, renkler ve döndürmeler yalnızca
+          yüzey süslemesidir.
+        </p>
+        <p>
+          Tamamen özgün bir madde inşa edilebilir — farklı şekiller, farklı kurallar,
+          bütünüyle farklı görsel sunum — ve bu madde <em>tam olarak aynı bilişsel
+          talepleri</em> dayatır. Eşzamanlı takip edilecek ilişki sayısı aynı, zihinsel
+          dönüşüm kategorisi aynı, çalışma belleği yükü özdeş. Yüzey ayrışır.
+          Yapı değişmez kalır.
+        </p>
+        <p>
+          Test tasarımına uygulanan çapraz-yapısal izomorfizm budur ve madde parametrelerinin
+          nasıl türetilebileceğini temelden değiştiren bir sonuç taşır.
+        </p>
+      </>) : (<>
+        <p>
+          Two things are isomorphic when they share the same structure despite looking
+          completely different on the surface. A map and the terrain it represents.
+          A musical score and the sound it produces. The number 7 and seven tallies scratched on a wall.
+        </p>
+        <p>
+          This is not a metaphor. It is the foundational design principle.
+        </p>
+        <p>
+          Consider what a classic matrix completion item actually demands. Rule extraction
+          across rows and columns. Simultaneous maintenance of multiple transformations.
+          Generation of a novel element satisfying all constraints at once. That constitutes
+          the <em>deep structure</em> — the shapes, colors, and rotations are merely surface
+          dressing.
+        </p>
+        <p>
+          A completely original item can be constructed — different shapes, different rules,
+          entirely different visual presentation — that imposes <em>precisely the same
+          cognitive demands</em>. The same number of simultaneous relations to track, the
+          same category of mental transformation, an identical working memory load. Surface
+          diverges. Structure remains invariant.
+        </p>
+        <p>
+          That is cross-structural isomorphism applied to test design, and it carries a
+          consequence that fundamentally alters how item parameters can be derived.
+        </p>
+      </>)}
 
-      <h2>Why No Norming?</h2>
-      <p>
-        This is perhaps our most controversial position, so let's be explicit about the argument.
-      </p>
-      <p>
-        <strong>Classical Test Theory (CTT)</strong> defines a person's score relative to a
-        norm group. Your IQ is "how many standard deviations above/below the mean of
-        the normative sample." This creates an inescapable dependency: without a large,
-        representative norm sample, scores are meaningless.
-      </p>
-      <p>
-        <strong>Item Response Theory (IRT)</strong> fundamentally changes this. In IRT,
-        item parameters (difficulty, discrimination) and person parameters (ability) exist
-        on the same scale and are <em>sample-independent</em>. This is called
-        <strong>parameter invariance</strong> — the item parameters don't change depending
-        on who takes the test, and the person's ability estimate doesn't change depending
-        on which items are administered (given sufficient item quality).
-      </p>
-      <p>
-        This means that if item parameters are correctly specified, the ability estimate
-        is absolute — it doesn't require comparison to a norm group. The question shifts
-        from "how does this person compare to others?" to "what is this person's probability
-        of correctly solving items at each difficulty level?"
-      </p>
-      <p>
-        We calibrate item parameters through <strong>structural analysis</strong>: the
-        difficulty of an item is determined by the number of simultaneous cognitive operations
-        required, the complexity of relational bindings, the working memory load, and the
-        novelty of the required inference. These properties are inherent to the item, not
-        derived from group performance.
-      </p>
-      <p>
-        <em>Note: We acknowledge that empirical calibration can refine structural estimates.
-        As we collect response data, we will update item parameters empirically. But the
-        structural calibration provides a valid starting point — not a placeholder.</em>
-      </p>
+      <h2>{isTR ? 'Neden Norm Grubuna İhtiyaç Yok' : 'Why No Norm Group Is Needed'}</h2>
+      {isTR ? (<>
+        <p>
+          Bu, incelemeyi hak eden iddiadır.
+        </p>
+        <p>
+          Klasik Test Kuramı, bir puanın yalnızca bir referans grubuna göre anlam
+          kazandığını savunur. "Normatif örneklemimizin ortalamasının 1.5 standart sapma
+          üzerinde puan aldınız." O örneklem olmadan rakamlar hiçbir şey ifade etmez.
+        </p>
+        <p>
+          Madde Tepki Kuramı temelden farklı bir mantıkla işler. IRT'de madde güçlüğü,
+          doğru yanıtlayan katılımcıların yüzdesiyle tanımlanmaz. <em>Bir kişinin doğru
+          yanıtlama olasılığının %50 olduğu yetenek düzeyi</em> olarak tanımlanır.
+          Bu parametre maddenin kendisine aittir, herhangi bir örnekleme değil.
+        </p>
+        <p>
+          Standart itiraz: o parametreyi tahmin etmek için yine de ampirik veri gerekir.
+          Normal koşullarda evet. Maddeler binlerce katılımcıya uygulanır, parametreler
+          tepki örüntülerinden çıkarılır. Ancak farklı bir yol mevcuttur. Bir maddenin
+          gerektirdiği bilişsel işlemler kesin olarak biliniyorsa — kaç ilişki, ne tür
+          dönüşüm, ne kadar çalışma belleği yükü — güçlük doğrudan yapıdan
+          türetilebilir.
+        </p>
+        <p>
+          Dört eşzamanlı ilişkisel bağlama gerektiren bir madde, iki gerektirenden
+          daha zordur. Bin katılımcı bunu doğruladığı için değil. Cowan sınırı çalışma
+          belleğini yaklaşık 4&plusmn;1 parçayla kısıtladığı için. Güçlük, bilişsel
+          mimarinin bir özelliğidir. İstatistiksel bir yapıntı değildir.
+        </p>
+        <p>
+          Ampirik veri reddedilmiyor — yanıtlar biriktikçe tahminleri rafine edecek.
+          Ancak yapısal kalibrasyon, yerini almayı bekleyen geçici bir çözüm değildir.
+          Parametre türetmeye yönelik geçerli bir ilk ilkeler yaklaşımı oluşturur.
+        </p>
+      </>) : (<>
+        <p>
+          This is the claim that warrants scrutiny.
+        </p>
+        <p>
+          Classical Test Theory holds that a score acquires meaning only relative to a
+          reference group. "You scored 1.5 standard deviations above the mean of
+          our normative sample." Without that sample, the numbers signify nothing.
+        </p>
+        <p>
+          Item Response Theory operates under a fundamentally different logic. In IRT, item
+          difficulty is not defined by the percentage of respondents who answered correctly.
+          It is defined as <em>the ability level at which a person has a 50% probability of
+          answering correctly</em>. This parameter belongs to the item itself, not to any
+          particular sample.
+        </p>
+        <p>
+          The standard objection: empirical data is still required to estimate that parameter.
+          Ordinarily, yes. Items are administered to thousands of respondents, and parameters
+          are extracted from their response patterns. But a different path exists. If the
+          cognitive operations an item requires are known with precision — how many relations,
+          what type of transformation, what working memory load — then difficulty can be
+          derived directly from the structure.
+        </p>
+        <p>
+          An item requiring four simultaneous relational bindings is harder than one requiring
+          two. Not because a thousand respondents confirmed it. Because Cowan's limit
+          constrains working memory to roughly 4&plusmn;1 chunks. The difficulty is a property
+          of cognitive architecture. It is not a statistical artifact.
+        </p>
+        <p>
+          Empirical data is not dismissed — it will refine the estimates as responses
+          accumulate. But the structural calibration is not a placeholder awaiting
+          replacement. It constitutes a valid first-principles approach to parameter
+          derivation.
+        </p>
+      </>)}
 
-      <h2>The Gf Decomposition</h2>
-      <p>
-        A distinctive feature of CogniMetrics is the decomposition of fluid reasoning (Gf)
-        into two components. Most tests report a single Gf score, but this collapses an
-        important distinction:
-      </p>
-      <h3>Gf-WM (Working Memory weighted)</h3>
-      <p>
-        Measured by <strong>Pattern Matrices</strong>. These items require holding and
-        actively manipulating visual information — tracking multiple transformation rules
-        simultaneously while constructing the missing element. The bottleneck is
-        <em>active maintenance under transformation</em>: can you keep track of several
-        rules while applying them?
-      </p>
-      <h3>Gf-WMC (Working Memory Capacity weighted)</h3>
-      <p>
-        Measured by <strong>Relational Reasoning</strong>. These items require holding a
-        complex relational structure in mind — multiple premises, conditional relationships,
-        transitive orderings. The bottleneck is <em>the total amount of relational
-        information that can be simultaneously maintained</em>, not the transformation
-        of that information.
-      </p>
-      <p>
-        This distinction matters because people can have:
-      </p>
-      <ul>
-        <li><strong>High WM, Low WMC:</strong> Excellent at manipulating small amounts of
-        information but struggles when the relational complexity exceeds ~4 bindings.
-        Good at chess tactics, struggles with chess strategy.</li>
-        <li><strong>Low WM, High WMC:</strong> Can hold large relational structures but
-        struggles with rapid manipulation. Good at understanding complex systems, slower
-        at real-time problem-solving.</li>
-      </ul>
-      <p>
-        Collapsing these into a single Gf score hides this profile asymmetry, which has
-        real implications for understanding how a person thinks.
-      </p>
+      <h2>{isTR ? 'Akışkan Akıl Yürütmeyi İkiye Bölmek' : 'Splitting Fluid Reasoning in Two'}</h2>
+      {isTR ? (<>
+        <p>
+          Çoğu araç tek bir Gf puanı verir. Bu test iki tane verir. Ayrım, geleneğin
+          öne sürdüğünden daha fazla önem taşır.
+        </p>
+        <p>
+          Çalışma belleği, standart ölçümün tek bir sayıya indirgediği iki ayrıştırılabilir
+          yön barındırır. <strong>ÇB verimliliği</strong>, küçük bir bilgi kümesinin ne
+          kadar etkin biçimde aktif olarak manipüle edilebildiğiyle ilgilidir — döndürme,
+          olumsuzlama, bir kuralı uygularken diğerini takip etme.{' '}
+          <strong>ÇB kapasitesi</strong> ise ne kadar ilişkisel yapının eşzamanlı olarak
+          muhafaza edilebildiğiyle ilgilidir — beş öncül, sekiz eleman, üç iç içe geçmiş
+          kısıtlama.
+        </p>
+        <p>
+          Bunlar aynı yapı değildir.
+        </p>
+        <p>
+          Yüksek ÇB verimliliği ile sınırlı kapasite birleşimi, satranç taktiklerini üç
+          hamle ilerisini bir çırpıda gören ama uzun stratejik bir arkın ipini kaybeden
+          birini tanımlar. Tersi — düşük verimlilik, yüksek kapasite — bir sistem
+          mimarisinin tamamını kavrayan ama zaman baskısı altında tek bir karmaşık
+          fonksiyonu debug etmesi istendiğinde takılan kişiyi karakterize eder. İkisini
+          tek bir sayıya indirmek, gerçek açıklayıcı güç taşıyan bir ayrımı silip atar.
+        </p>
+        <ul>
+          <li><strong>Gf-WM</strong> (Örüntü Matrisleri): darboğaz, dönüşüm altında
+          aktif manipülasyondur</li>
+          <li><strong>Gf-WMC</strong> (İlişkisel Akıl Yürütme): darboğaz, tutulabilecek
+          ilişkisel yapının toplam hacmidir</li>
+        </ul>
+      </>) : (<>
+        <p>
+          Most instruments yield a single Gf score. This test yields two. The distinction
+          matters more than convention suggests.
+        </p>
+        <p>
+          Working memory encompasses two dissociable aspects that standard measurement
+          collapses. <strong>WM efficiency</strong> concerns how effectively a small set
+          of information can be actively manipulated — rotating, negating, applying one rule
+          while tracking another. <strong>WM capacity</strong> concerns how much relational
+          structure can be maintained simultaneously — five premises, eight elements, three
+          interlocking constraints.
+        </p>
+        <p>
+          These are not the same construct.
+        </p>
+        <p>
+          High WM efficiency paired with limited capacity describes someone who sees chess
+          tactics three moves deep in a flash but loses the thread of a long strategic
+          arc. The inverse — low efficiency, high capacity — characterizes the person who
+          grasps an entire system architecture yet stumbles when asked to debug a single
+          intricate function under time pressure. Collapsing both into one number erases
+          a distinction that carries genuine explanatory power.
+        </p>
+        <ul>
+          <li><strong>Gf-WM</strong> (Pattern Matrices): the bottleneck is
+          active manipulation under transformation</li>
+          <li><strong>Gf-WMC</strong> (Relational Reasoning): the bottleneck is
+          the total volume of relational structure you can hold</li>
+        </ul>
+      </>)}
 
-      <h2>The g Factor Problem — And How Structure Resolves It</h2>
-      <p>
-        The <em>g factor</em> (general intelligence) is the most replicated finding in
-        differential psychology: a single latent variable that accounts for 40-60% of
-        variance across all cognitive tasks. Yet modern theories struggle to explain
-        <em>what g actually is</em>.
-      </p>
-      <p>
-        <strong>Process Overlap Theory</strong> (Kovacs & Conway, 2016) argues that g emerges
-        because diverse cognitive tasks share overlapping neural processes — there is no
-        single "g module," only statistical overlap. <strong>Mutualism</strong> (van der Maas
-        et al., 2006) proposes that g emerges from positive developmental interactions
-        between initially independent abilities. <strong>Network theory</strong> models
-        cognition as interconnected nodes where g is a global network property.
-      </p>
-      <p>
-        These theories capture something real but miss the deeper pattern. Cross-structural
-        isomorphism reveals why:
-      </p>
-      <p>
-        <strong>g is not a thing — it is a structural invariant.</strong> Just as energy
-        manifests as heat, light, motion, and potential — different surface forms of the
-        same underlying quantity — g manifests as fluid reasoning, crystallized knowledge,
-        working memory, and processing speed. These are not "correlated abilities." They
-        are <em>different expressions of the same latent structural capacity</em>.
-      </p>
-      <p>
-        This is why every cognitive task loads on g: not because they share "overlapping
-        processes" (which is descriptive, not explanatory), but because they all draw on
-        the same structural capacity for <em>binding, transforming, and maintaining
-        relational representations</em>. The surface varies. The structure is invariant.
-      </p>
-      <p>
-        This isomorphic view unifies the competing theories:
-      </p>
-      <ul>
-        <li>Process Overlap Theory is correct that tasks share processes — but the
-        sharing is <em>structural</em>, not accidental</li>
-        <li>Mutualism is correct that abilities develop together — because they are
-        <em>manifestations of the same underlying capacity</em></li>
-        <li>Network theory is correct that g is a global property — because
-        <em>structural invariants are by definition global</em></li>
-      </ul>
-      <p>
-        CogniMetrics is built on this understanding. We don't just measure "correlated
-        abilities." We measure different surface expressions of the same structural
-        capacity — and the decomposition framework (R, T, B, N, D dimensions) is our
-        method for ensuring that items tap into the right structural demands regardless
-        of their surface content.
-      </p>
+      <h2>{isTR ? 'g Faktörü Gerçekte Nedir' : 'What g Actually Is'}</h2>
+      {isTR ? (<>
+        <p>
+          g faktörü diferansiyel psikolojinin en çok tekrarlanan bulgusudur. Her bilişsel
+          test diğer her bilişsel testle korelasyon gösterir. Tek bir örtük faktör,
+          bataryalar, kültürler, yaş grupları ve örneklemler arasında varyansın %40–60'ını
+          açıklar. Direnir.
+        </p>
+        <p>
+          Ancak onun gerçekte ne <em>olduğu</em> konusunda bir uzlaşı yoktur.
+        </p>
+        <p>
+          Süreç Örtüşmesi Kuramı, görevlerin sinirsel süreçleri paylaştığını ve bu
+          örtüşmenin tekil bir faktör görünümü yarattığını öne sürer. Karşılıklılık
+          (Mutualism) modeli, yeteneklerin gelişim boyunca birbirini desteklediğini
+          savunur. Ağ kuramı, g'yi birbirine bağlı bilişsel düğümlerin ortaya çıkardığı
+          bir özellik olarak ele alır. Her çerçeve gerçek bir şeyi yakalar. Hiçbiri
+          tek başına yeterli değildir.
+        </p>
+        <p>
+          Çapraz-yapısal izomorfizm bir çözüm sunar.
+        </p>
+        <p>
+          Enerjiyi düşünün. Isı, ışık, kinetik hareket, gravitasyonel potansiyel, nükleer
+          bağlanma — bu fenomenler birbirine hiç benzemiyor. Fizik onları aynı temel
+          niceliğin tezahürleri olarak ortaya koyar, birbirine dönüştürülebilir ve
+          korunum yasalarına tabidir. Yüzey sınırsızca değişir. Yapı değişmez.
+        </p>
+        <p>
+          g benzer biçimde işler.
+        </p>
+        <p>
+          Akışkan akıl yürütme, kristalize bilgi, çalışma belleği, işlem hızı — bunlar
+          tesadüfen korelasyon gösteren bağımsız yetenekler değildir. Paylaşılan yapısal
+          bir kapasitenin farklı yüzey ifadeleridir: <em>ilişkisel temsilleri bağlama,
+          dönüştürme ve muhafaza etme yetisi</em>. Korelasyon ne tesadüftür ne
+          yapıntı. Yapısal olarak kaçınılmazdır.
+        </p>
+        <p>
+          Bu, kuramsal tartışmayı çözer:
+        </p>
+        <ul>
+          <li>Süreç Örtüşmesi görevlerin süreçleri paylaştığı konusunda haklıdır —
+          paylaşım yapısaldır, tesadüfi değil</li>
+          <li>Karşılıklılık yeteneklerin birlikte geliştiği konusunda haklıdır — bunlar
+          tek bir kapasitenin tezahürleridir, bağımsız sistemler değil</li>
+          <li>Ağ kuramı g'nin küresel olduğu konusunda haklıdır — yapısal değişmezler
+          tanımı gereği küresel özelliklerdir</li>
+        </ul>
+      </>) : (<>
+        <p>
+          The g factor remains the most replicated finding in differential psychology.
+          Every cognitive test correlates with every other cognitive test. A single latent
+          factor accounts for 40–60% of variance across batteries, cultures, age groups,
+          and samples. It persists.
+        </p>
+        <p>
+          Yet no consensus exists on what it <em>is</em>.
+        </p>
+        <p>
+          Process Overlap Theory posits that tasks share neural processes, and that overlap
+          generates the appearance of a unitary factor. Mutualism holds that abilities
+          bootstrap each other during development. Network theory treats g as an emergent
+          property of interconnected cognitive nodes. Each framework captures something
+          real. None is sufficient alone.
+        </p>
+        <p>
+          Cross-structural isomorphism offers a resolution.
+        </p>
+        <p>
+          Consider energy. Heat, light, kinetic motion, gravitational potential, nuclear
+          binding — these phenomena look nothing alike. Physics reveals them as
+          manifestations of the same underlying quantity, interconvertible and subject to
+          conservation laws. The surface varies without limit. The structure is invariant.
+        </p>
+        <p>
+          g operates analogously.
+        </p>
+        <p>
+          Fluid reasoning, crystallized knowledge, working memory, processing speed —
+          these are not independent abilities that happen to correlate. They are different
+          surface expressions of a shared structural capacity: <em>the ability to bind,
+          transform, and maintain relational representations</em>. The correlation is
+          neither accident nor artifact. It is structurally inevitable.
+        </p>
+        <p>
+          This resolves the theoretical debate:
+        </p>
+        <ul>
+          <li>Process Overlap is right that tasks share processes — the sharing
+          is structural, not coincidental</li>
+          <li>Mutualism is right that abilities develop together — they are
+          manifestations of one capacity, not independent systems</li>
+          <li>Network theory is right that g is global — structural invariants
+          are, by definition, global properties</li>
+        </ul>
+      </>)}
 
-      <h2>Theoretical Framework: CHC</h2>
-      <p>
-        CogniMetrics is aligned with the <strong>Cattell-Horn-Carroll (CHC) theory</strong> —
-        the most empirically supported taxonomy of cognitive abilities. We measure five
-        broad abilities through seven subtests:
+      <h2>{isTR ? 'Beş Boyut' : 'The Five Dimensions'}</h2>
+      {isTR ? (<>
+        <p>
+          Her madde, teste girmeden önce beş bilişsel talep boyutuna ayrıştırılır.
+          Bu boyutlar, madde parametrelerinin türetildiği temeldir — tahmin edilmez,
+          uygunluk örneklemlerinden çıkarılmaz.
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Boyut</th>
+              <th>Sembol</th>
+              <th>Neyi Yakalıyor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>İlişkisel Karmaşıklık</td>
+              <td><code>R</code></td>
+              <td>Zihnin eşzamanlı tutması gereken ilişki sayısı</td>
+            </tr>
+            <tr>
+              <td>Dönüşüm Türü</td>
+              <td><code>T</code></td>
+              <td>Ne tür bir zihinsel işlem gerektirdiği</td>
+            </tr>
+            <tr>
+              <td>Bağlama Yükü</td>
+              <td><code>B</code></td>
+              <td>Aktif çalışma belleğinde kaç elemanın yer alması gerektiği</td>
+            </tr>
+            <tr>
+              <td>Yenilik Talebi</td>
+              <td><code>N</code></td>
+              <td>Önceki bilginin yardımcı mı yoksa yanıltıcı mı olduğu</td>
+            </tr>
+            <tr>
+              <td>Çeldirici Kalitesi</td>
+              <td><code>D</code></td>
+              <td>Yanlış yanıtların doğru yanıta ne kadar benzediği</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          Güçlük hesaplanır, tahmin edilmez:
+        </p>
+      </>) : (<>
+        <p>
+          Every item is decomposed into five cognitive demand dimensions before entering
+          the test. These dimensions are the basis from which item parameters are derived —
+          not guessed, not estimated from convenience samples.
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Dimension</th>
+              <th>Symbol</th>
+              <th>What It Captures</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Relational Complexity</td>
+              <td><code>R</code></td>
+              <td>How many relations the mind must hold simultaneously</td>
+            </tr>
+            <tr>
+              <td>Transformation Type</td>
+              <td><code>T</code></td>
+              <td>What kind of mental operation is required</td>
+            </tr>
+            <tr>
+              <td>Binding Load</td>
+              <td><code>B</code></td>
+              <td>How many elements must occupy active working memory</td>
+            </tr>
+            <tr>
+              <td>Novelty Demand</td>
+              <td><code>N</code></td>
+              <td>Whether prior knowledge helps, or actively misleads</td>
+            </tr>
+            <tr>
+              <td>Distractor Quality</td>
+              <td><code>D</code></td>
+              <td>How closely the wrong answers resemble the right one</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          Difficulty is computed, not estimated:
+        </p>
+      </>)}
+      <p style={{ textAlign: 'center', fontFamily: 'var(--mono)', fontSize: 13, margin: '20px 0', padding: '16px', background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 'var(--radius)' }}>
+        b = &minus;3.0 + 0.50&middot;R + 0.30&middot;T + 0.25&middot;max(0, B&minus;2) + 0.35&middot;N + 0.20&middot;D
       </p>
+      {isTR ? (<>
+        <p>
+          Ağırlıklar, onlarca yıllık bilişsel yük araştırmasından türetilmiştir.
+          Her ek ilişki yaklaşık yarım standart sapma güçlük ekler. Cowan'ın
+          "serbest" eşiği olan 2'nin ötesindeki her bağlama çeyrek ekler. Bunlar
+          keyfi katsayılar değildir — insan bilişsel mimarisine ilişkin yerleşik
+          bulgulara dayanır.
+        </p>
+        <p>
+          Çıkarım açıktır: <strong>parametre yapının kendisidir</strong>. R=3, T=3,
+          B=6, N=3, D=2 olan bir maddenin güçlüğü b &asymp; +1.85'tir — görsel matris, sözel
+          analoji ya da sayı dizisi biçiminde olması fark etmez. Özdeş yapısal
+          talep özdeş güçlük üretir. İzomorfizm iş başındadır.
+        </p>
+      </>) : (<>
+        <p>
+          The weights derive from decades of cognitive load research. Each additional
+          relation adds roughly half a standard deviation of difficulty. Each binding
+          beyond Cowan's "free" threshold of 2 adds a quarter. These are not arbitrary
+          coefficients — they are anchored in established findings about human cognitive
+          architecture.
+        </p>
+        <p>
+          The implication is clean: <strong>the parameter is the
+          structure</strong>. An item with R=3, T=3, B=6, N=3, D=2 has difficulty b &asymp; +1.85,
+          whether it takes the form of a visual matrix, a verbal analogy, or a number
+          sequence. Identical structural demand yields identical difficulty. That is the
+          isomorphism at work.
+        </p>
+      </>)}
+
+      <h2>{isTR ? 'Yedi Alt Test, Beş Faktör' : 'Seven Subtests, Five Factors'}</h2>
       <table>
         <thead>
           <tr>
-            <th>Subtest</th>
-            <th>CHC Factor</th>
-            <th>What It Demands</th>
+            <th>{isTR ? 'Alt Test' : 'Subtest'}</th>
+            <th>{isTR ? 'Faktör' : 'Factor'}</th>
+            <th>{isTR ? 'Temel Talep' : 'Core Demand'}</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Pattern Matrices</td>
-            <td><code>Gf-WM</code></td>
-            <td>Simultaneous rule extraction + active manipulation</td>
-          </tr>
-          <tr>
-            <td>Relational Reasoning</td>
-            <td><code>Gf-WMC</code></td>
-            <td>Multi-premise deduction + relational binding capacity</td>
-          </tr>
-          <tr>
-            <td>Conceptual Links</td>
-            <td><code>Gc</code></td>
-            <td>Verbal analogical reasoning + conceptual abstraction</td>
-          </tr>
-          <tr>
-            <td>Word Depth</td>
-            <td><code>Gc</code></td>
-            <td>Semantic precision + vocabulary depth</td>
-          </tr>
-          <tr>
-            <td>Memory Sequences</td>
-            <td><code>Gwm</code></td>
-            <td>Forward/backward digit span + sequential WM</td>
-          </tr>
-          <tr>
-            <td>Quantitative Reasoning</td>
-            <td><code>Gq</code></td>
-            <td>Numerical pattern recognition + mathematical inference</td>
-          </tr>
-          <tr>
-            <td>Speed Match</td>
-            <td><code>Gs</code></td>
-            <td>Perceptual matching speed + accuracy under pressure</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h2>Structural Item Decomposition</h2>
-      <p>
-        Every item in CogniMetrics is decomposed into five orthogonal cognitive demand
-        dimensions. Item parameters are <em>derived</em> from this decomposition — not
-        estimated from normative data or guessed by the test designer.
-      </p>
-      <table>
-        <thead>
-          <tr>
-            <th>Dimension</th>
-            <th>Symbol</th>
-            <th>What It Measures</th>
-            <th>Range</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Relational Complexity</td>
-            <td><code>R</code></td>
-            <td>How many relations must be simultaneously represented</td>
-            <td>1-5</td>
-          </tr>
-          <tr>
-            <td>Transformation Type</td>
-            <td><code>T</code></td>
-            <td>Kind of mental operation required (identify → meta-transform)</td>
-            <td>1-5</td>
-          </tr>
-          <tr>
-            <td>Binding Load</td>
-            <td><code>B</code></td>
-            <td>How many elements must be held in active working memory</td>
-            <td>2-9</td>
-          </tr>
-          <tr>
-            <td>Novelty Demand</td>
-            <td><code>N</code></td>
-            <td>How much prior knowledge helps vs. misleads</td>
-            <td>1-4</td>
-          </tr>
-          <tr>
-            <td>Distractor Quality</td>
-            <td><code>D</code></td>
-            <td>How closely wrong answers mimic the correct one</td>
-            <td>1-4</td>
-          </tr>
+          <tr><td>{isTR ? 'Örüntü Matrisleri' : 'Pattern Matrices'}</td><td><code>Gf-WM</code></td><td>{isTR ? 'Kural çıkarımı + aktif manipülasyon' : 'Rule extraction + active manipulation'}</td></tr>
+          <tr><td>{isTR ? 'İlişkisel Akıl Yürütme' : 'Relational Reasoning'}</td><td><code>Gf-WMC</code></td><td>{isTR ? 'Çoklu öncüllü çıkarım + bağlama kapasitesi' : 'Multi-premise deduction + binding capacity'}</td></tr>
+          <tr><td>{isTR ? 'Kavramsal Bağlantılar' : 'Conceptual Links'}</td><td><code>Gc</code></td><td>{isTR ? 'Sözel analojik akıl yürütme' : 'Verbal analogical reasoning'}</td></tr>
+          <tr><td>{isTR ? 'Sözcük Derinliği' : 'Word Depth'}</td><td><code>Gc</code></td><td>{isTR ? 'Anlamsal hassasiyet' : 'Semantic precision'}</td></tr>
+          <tr><td>{isTR ? 'Bellek Dizileri' : 'Memory Sequences'}</td><td><code>Gwm</code></td><td>{isTR ? 'Ardışık depolama + tersine çevirme' : 'Sequential storage + reversal'}</td></tr>
+          <tr><td>{isTR ? 'Nicel Akıl Yürütme' : 'Quantitative Reasoning'}</td><td><code>Gq</code></td><td>{isTR ? 'Sayısal örüntü çıkarımı' : 'Numerical pattern extraction'}</td></tr>
+          <tr><td>{isTR ? 'Hız Eşleştirme' : 'Speed Match'}</td><td><code>Gs</code></td><td>{isTR ? 'Algısal eşleştirme hızı' : 'Perceptual matching speed'}</td></tr>
         </tbody>
       </table>
       <p>
-        The IRT difficulty parameter (b) is computed as:
-      </p>
-      <p style={{ textAlign: 'center', fontFamily: 'var(--mono)', fontSize: 14, margin: '16px 0', padding: '16px', background: 'var(--bg-card)', borderRadius: '8px' }}>
-        b = -3.0 + 0.50&middot;R + 0.30&middot;T + 0.25&middot;max(0, B-2) + 0.35&middot;N + 0.20&middot;D
-      </p>
-      <p>
-        The discrimination parameter (a) is derived from the item's g-loading and structural
-        complexity. More complex items discriminate better because they cannot be solved by
-        surface-level shortcuts.
-      </p>
-      <p>
-        This means: <strong>the parameter IS the structure</strong>. An item with R=3, T=3,
-        B=6 will have difficulty b ≈ +1.85 whether it's a visual matrix, a verbal analogy,
-        or a number sequence — because the cognitive demand is structurally identical.
-        This is cross-structural isomorphism applied to psychometric calibration.
+        {isTR
+          ? 'Alandaki en güçlü ampirik desteğe sahip çerçeve olan Cattell–Horn–Carroll taksonomisiyle uyumludur.'
+          : 'Aligned with the Cattell–Horn–Carroll taxonomy, the most empirically supported framework in the field.'}
       </p>
 
-      <h2>Scoring Model: IRT 2PL</h2>
-      <p>
-        We use the <strong>Two-Parameter Logistic (2PL)</strong> model from Item Response Theory:
+      <h2>{isTR ? 'Tavanın Ötesinde' : 'Beyond the Ceiling'}</h2>
+      {isTR ? (<>
+        <p>
+          Normlu testler IQ 145 civarında yapay bir tavana çarpar. Sebebi doğrudandır:
+          norm grupları bu eşiğin üzerinde yeterli sayıda birey barındırmaz; dolayısıyla
+          aralarındaki farkı istatistiksel güvenle ayırt edemez. Ölçüm, maddelerin
+          yeterince zor olmamasından değil, kalibrasyon örnekleminin uç değerlerde
+          seyrek kalmasından başarısız olur.
+        </p>
+        <p>
+          Yapısal kalibrasyon bu sorunu bütünüyle ortadan kaldırır.
+        </p>
+        <p>
+          Güçlük, bir norm grubunun doğru yanıtlayan oranından değil maddenin bilişsel
+          taleplerinden türetildiğinde, örneklem bileşimine bağımlılık kalmaz. Altı
+          eşzamanlı ilişkisel bağlama, iki iç içe dönüşüm ve yüksek çeldirici benzerliği
+          gerektiren bir maddenin güçlüğü, on kişi ya da on bin kişi denemiş olsun
+          hesaplanabilirdir. Parametre içseldir.
+        </p>
+        <p>
+          Bu test 160'ın üzerini <em>ölçebilir</em>. Bunu yapacak maddeler mevcuttur.
+          Uç değerlerde kesin bir rakam yerine "&gt;160" raporlama kararı bilinçlidir,
+          zorunlu değildir. Dürüst bir kısıtlamayı yansıtır — ancak kısıtlama bilişseldir,
+          istatistiksel değil. Cowan sınırının ötesinde, çalışma belleğinin mimarisi
+          yetenek düzeyleri arasında azalan ayırt edilebilirlik dayatır. Ölçüm, testin
+          zor maddelerinin tükenmesinden değil, altta yatan bilişsel uzayın
+          sıkışmasından dolayı daha az ayrıntılı hâle gelir.
+        </p>
+        <p>
+          Kısaca: normlu araçlardaki tavan, yetersiz örneklemenin yapıntısıdır. Bu
+          testteki sınır, insan bilişinin gerçekte nasıl işlediğinin sonucudur. Biri
+          bir kısıtlamadır. Diğeri arazinin doğru bir temsilidir.
+        </p>
+      </>) : (<>
+        <p>
+          Normed tests hit an artificial ceiling around IQ 145. The reason is
+          straightforward: norm groups rarely include enough individuals above that
+          threshold to differentiate among them with statistical confidence. The
+          measurement does not fail because the items lack difficulty. It fails because
+          the calibration sample is sparse at the extremes.
+        </p>
+        <p>
+          Structural calibration eliminates this problem entirely.
+        </p>
+        <p>
+          When difficulty is derived from the cognitive demands of an item rather than
+          from the proportion of a norm group that answered correctly, there is no
+          dependence on sample composition. An item requiring six simultaneous relational
+          bindings, two nested transformations, and high distractor similarity has a
+          computable difficulty regardless of whether ten people or ten thousand have
+          attempted it. The parameter is intrinsic.
+        </p>
+        <p>
+          This test <em>can</em> measure above 160. The items exist to do so. The decision
+          to report "&gt;160" rather than a precise figure at those extremes is deliberate,
+          not forced. It reflects an honest constraint — but the constraint is cognitive,
+          not statistical. Beyond Cowan's limit, the very architecture of working memory
+          imposes diminishing discriminability between ability levels. The measurement
+          becomes less granular not because the test runs out of hard items, but because
+          the underlying cognitive space compresses.
+        </p>
+        <p>
+          In short: the ceiling in normed instruments is an artifact of inadequate sampling.
+          The boundary in this test is a consequence of how human cognition actually
+          operates. One is a limitation. The other is a truthful representation of the
+          territory.
+        </p>
+      </>)}
+
+      <h2>{isTR ? 'Puanlama Nasıl İşler' : 'How Scoring Works'}</h2>
+      {isTR ? (<>
+        <p>
+          İki Parametreli Lojistik model:
+        </p>
+      </>) : (<>
+        <p>
+          The Two-Parameter Logistic model:
+        </p>
+      </>)}
+      <p style={{ textAlign: 'center', fontFamily: 'var(--mono)', fontSize: 16, margin: '20px 0' }}>
+        P(&theta;) = 1 / (1 + e<sup>&minus;a(&theta; &minus; b)</sup>)
       </p>
-      <p style={{ textAlign: 'center', fontSize: 18, fontFamily: 'var(--mono)', margin: '24px 0' }}>
-        P(&theta;) = 1 / (1 + e<sup>-a(&theta; - b)</sup>)
-      </p>
-      <p>Where:</p>
-      <ul>
-        <li><code>&theta;</code> (theta) — latent ability on a continuous scale</li>
-        <li><code>a</code> — discrimination: how sharply the item differentiates between
-        ability levels (higher = better at distinguishing)</li>
-        <li><code>b</code> — difficulty: the ability level at which P(correct) = 50%</li>
-      </ul>
-      <p>
-        Ability is estimated via <strong>Maximum Likelihood Estimation (MLE)</strong>:
-        we find the &theta; value that maximizes the likelihood of the observed response
-        pattern. Grid search provides the initial estimate, refined by Newton-Raphson iteration.
-      </p>
-      <p>
-        The theta estimate is then linearly transformed to the IQ scale:
-      </p>
-      <p style={{ textAlign: 'center', fontFamily: 'var(--mono)', fontSize: 16, margin: '16px 0' }}>
+      {isTR ? (<>
+        <p>
+          Yetenek (&theta;), gözlemlenen doğru ve yanlış yanıt örüntüsünü en olası kılan
+          değerin bulunmasıyla tahmin edilir — Maksimum Olabilirlik Kestirimi,
+          Newton–Raphson iterasyonuyla rafine edilir. Elde edilen &theta; daha sonra
+          doğrusal olarak dönüştürülür:
+        </p>
+      </>) : (<>
+        <p>
+          Ability (&theta;) is estimated by finding the value that makes the observed
+          pattern of correct and incorrect responses most probable — Maximum Likelihood
+          Estimation, refined via Newton–Raphson iteration. The resulting &theta; is then
+          linearly transformed:
+        </p>
+      </>)}
+      <p style={{ textAlign: 'center', fontFamily: 'var(--mono)', fontSize: 15, margin: '16px 0' }}>
         IQ = 100 + &theta; &times; 15
       </p>
-
-      <h2>Score Interpretation</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>IQ Range</th>
-            <th>Classification</th>
-            <th>Percentile</th>
-            <th>Prevalence</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>145+</td><td>Exceptionally Gifted</td><td>99.9th+</td><td>~1 in 1,000</td></tr>
-          <tr><td>130-144</td><td>Very Superior</td><td>98th-99.8th</td><td>~1 in 50</td></tr>
-          <tr><td>120-129</td><td>Superior</td><td>91st-97th</td><td>~1 in 10</td></tr>
-          <tr><td>110-119</td><td>High Average</td><td>75th-90th</td><td>~1 in 4</td></tr>
-          <tr><td>90-109</td><td>Average</td><td>25th-74th</td><td>~1 in 2</td></tr>
-          <tr><td>80-89</td><td>Low Average</td><td>9th-24th</td><td>~1 in 6</td></tr>
-          <tr><td>70-79</td><td>Borderline</td><td>2nd-8th</td><td>~1 in 16</td></tr>
-          <tr><td>&lt;70</td><td>Extremely Low</td><td>&lt;2nd</td><td>~1 in 50</td></tr>
-        </tbody>
-      </table>
-
-      <h2>Ceiling & Measurement Range</h2>
       <p>
-        CogniMetrics measures from <strong>IQ 40</strong> (&theta; = -4.0) to
-        <strong>IQ 160</strong> (&theta; = +4.0). Items at the highest difficulty levels
-        (b &gt; 2.0) are specifically designed to require cognitive operations that only
-        become possible at exceptional ability levels — such as holding 3+ simultaneous
-        transformation rules, managing 6+ relational bindings, or extracting higher-order
-        patterns from patterns.
+        {isTR
+          ? 'Raporlanan aralık: IQ 40 ile IQ 160. Maddeler güçlük sürekleminin tamamını kapsar; en anlamlı farklılaşmanın gerçekleştiği 85–145 arasında özellikle yoğundur.'
+          : 'Reported range: IQ 40 to IQ 160. Items span the full difficulty continuum, with particular density between 85 and 145, where the most meaningful differentiation occurs.'}
       </p>
 
-      <h2>Verification</h2>
-      <p>
-        Each certificate includes a verification code generated via <strong>HMAC-SHA256</strong>.
-        This cryptographic signature encodes the test ID, composite score, date, and subtest
-        scores — making the certificate tamper-evident. The code can be verified to confirm
-        result authenticity.
-      </p>
-
-      <h2>Limitations</h2>
-      <p>
-        We believe in transparency about what this test is and isn't:
-      </p>
-      <ul>
-        <li>This is <strong>not a clinical diagnostic instrument</strong>. For clinical
-        evaluation, consult a licensed psychologist.</li>
-        <li>Item parameters are structurally calibrated, not empirically normed on a
-        large sample (yet). Empirical refinement will improve precision over time.</li>
-        <li>Online administration introduces uncontrolled variables (environment,
-        distractions, device) that reduce measurement precision compared to
-        individually-administered tests.</li>
-        <li>The Gc subtests (Conceptual Links, Word Depth) are currently English-only,
-        introducing language bias for non-native speakers.</li>
-      </ul>
-      <p>
-        That said: the <em>structural validity</em> of the measurement model means that
-        relative score interpretations — especially factor profile analysis (e.g., Gf-WM
-        vs Gf-WMC discrepancy) — are highly informative regardless of absolute calibration.
-      </p>
-
-      <h2>References</h2>
-      <ul>
-        <li>Carroll, J.B. (1993). <em>Human Cognitive Abilities: A Survey of Factor-Analytic Studies.</em> Cambridge University Press.</li>
-        <li>McGrew, K.S. (2009). CHC theory and the human cognitive abilities project. <em>Intelligence, 37</em>(1), 1-10.</li>
-        <li>Embretson, S.E. & Reise, S.P. (2000). <em>Item Response Theory for Psychologists.</em> Lawrence Erlbaum Associates.</li>
-        <li>Engle, R.W. (2002). Working memory capacity as executive attention. <em>Current Directions in Psychological Science, 11</em>(1), 19-23.</li>
-        <li>Oberauer, K. (2002). Access to information in working memory. <em>Journal of Experimental Psychology: Learning, Memory, and Cognition, 28</em>(3), 411-421.</li>
-        <li>Horn, J.L. & Cattell, R.B. (1966). Refinement and test of the theory of fluid and crystallized general intelligences. <em>Journal of Educational Psychology, 57</em>(5), 253-270.</li>
-      </ul>
-
-      <div style={{ marginTop: 48, padding: 24, background: 'var(--bg-card)', borderRadius: 'var(--radius)', border: '1px solid var(--border)', textAlign: 'center' }}>
-        <p style={{ color: 'var(--text-muted)', fontSize: 13 }}>
-          CogniMetrics was designed by <strong style={{ color: 'var(--text-secondary)' }}>Muhammet Baris Akdag</strong>
+      <h2>{isTR ? 'Bu Testin Dürüst Olduğu Şeyler' : 'What This Test Is Honest About'}</h2>
+      {isTR ? (<>
+        <p>
+          Bu bir klinik araç değildir. Tanı gerektiren herhangi biri lisanslı bir
+          psikoloğa başvurmalıdır. Herhangi bir nitelendirme geçerli değildir.
         </p>
-        <p style={{ color: 'var(--text-muted)', fontSize: 12, marginTop: 8 }}>
-          Cross-structural isomorphism framework &middot; CHC-aligned &middot; IRT-scored
+        <p>
+          Madde parametreleri ampirik veriyle keskinleşecektir. Yapısal kalibrasyon
+          sağlamdır, ancak gerçek dünya tepki örüntüleri tahminleri zamanla rafine
+          edecektir. Veri biriktikçe güncellemeler gelecektir.
+        </p>
+        <p>
+          Online test, bireysel olarak uygulanan değerlendirmeden doğası gereği daha
+          gürültülüdür. Dikkat dağınıklıkları olur. Cihazlar farklılık gösterir.
+          Ekran boyutları değişir. Bu, formatın bilinen ve kaçınılmaz bir kısıtlamasıdır.
+        </p>
+        <p>
+          Gc alt testleri dil yanlılığı taşır. Maddeler hem İngilizce hem Türkçe
+          sunulur, ancak gerçek anlamda kültürden bağımsız bir kristalize yetenek
+          değerlendirmesi psikometride hâlâ açık bir problemdir — bugüne kadar hiçbir
+          yayımlanmış aracın ikna edici biçimde çözemediği bir problem.
+        </p>
+        <p>
+          Güvenle ifade edilebilecek olan şudur: alt test puanları arasındaki yapısal
+          ilişkiler — bir bilişsel profilin şekli — mutlak kalibrasyondan bağımsız
+          olarak anlam taşır. Gf-WM ile Gf-WMC arasındaki belirgin bir eşitsizlik,
+          belirli bir zihnin kaynaklarını nasıl örgütlediğine dair gerçek bir şeyi
+          ortaya koyar.
+        </p>
+      </>) : (<>
+        <p>
+          This is not a clinical instrument. Anyone requiring a diagnosis should consult
+          a licensed psychologist. No qualification applies.
+        </p>
+        <p>
+          Item parameters will sharpen with empirical data. The structural calibration
+          is sound, but real-world response patterns will refine the estimates over time.
+          Updates will follow as data accumulates.
+        </p>
+        <p>
+          Online testing is inherently noisier than individually administered assessment.
+          Distractions occur. Devices vary. Screen sizes differ. This is a known and
+          unavoidable limitation of the format.
+        </p>
+        <p>
+          The Gc subtests carry language bias. Native items are provided in both English
+          and Turkish, but a truly culture-fair crystallized ability assessment remains
+          an open problem in psychometrics — one that, to date, no published instrument
+          has convincingly solved.
+        </p>
+        <p>
+          What <em>can</em> be stated with confidence: the structural relationships between
+          subtest scores — the shape of a cognitive profile — carry meaning regardless
+          of absolute calibration. A marked disparity between Gf-WM and Gf-WMC reveals
+          something genuine about how a particular mind organizes its resources.
+        </p>
+      </>)}
+
+      <h2>{isTR ? 'Doğrulama' : 'Verification'}</h2>
+      <p>
+        {isTR
+          ? 'Her sertifika, test kimliğini, puanları ve tarihi kodlayan bir HMAC-SHA256 imzası taşır. Herhangi bir değerin değiştirilmesi doğrulamanın başarısız olmasına neden olur. Özgünlük güvene değil, kriptografik kanıta dayanır.'
+          : 'Every certificate carries an HMAC-SHA256 signature encoding the test ID, scores, and date. Altering any value causes the verification to fail. Authenticity rests on cryptographic proof, not trust.'}
+      </p>
+
+      <h2>{isTR ? 'Kaynaklar' : 'References'}</h2>
+      <ul>
+        <li>Carroll, J.B. (1993). <em>Human Cognitive Abilities.</em> Cambridge University Press.</li>
+        <li>Horn, J.L. & Cattell, R.B. (1966). Refinement and test of the theory of fluid and crystallized general intelligences. <em>Journal of Educational Psychology, 57</em>(5).</li>
+        <li>McGrew, K.S. (2009). CHC theory and the human cognitive abilities project. <em>Intelligence, 37</em>(1).</li>
+        <li>Embretson, S.E. & Reise, S.P. (2000). <em>Item Response Theory for Psychologists.</em> LEA.</li>
+        <li>Kovacs, K. & Conway, A.R.A. (2016). Process Overlap Theory. <em>Psychological Inquiry, 27</em>(3).</li>
+        <li>van der Maas, H.L.J. et al. (2006). A dynamical model of general intelligence. <em>Psychological Review, 113</em>(4).</li>
+        <li>Engle, R.W. (2002). Working memory capacity as executive attention. <em>Current Directions in Psychological Science, 11</em>(1).</li>
+        <li>Oberauer, K. (2002). Access to information in working memory. <em>JEP:LMC, 28</em>(3).</li>
+        <li>Cowan, N. (2001). The magical number 4 in short-term memory. <em>Behavioral and Brain Sciences, 24</em>(1).</li>
+      </ul>
+
+      <div style={{ marginTop: 56, padding: 28, border: '1px solid var(--border)', borderRadius: 'var(--radius)', textAlign: 'center' }}>
+        <p style={{ fontFamily: 'var(--serif)', color: 'var(--gold-light)', fontSize: 15, letterSpacing: '1px' }}>
+          Muhammet Barış Akdağ
+        </p>
+        <p style={{ color: 'var(--text-muted)', fontSize: 10, marginTop: 10, letterSpacing: '1px' }}>
+          &copy; 2026 All rights reserved.
         </p>
       </div>
     </div>

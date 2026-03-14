@@ -1,25 +1,30 @@
-import { iqClassification, iqToPercentile } from '../utils/scoring';
+import { iqClassification, iqToPercentile, formatIQ, iqConfidenceInterval } from '../utils/scoring';
 import { generateCertificate } from '../utils/pdfCertificate';
 import { subtests } from '../data/itemBank';
 import { subtestTransKeys } from '../data/translations';
 
 export default function ResultsPage({ t, results, onHome, onMethodology }) {
-  const { compositeIQ, factorScores, subtestScores, testId, date, duration, verificationCode } = results;
+  const { compositeIQ, factorScores, subtestScores, testId, date, duration, verificationCode, compositeCI } = results;
   const classification = iqClassification(compositeIQ);
   const percentile = iqToPercentile(compositeIQ);
 
   function downloadCertificate() {
     const doc = generateCertificate(results);
-    doc.save(`CogniMetrics_Certificate_${testId}.pdf`);
+    doc.save(`StructuraMentis_Certificate_${testId}.pdf`);
   }
 
   return (
     <div className="results">
       <div className="results-header">
         <div className="results-brand">{t.brand}</div>
-        <div className="results-iq">{compositeIQ}</div>
+        <div className="results-iq">{formatIQ(compositeIQ)}</div>
         <div className="results-classification">{classification}</div>
         <div className="results-percentile">{percentile}th percentile</div>
+        {compositeCI && (
+          <div className="results-ci" style={{ fontSize: 13, color: 'var(--text-secondary)', marginTop: 4 }}>
+            95% CI: {compositeCI.lower}–{compositeCI.upper} (SEM: ±{compositeCI.marginIQ})
+          </div>
+        )}
       </div>
 
       <div className="results-section">
@@ -28,7 +33,7 @@ export default function ResultsPage({ t, results, onHome, onMethodology }) {
           {Object.entries(factorScores).map(([key, factor]) => (
             <div key={key} className="factor-card">
               <div className="factor-label">{key}</div>
-              <div className="factor-score">{factor.iq}</div>
+              <div className="factor-score">{formatIQ(factor.iq)}</div>
               <div className="factor-name">{factor.label}</div>
             </div>
           ))}
@@ -56,7 +61,7 @@ export default function ResultsPage({ t, results, onHome, onMethodology }) {
                   <div className="subtest-result-bar">
                     <div className="subtest-result-bar-fill" style={{ width: `${barWidth}%` }} />
                   </div>
-                  <div className="subtest-result-score">{score.iq}</div>
+                  <div className="subtest-result-score">{formatIQ(score.iq)}</div>
                 </div>
               </div>
             );

@@ -1,5 +1,5 @@
 {
-  "appId": "app.cognimetrics.test",
-  "appName": "CogniMetrics",
+  "appId": "org.structuramentis.test",
+  "appName": "Structura Mentis",
   "webDir": "dist"
 }

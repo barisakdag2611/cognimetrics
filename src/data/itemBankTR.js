@@ -108,6 +108,34 @@ export const conceptualLinksTR = [
     correct: 0,
     timeLimit: 60,
   }, { R: 3, T: 3, B: 5, N: 4, D: 4, factor: "Gc" }),
+
+  // CL10b-TR: Meta-yapısal ilişki — gözlemci gözleneni etkiler
+  // R=4, T=3, B=5, N=4, D=5
+  item({
+    id: "cl10b_tr",
+    analogy: "Gözlemci Etkisi, Kuantum Mekaniği için neyse; Refleksivite, ___ için odur",
+    options: ["Sosyal Bilim", "Matematik", "Bilinç", "Epistemoloji"],
+    correct: 0,
+    timeLimit: 75,
+  }, { R: 4, T: 3, B: 5, N: 4, D: 5, factor: "Gc" }),
+
+  // CL11-TR: Çapraz-alan yapısal değişmez
+  item({
+    id: "cl11_tr",
+    analogy: "Gödel'in Eksiklik Teoremi, Biçimsel Sistemler için neyse; Heisenberg'in Belirsizlik İlkesi, ___ için odur",
+    options: ["Ölçüm Sistemleri", "Kuantum Mekaniği", "Fizik", "Olasılık"],
+    correct: 0,
+    timeLimit: 90,
+  }, { R: 4, T: 4, B: 6, N: 5, D: 5, factor: "Gc" }),
+
+  // CL12-TR: İkinci-derece ilişki
+  item({
+    id: "cl12_tr",
+    analogy: "Özyineleme, Bilinç için neyse; Otokataliz, ___ için odur",
+    options: ["Yaşam", "Kimya", "Metabolizma", "Üreme"],
+    correct: 0,
+    timeLimit: 90,
+  }, { R: 5, T: 5, B: 7, N: 5, D: 5, factor: "Gc" }),
 ];
 
 // ========================================
@@ -191,7 +219,8 @@ export const wordDepthTR = [
     timeLimit: 45,
   }, { R: 1, T: 1, B: 3, N: 2, D: 3, factor: "Gc" }),
 
-  // WD7-TR: Nadir, bilişsel kavram
+  // WD7-TR: Nadir, bilişsel kavram — 4 ilişkili anlamı karşılaştırma gerektirir
+  // R=2, T=2, B=3, N=3, D=3
   item({
     id: "wd7_tr",
     question: "'Müteyakkız' en doğru olarak ne anlama gelir?",
@@ -203,9 +232,10 @@ export const wordDepthTR = [
     ],
     correct: 0,
     timeLimit: 60,
-  }, { R: 1, T: 1, B: 3, N: 3, D: 3, factor: "Gc" }),
+  }, { R: 2, T: 2, B: 3, N: 3, D: 3, factor: "Gc" }),
 
-  // WD8-TR: Çok nadir, felsefi
+  // WD8-TR: Çok nadir, felsefi — meta-kavram: aşkınlık
+  // R=2, T=2, B=3, N=3, D=4
   item({
     id: "wd8_tr",
     question: "'Müteal' en doğru olarak ne anlama gelir?",
@@ -217,9 +247,10 @@ export const wordDepthTR = [
     ],
     correct: 0,
     timeLimit: 60,
-  }, { R: 1, T: 1, B: 3, N: 3, D: 4, factor: "Gc" }),
+  }, { R: 2, T: 2, B: 3, N: 3, D: 4, factor: "Gc" }),
 
-  // WD9-TR: Meta-dilbilimsel
+  // WD9-TR: Meta-dilbilimsel — öz-gönderimsel
+  // R=1, T=2, B=3, N=3, D=4
   item({
     id: "wd9_tr",
     question: "'Tağyir' en doğru olarak ne anlama gelir?",
@@ -231,9 +262,10 @@ export const wordDepthTR = [
     ],
     correct: 0,
     timeLimit: 60,
-  }, { R: 1, T: 1, B: 3, N: 3, D: 4, factor: "Gc" }),
+  }, { R: 1, T: 2, B: 3, N: 3, D: 4, factor: "Gc" }),
 
-  // WD10-TR: Nadir bilişsel/algısal kavram
+  // WD10-TR: Nadir bilişsel/algısal kavram — üstbilişsel önyargı
+  // R=2, T=3, B=3, N=3, D=4
   item({
     id: "wd10_tr",
     question: "'Pareidolia' en doğru olarak ne anlama gelir?",
@@ -245,7 +277,95 @@ export const wordDepthTR = [
     ],
     correct: 0,
     timeLimit: 60,
-  }, { R: 1, T: 1, B: 3, N: 3, D: 4, factor: "Gc" }),
+  }, { R: 2, T: 3, B: 3, N: 3, D: 4, factor: "Gc" }),
+
+  // WD13-TR: Felsefi terim, yakın kavramlardan ayrıştırma
+  // R=3, T=2, B=4, N=3, D=4
+  item({
+    id: "wd13_tr",
+    question: "'Numen' en doğru olarak ne anlama gelir?",
+    options: [
+      "Bir varlığın veya yerin ilahi güç veya irade taşıdığı inanışı",
+      "Sayılara atfedilen mistik güç",
+      "Tanrısal düzenin evrendeki yansıması",
+      "Ruhani bir uyanış deneyimi"
+    ],
+    correct: 0,
+    timeLimit: 60,
+  }, { R: 3, T: 2, B: 4, N: 3, D: 4, factor: "Gc" }),
+
+  // WD14-TR: Nadir felsefi terim
+  // R=3, T=2, B=4, N=4, D=4
+  item({
+    id: "wd14_tr",
+    question: "'Apodiktik' en doğru olarak ne anlama gelir?",
+    options: [
+      "Zorunlu olarak ve tartışmasız biçimde doğru olan",
+      "Deneysel kanıtlara dayanan",
+      "Kanıta ihtiyaç duymadan apaçık olan",
+      "Mantıksal olarak geçerli ama zorunlu olarak doğru olmayan"
+    ],
+    correct: 0,
+    timeLimit: 60,
+  }, { R: 3, T: 2, B: 4, N: 4, D: 4, factor: "Gc" }),
+
+  // WD15-TR: Teknik terim, disiplinlerarası anlam
+  // R=3, T=3, B=4, N=4, D=4
+  item({
+    id: "wd15_tr",
+    question: "'Ergodiklik' kesin teknik anlamıyla ne demektir?",
+    options: [
+      "Bir sistemde zaman ortalamalarının topluluk ortalamalarına yakınsaması özelliği",
+      "Tüm sistemlerin maksimum entropiye ulaşma eğilimi",
+      "Termodinamik süreçlerin geri döndürülemezliği",
+      "Ardışık gözlemlerin istatistiksel bağımsızlığı"
+    ],
+    correct: 0,
+    timeLimit: 75,
+  }, { R: 3, T: 3, B: 4, N: 4, D: 4, factor: "Gc" }),
+
+  // WD16-TR: Felsefi terim, çok yakın çeldiriciler
+  // R=3, T=3, B=5, N=4, D=5
+  item({
+    id: "wd16_tr",
+    question: "'Hipostaz' felsefi kullanımda en doğru olarak ne anlama gelir?",
+    options: [
+      "Bir şeyin altında yatan gerçeklik veya töz, ya da soyut bir kavramın somutlaştırılması",
+      "Bir teorinin üzerine kurulduğu temel varsayım",
+      "Soyut düşüncelerin somut kurumlara dönüşme süreci",
+      "İki karşıt güç arasında askıda kalma durumu"
+    ],
+    correct: 0,
+    timeLimit: 75,
+  }, { R: 3, T: 3, B: 5, N: 4, D: 5, factor: "Gc" }),
+
+  // WD11-TR: Son derece nadir felsefi terim
+  item({
+    id: "wd11_tr",
+    question: "'Apeiron' orijinal felsefi anlamıyla en doğru olarak ne anlama gelir?",
+    options: [
+      "Her şeyin kendisinden çıkıp geri döndüğü sınırsız, belirsiz kaynak",
+      "Sonsuz matematiksel gerileme kavramı",
+      "Yaratılıştan önceki kusursuz biçimsizlik hali",
+      "Tüm fenomenlerin altında yatan bilinemez öz"
+    ],
+    correct: 0,
+    timeLimit: 75,
+  }, { R: 4, T: 4, B: 5, N: 4, D: 5, factor: "Gc" }),
+
+  // WD12-TR: Nadir üstbilişsel terim
+  item({
+    id: "wd12_tr",
+    question: "'Hiperpraksi' en doğru olarak ne anlama gelir?",
+    options: [
+      "İşlevsel gerekliğin ötesinde amaçlı etkinliğe aşırı veya zorlantılı katılım",
+      "Birden fazla karmaşık eylemi eşzamanlı gerçekleştirme yetisi",
+      "Bilinçli çabayı aşan yüksek pratik beceri durumu",
+      "Hedefe yönelik hareketlerin patolojik tekrarı"
+    ],
+    correct: 0,
+    timeLimit: 75,
+  }, { R: 4, T: 5, B: 6, N: 4, D: 5, factor: "Gc" }),
 ];
 
 // ========================================
@@ -364,4 +484,39 @@ export const relationalReasoningTR = [
     correct: 0,
     timeLimit: 120,
   }, { R: 4, T: 4, B: 7, N: 3, D: 4, factor: "Gf" }),
+
+  // RR11-TR
+  item({
+    id: "rr11_tr",
+    premise: "Sekiz diplomat (A-H) yuvarlak bir masada oturuyor. Kısıtlar: (1) A, E'nin tam karşısında oturur. (2) B, C'nin yanında oturur ama D'nin yanında oturamaz. (3) F, A'nın yanındaysa G, H'nin yanında olmalıdır; değilse G, H'nin karşısında oturur. (4) D, A'dan tam 3 koltuk uzaktadır. (5) H, A veya E'nin yanında oturamaz. (6) C ve F, B ile aynı yarıda olamaz.",
+    question: "B 1. koltuktaysa ve A 3. koltuktaysa, G hangi koltuktadır?",
+    options: ["6", "5", "8", "2"],
+    correct: 0,
+    timeLimit: 180,
+  }, { R: 5, T: 4, B: 8, N: 4, D: 5, factor: "Gf" }),
+
+  // RR12-TR
+  item({
+    id: "rr12_tr",
+    premise: "Yedi değişken (A-G) bir nedensel ağ oluşturur. Kurallar: A, 1 adım gecikmeli B'yi etkinleştirir. B ve C birlikte (ikisi >0) D'yi anında etkinleştirir. D ancak D>2 ise E'yi etkinleştirir. E, 2 adım gecikmeli A'yı sıfırlar. F = her adımda A + C. G, F>5 olduğunda aktif olur. C sabit 3'tür. t=0'da: A=4, B=0, C=3, D=0, E=0, F=7, G=1.",
+    question: "t=4'te (A, D, E, G) değerleri nedir?",
+    options: [
+      "A=0, D=3, E=1, G=0",
+      "A=4, D=3, E=1, G=1",
+      "A=0, D=0, E=0, G=0",
+      "A=4, D=0, E=0, G=1"
+    ],
+    correct: 0,
+    timeLimit: 180,
+  }, { R: 5, T: 5, B: 9, N: 4, D: 5, factor: "Gf" }),
+
+  // RR13-TR
+  item({
+    id: "rr13_tr",
+    premise: "Bir sınıflandırma sisteminde: (1) P özelliğine sahip tüm maddeler Alfa sınıfındadır. (2) Q özelliğine sahip tüm maddeler Beta sınıfındadır. (3) İstisna: hem P hem Q'ya sahip maddeler, R özelliği de yoksa Gama sınıfındadır. (4) P, Q ve R'ye sahip maddeler, S özelliği yoksa Alfa'dır; varsa Delta'dır. (5) T özelliğine de sahip tüm Delta maddeleri Gama olarak yeniden sınıflandırılır. X maddesi P, Q, R, S, T özelliklerine sahiptir.",
+    question: "X maddesinin nihai sınıfı nedir?",
+    options: ["Gama", "Delta", "Alfa", "Beta"],
+    correct: 0,
+    timeLimit: 150,
+  }, { R: 5, T: 5, B: 8, N: 4, D: 5, factor: "Gf" }),
 ];

@@ -1,7 +1,7 @@
 export const translations = {
   en: {
     // Landing
-    brand: "COGNIMETRICS",
+    brand: "STRVCTVRA MENTIS",
     title: "Measure Your Mind",
     subtitle: "A structurally rigorous cognitive assessment built on Item Response Theory and CHC framework. No norms needed — pure structural measurement.",
     feature1Label: "7 Cognitive Domains",
@@ -10,14 +10,13 @@ export const translations = {
     feature2Desc: "MLE theta estimation, no norm dependency",
     feature3Label: "Verified Certificate",
     feature3Desc: "PDF with HMAC-SHA256 verification code",
-    whyTitle: "Why CogniMetrics?",
+    whyTitle: "Why Structura Mentis?",
     why1: "Gf split into WM-weighted & WMC-weighted",
     why2: "Cross-structural isomorphism design",
     why3: "Ceiling at IQ 160 with calibrated hard items",
     why4: "Full methodology transparency",
     startBtn: "Start Assessment",
-    priceText: "$9.99 · ~45 minutes · Up to IQ 160",
-    freePromo: null,
+    priceText: "~45 minutes · Up to IQ 160",
     methodologyBtn: "View Methodology",
     statCeiling: "Max Ceiling",
     statSubtests: "Subtests",
@@ -67,7 +66,7 @@ export const translations = {
 
   tr: {
     // Landing
-    brand: "COGNIMETRICS",
+    brand: "STRVCTVRA MENTIS",
     title: "Zihnini Ölç",
     subtitle: "Madde Tepki Kuramı ve CHC çerçevesi üzerine inşa edilmiş yapısal bilişsel değerlendirme. Norma gerek yok — saf yapısal ölçüm.",
     feature1Label: "7 Bilişsel Alan",
@@ -76,14 +75,13 @@ export const translations = {
     feature2Desc: "MLE theta tahmini, norma bağımlılık yok",
     feature3Label: "Doğrulanmış Sertifika",
     feature3Desc: "HMAC-SHA256 doğrulama kodlu PDF",
-    whyTitle: "Neden CogniMetrics?",
+    whyTitle: "Neden Structura Mentis?",
     why1: "Gf, WM-ağırlıklı ve WMC-ağırlıklı olarak ikiye ayrılır",
     why2: "Çapraz-yapısal izomorfizm tasarımı",
     why3: "Kalibre edilmiş zor maddelerle IQ 160 tavanı",
     why4: "Tam metodoloji şeffaflığı",
     startBtn: "Teste Başla",
-    priceText: "₺95 · ~45 dakika · IQ 160'a kadar",
-    freePromo: "İlk 12 saat ÜCRETSİZ!",
+    priceText: "~45 dakika · IQ 160'a kadar",
     methodologyBtn: "Metodolojiyi Gör",
     statCeiling: "Maks Tavan",
     statSubtests: "Alt Test",

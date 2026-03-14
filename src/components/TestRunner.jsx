@@ -8,7 +8,8 @@ import { conceptualLinksTR, wordDepthTR, relationalReasoningTR } from '../data/i
 import { subtestTransKeys } from '../data/translations';
 import {
   scoreSubtests, calculateCompositeIQ, calculateFactorScores,
-  scoreSpeedMatch, generateVerificationCode, generateTestId, thetaToIQ
+  scoreSpeedMatch, generateVerificationCode, generateTestId, thetaToIQ,
+  iqConfidenceInterval
 } from '../utils/scoring';
 import {
   trackTestStart, trackSubtestStart, trackSubtestComplete,
@@ -510,10 +511,15 @@ export default function TestRunner({ t, lang, onComplete, onQuit }) {
     const duration = formatDuration(Date.now() - startTime);
     const date = new Date().toISOString().split('T')[0];
 
+    // Calculate confidence interval from all non-speed responses
+    const allIRTResponses = allResponses.filter(r => r.subtestId !== 'speed_match');
+    const compositeCI = iqConfidenceInterval(composite.theta, allIRTResponses);
+
     const results = {
       testId,
       compositeIQ: composite.iq,
       compositeTheta: composite.theta,
+      compositeCI,
       subtestScores,
       factorScores,
       date,

@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Structura Mentis — Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: #0a0a0f;
+    color: #e0ddd5;
+    min-height: 100vh;
+    padding: 32px;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(158, 72, 52, 0.3);
+  }
+
+  .header h1 {
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 4px;
+    color: #9e4834;
+  }
+
+  .header-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #666;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #2d5a2d;
+    animation: pulse 2s infinite;
+  }
+
+  .status-dot.live { background: #4ade80; }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .stat-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 6px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .stat-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 36px;
+    font-weight: 500;
+    color: #9e4834;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: #666;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  .section {
+    margin-bottom: 32px;
+  }
+
+  .section-title {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #9e4834;
+    margin-bottom: 12px;
+  }
+
+  .table-wrap {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #666;
+    text-align: left;
+    padding: 12px 16px;
+    background: rgba(255,255,255,0.02);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  td {
+    font-size: 13px;
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    font-family: 'JetBrains Mono', monospace;
+    color: #aaa;
+  }
+
+  tr:hover td { background: rgba(158, 72, 52, 0.05); }
+
+  .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  .tag-start { background: rgba(59,130,246,0.15); color: #60a5fa; }
+  .tag-subtest { background: rgba(168,85,247,0.15); color: #c084fc; }
+  .tag-complete { background: rgba(34,197,94,0.15); color: #4ade80; }
+  .tag-quit { background: rgba(239,68,68,0.15); color: #f87171; }
+  .tag-view { background: rgba(255,255,255,0.06); color: #888; }
+
+  .country-flag {
+    font-size: 16px;
+    margin-right: 4px;
+  }
+
+  .refresh-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .refresh-bar select, .refresh-bar button {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #aaa;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .refresh-bar button:hover {
+    border-color: #9e4834;
+    color: #9e4834;
+  }
+
+  .sessions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .session-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 6px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+
+  .session-card:hover { border-color: rgba(158,72,52,0.4); }
+
+  .session-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .session-id {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: #888;
+  }
+
+  .session-events {
+    display: flex;
+    gap: 4px;
+  }
+
+  .session-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .dot-start { background: #60a5fa; }
+  .dot-subtest { background: #c084fc; }
+  .dot-complete { background: #4ade80; }
+  .dot-quit { background: #f87171; }
+
+  .session-time {
+    font-size: 11px;
+    color: #555;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .empty {
+    text-align: center;
+    padding: 48px;
+    color: #444;
+    font-size: 14px;
+  }
+
+  .subtests-bar {
+    display: flex;
+    gap: 2px;
+    margin-top: 4px;
+  }
+
+  .subtests-bar span {
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 2px;
+    background: rgba(192,132,252,0.1);
+    color: #c084fc;
+  }
+
+  .iq-score {
+    font-weight: 600;
+    color: #4ade80;
+    font-size: 15px;
+  }
+
+  @media (max-width: 768px) {
+    body { padding: 16px; }
+    .stats-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>STRVCTVRA MENTIS</h1>
+  <div class="header-status">
+    <div class="status-dot" id="statusDot"></div>
+    <span id="statusText">bağlanıyor...</span>
+  </div>
+</div>
+
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="stat-value" id="statSessions">-</div>
+    <div class="stat-label">Oturum</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value" id="statStarts">-</div>
+    <div class="stat-label">Test Başlangıç</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value" id="statCompletes">-</div>
+    <div class="stat-label">Tamamlanan</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value" id="statSubtests">-</div>
+    <div class="stat-label">Alt Test</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value" id="statCountries">-</div>
+    <div class="stat-label">Ülke</div>
+  </div>
+</div>
+
+<div class="refresh-bar">
+  <select id="refreshInterval">
+    <option value="5">5sn</option>
+    <option value="10" selected>10sn</option>
+    <option value="30">30sn</option>
+    <option value="60">1dk</option>
+  </select>
+  <button onclick="fetchData()">Şimdi Yenile</button>
+  <span id="lastUpdate" style="font-size:11px;color:#444;font-family:'JetBrains Mono',monospace;"></span>
+</div>
+
+<div class="section">
+  <div class="section-title">Canlı Oturumlar</div>
+  <div id="sessionsList" class="sessions-list">
+    <div class="empty">Veri bekleniyor...</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Son Olaylar</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Zaman</th>
+          <th>Olay</th>
+          <th>Detay</th>
+          <th>Ülke</th>
+          <th>Cihaz</th>
+        </tr>
+      </thead>
+      <tbody id="eventsBody">
+        <tr><td colspan="5" class="empty">Veri bekleniyor...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+const API = 'https://structuramentis.org/api/dashboard?key=SM2026structura';
+let timer = null;
+
+const countryFlags = {
+  TR: '🇹🇷', US: '🇺🇸', GB: '🇬🇧', DE: '🇩🇪', FR: '🇫🇷', NL: '🇳🇱',
+  CA: '🇨🇦', AU: '🇦🇺', JP: '🇯🇵', KR: '🇰🇷', BR: '🇧🇷', IN: '🇮🇳',
+  IT: '🇮🇹', ES: '🇪🇸', SE: '🇸🇪', NO: '🇳🇴', DK: '🇩🇰', FI: '🇫🇮',
+  PL: '🇵🇱', RU: '🇷🇺', CN: '🇨🇳', MX: '🇲🇽', AR: '🇦🇷', CL: '🇨🇱',
+  unknown: '🌍'
+};
+
+function getFlag(code) {
+  return countryFlags[code] || countryFlags.unknown;
+}
+
+function eventTag(event) {
+  const map = {
+    test_start: ['Başlangıç', 'tag-start'],
+    subtest_start: ['Alt Test ▶', 'tag-subtest'],
+    subtest_complete: ['Alt Test ✓', 'tag-subtest'],
+    test_complete: ['Tamamlandı', 'tag-complete'],
+    test_quit: ['Çıkış', 'tag-quit'],
+    page_view: ['Sayfa', 'tag-view'],
+    system_test: ['Sistem', 'tag-view'],
+  };
+  const [label, cls] = map[event] || [event, 'tag-view'];
+  return `<span class="tag ${cls}">${label}</span>`;
+}
+
+function timeAgo(ts) {
+  const diff = Date.now() - new Date(ts).getTime();
+  const secs = Math.floor(diff / 1000);
+  if (secs < 60) return `${secs}sn önce`;
+  const mins = Math.floor(secs / 60);
+  if (mins < 60) return `${mins}dk önce`;
+  const hours = Math.floor(mins / 60);
+  return `${hours}sa önce`;
+}
+
+function shortDevice(ua) {
+  if (!ua || ua === 'unknown') return '-';
+  if (/iPhone/.test(ua)) return '📱 iPhone';
+  if (/iPad/.test(ua)) return '📱 iPad';
+  if (/Android/.test(ua)) return '📱 Android';
+  if (/Mac/.test(ua)) return '💻 Mac';
+  if (/Windows/.test(ua)) return '💻 Windows';
+  if (/Linux/.test(ua)) return '💻 Linux';
+  if (/curl/.test(ua)) return '🔧 curl';
+  return '🌐 Diğer';
+}
+
+function eventDetail(ev) {
+  if (ev.event === 'subtest_complete' && ev.subtestId) {
+    return `${ev.subtestId} — ${ev.correct}/${ev.total} (${ev.percentage}%)`;
+  }
+  if (ev.event === 'subtest_start' && ev.subtestId) {
+    return ev.subtestId;
+  }
+  if (ev.event === 'test_complete' && ev.compositeIQ) {
+    return `<span class="iq-score">IQ ${ev.compositeIQ}</span>`;
+  }
+  if (ev.event === 'test_quit' && ev.quitAt) {
+    return `${ev.quitAt}'de çıktı (${(ev.completedSubtests||[]).length} tamamlanmış)`;
+  }
+  if (ev.event === 'test_start') {
+    return ev.lang === 'tr' ? 'Türkçe' : ev.lang === 'en' ? 'English' : (ev.lang || '-');
+  }
+  return '-';
+}
+
+async function fetchData() {
+  try {
+    const res = await fetch(API);
+    const data = await res.json();
+
+    document.getElementById('statusDot').classList.add('live');
+    document.getElementById('statusText').textContent = 'canlı';
+
+    const s = data.summary;
+    document.getElementById('statSessions').textContent = s.total_sessions;
+    document.getElementById('statStarts').textContent = s.test_starts;
+    document.getElementById('statCompletes').textContent = s.test_completes;
+    document.getElementById('statSubtests').textContent = s.subtest_completes;
+    document.getElementById('statCountries').textContent = s.countries.filter(c => c !== 'unknown').length;
+
+    // Sessions
+    const sessionsEl = document.getElementById('sessionsList');
+    const sessionEntries = Object.entries(data.sessions).sort((a, b) => {
+      const lastA = a[1][a[1].length - 1]?.timestamp || '';
+      const lastB = b[1][b[1].length - 1]?.timestamp || '';
+      return lastB.localeCompare(lastA);
+    });
+
+    if (sessionEntries.length === 0) {
+      sessionsEl.innerHTML = '<div class="empty">Henüz oturum yok</div>';
+    } else {
+      sessionsEl.innerHTML = sessionEntries.map(([id, events]) => {
+        const dots = events.map(e => {
+          const cls = e.event.includes('start') ? 'dot-start' :
+                      e.event.includes('complete') ? 'dot-complete' :
+                      e.event.includes('quit') ? 'dot-quit' : 'dot-subtest';
+          return `<div class="session-dot ${cls}" title="${e.event}"></div>`;
+        }).join('');
+        const last = events[events.length - 1];
+        const ago = timeAgo(last.timestamp);
+        return `
+          <div class="session-card">
+            <div class="session-left">
+              <div class="session-id">${id.substring(0, 12)}</div>
+              <div class="session-events">${dots}</div>
+            </div>
+            <div class="session-time">${ago}</div>
+          </div>`;
+      }).join('');
+    }
+
+    // Events table
+    const eventsEl = document.getElementById('eventsBody');
+    const events = (data.events || [])
+      .filter(e => e.event !== 'system_test')
+      .sort((a, b) => b.timestamp.localeCompare(a.timestamp));
+
+    if (events.length === 0) {
+      eventsEl.innerHTML = '<tr><td colspan="5" class="empty">Henüz olay yok</td></tr>';
+    } else {
+      eventsEl.innerHTML = events.map(ev => `
+        <tr>
+          <td>${timeAgo(ev.timestamp)}</td>
+          <td>${eventTag(ev.event)}</td>
+          <td>${eventDetail(ev)}</td>
+          <td>${getFlag(ev.country)} ${ev.country || '-'}</td>
+          <td>${shortDevice(ev.userAgent)}</td>
+        </tr>
+      `).join('');
+    }
+
+    document.getElementById('lastUpdate').textContent =
+      'Son güncelleme: ' + new Date().toLocaleTimeString('tr-TR');
+
+  } catch (err) {
+    document.getElementById('statusDot').classList.remove('live');
+    document.getElementById('statusText').textContent = 'bağlantı hatası';
+  }
+}
+
+function startAutoRefresh() {
+  if (timer) clearInterval(timer);
+  const secs = parseInt(document.getElementById('refreshInterval').value);
+  timer = setInterval(fetchData, secs * 1000);
+}
+
+document.getElementById('refreshInterval').addEventListener('change', startAutoRefresh);
+
+// Start
+fetchData();
+startAutoRefresh();
+</script>
+</body>
+</html>

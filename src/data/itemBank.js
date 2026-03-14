@@ -120,79 +120,133 @@ export const patternMatrices = [
     timeLimit: 75,
   }, { R: 2, T: 2, B: 4, N: 2, D: 3, factor: "Gf" }),
 
-  // PM7: XOR logic — each cell is the XOR of two base patterns; row wraps
-  // R=3 (XOR operation + two source patterns + wraparound rule), T=3 (compound: overlay + XOR), B=5, N=3 (novel operation), D=3
+  // PM7: 3 overlapping rules — shape cycles per column, color per row, size increases per row
+  // R=2, T=3, B=5, N=2, D=3
   item({
     id: "pm7",
     grid: [
-      ["A-xor-B", "B-xor-C", "C-xor-A"],
-      ["D-xor-E", "E-xor-F", "F-xor-D"],
-      ["G-xor-H", "H-xor-I", "?"]
+      ["small-red-circle", "small-blue-square", "small-green-triangle"],
+      ["medium-green-circle", "medium-red-square", "medium-blue-triangle"],
+      ["large-blue-circle", "large-green-square", "?"]
     ],
-    rule: "Each cell = XOR of two base patterns; third cell XORs last element with first (wraparound)",
-    options: ["I-xor-G", "I-xor-H", "G-xor-I", "H-xor-G"],
+    rule: "Shape cycles per column; color cycles per row; size increases per row",
+    options: [
+      "large-red-triangle",
+      "large-blue-triangle",
+      "medium-red-triangle",
+      "large-green-triangle"
+    ],
+    correct: 0,
+    timeLimit: 90,
+  }, { R: 2, T: 3, B: 5, N: 2, D: 3, factor: "Gf" }),
+
+  // PM7b: Mirror symmetry + color shift — left half mirrors right, colors rotate
+  // R=2, T=3, B=5, N=3, D=3
+  // b ≈ +0.55 → IQ ~108
+  item({
+    id: "pm7b",
+    grid: [
+      ["red-left", "blue-center", "red-right"],
+      ["green-left", "yellow-center", "green-right"],
+      ["blue-left", "red-center", "?"]
+    ],
+    rule: "Left mirrors right (same shape); center color = next in cycle; mirror symmetry + color rotation",
+    options: ["blue-right", "red-right", "green-right", "yellow-right"],
+    correct: 0,
+    timeLimit: 90,
+  }, { R: 2, T: 3, B: 5, N: 3, D: 3, factor: "Gf" }),
+
+  // PM7c: XOR-like pattern — cell = row XOR column property
+  // R=2, T=3, B=5, N=3, D=3
+  // b ≈ +0.55 → IQ ~108
+  item({
+    id: "pm7c",
+    grid: [
+      ["hollow-circle", "filled-square", "striped-triangle"],
+      ["filled-square", "striped-triangle", "hollow-circle"],
+      ["striped-triangle", "hollow-circle", "?"]
+    ],
+    rule: "Each row and column contains exactly one of each shape-fill combination; double Latin square",
+    options: ["filled-square", "hollow-square", "striped-circle", "filled-triangle"],
+    correct: 0,
+    timeLimit: 90,
+  }, { R: 2, T: 3, B: 5, N: 3, D: 3, factor: "Gf" }),
+
+  // PM7d: Progressive scaling + rotation — size doubles, rotation +45° each step
+  // R=3, T=3, B=5, N=2, D=3
+  // b ≈ +0.95 → IQ ~114
+  item({
+    id: "pm7d",
+    grid: [
+      ["tiny-0deg", "small-45deg", "medium-90deg"],
+      ["small-45deg", "medium-90deg", "large-135deg"],
+      ["medium-90deg", "large-135deg", "?"]
+    ],
+    rule: "Size doubles and rotation increases by 45° per step (both row and column progression)",
+    options: ["xlarge-180deg", "large-180deg", "xlarge-135deg", "xlarge-90deg"],
+    correct: 0,
+    timeLimit: 90,
+  }, { R: 3, T: 3, B: 5, N: 2, D: 3, factor: "Gf" }),
+
+  // PM8: Compound transformation — outer shape follows one rule, inner shape follows another
+  // R=3, T=3, B=5, N=3, D=3
+  item({
+    id: "pm8",
+    grid: [
+      ["circle-inside-square", "square-inside-triangle", "triangle-inside-diamond"],
+      ["square-inside-diamond", "triangle-inside-circle", "diamond-inside-square"],
+      ["triangle-inside-circle", "diamond-inside-square", "?"]
+    ],
+    rule: "Inner shape = previous outer shape; outer shape cycles independently",
+    options: [
+      "circle-inside-triangle",
+      "square-inside-circle",
+      "diamond-inside-triangle",
+      "circle-inside-diamond"
+    ],
     correct: 0,
     timeLimit: 90,
   }, { R: 3, T: 3, B: 5, N: 3, D: 3, factor: "Gf" }),
 
-  // PM8: Row rule + column rule independently — reflection + rotation + color shift
-  // R=3 (3 independent rules across 2 axes), T=3 (compound), B=6, N=3, D=3
-  item({
-    id: "pm8",
-    grid: [
-      ["r1c1", "r1c2", "r1c3"],
-      ["r2c1", "r2c2", "r2c3"],
-      ["r3c1", "r3c2", "?"]
-    ],
-    rule: "Row axis: progressive horizontal reflection. Column axis: progressive 90° rotation. Both: progressive color darkening",
-    options: ["r3c3-a", "r3c3-b", "r3c3-c", "r3c3-d"],
-    correct: 0,
-    timeLimit: 90,
-    // Rendered programmatically — shape transforms along both axes
-    programmatic: {
-      baseShape: "L-shape",
-      rowTransform: "reflect-horizontal",
-      colTransform: "rotate-90-cw",
-      colorProgression: ["#818cf8", "#6366f1", "#4f46e5"],
-    }
-  }, { R: 3, T: 3, B: 6, N: 3, D: 3, factor: "Gf" }),
-
-  // PM9: Two overlaid rules — shape transformation + independent pattern overlay
-  // R=4 (shape rule + overlay rule + row context + column context), T=4 (conditional), B=6, N=3, D=4
+  // PM9: Size + rotation + shape = 3 independent varying dimensions (Latin square)
+  // R=3, T=3, B=5, N=3, D=4
   item({
     id: "pm9",
     grid: [
-      ["shape-a1-overlay-x", "shape-a2-overlay-y", "shape-a3-overlay-z"],
-      ["shape-b1-overlay-z", "shape-b2-overlay-x", "shape-b3-overlay-y"],
-      ["shape-c1-overlay-y", "shape-c2-overlay-z", "?"]
+      ["small-circle", "medium-rotated-square", "large-triangle"],
+      ["medium-triangle", "large-rotated-circle", "small-square"],
+      ["large-square", "small-rotated-triangle", "?"]
     ],
-    rule: "Shapes follow one Latin square, overlays follow another independent Latin square. Must track both simultaneously",
-    options: ["shape-c3-overlay-x", "shape-c3-overlay-y", "shape-c3-overlay-z", "shape-b3-overlay-x"],
+    rule: "Each attribute (shape, size, rotation) appears exactly once per row and column (Latin square on 3 dimensions)",
+    options: [
+      "medium-rotated-circle",
+      "medium-circle",
+      "large-rotated-circle",
+      "small-rotated-circle"
+    ],
     correct: 0,
-    timeLimit: 120,
-    programmatic: {
-      shapeLatin: [["circle","square","triangle"],["square","triangle","circle"],["triangle","circle","?"]],
-      overlayLatin: [["dots","stripes","grid"],["grid","dots","stripes"],["stripes","grid","?"]],
-    }
-  }, { R: 4, T: 4, B: 6, N: 3, D: 4, factor: "Gf" }),
+    timeLimit: 105,
+  }, { R: 3, T: 3, B: 5, N: 3, D: 4, factor: "Gf" }),
 
-  // PM10: Three simultaneous rules + meta-pattern
-  // R=4, T=5 (meta — rule itself changes), B=7, N=4 (counter-intuitive), D=4
+  // PM10: 4 overlapping rules — Latin square on both shape AND fill style
+  // R=3, T=4, B=6, N=3, D=4
   item({
     id: "pm10",
     grid: [
-      ["meta-1", "meta-2", "meta-3"],
-      ["meta-4", "meta-5", "meta-6"],
-      ["meta-7", "meta-8", "?"]
+      ["filled-circle", "hollow-square", "striped-triangle"],
+      ["hollow-triangle", "striped-circle", "filled-square"],
+      ["striped-square", "filled-triangle", "?"]
     ],
-    rule: "Three rules: shape, fill, size. But: the RULE for shape changes per row (row1=cycle, row2=reverse-cycle, row3=?). Must infer the meta-pattern of how rules themselves transform",
-    options: ["meta-9a", "meta-9b", "meta-9c", "meta-9d"],
+    rule: "Latin square on both shape AND fill style — each combination unique",
+    options: [
+      "hollow-circle",
+      "hollow-diamond",
+      "striped-circle",
+      "filled-circle"
+    ],
     correct: 0,
-    timeLimit: 120,
-    programmatic: {
-      description: "Row 1: shapes cycle (A→B→C). Row 2: shapes reverse-cycle (C→B→A). Row 3: shapes follow the meta-pattern of the rule transformation. Fill: always increments. Size: Latin square.",
-    }
-  }, { R: 4, T: 5, B: 7, N: 4, D: 4, factor: "Gf" }),
+    timeLimit: 105,
+  }, { R: 3, T: 4, B: 6, N: 3, D: 4, factor: "Gf" }),
 ];
 
 // ========================================
@@ -334,6 +388,49 @@ export const relationalReasoning = [
     correct: 0,
     timeLimit: 120,
   }, { R: 4, T: 4, B: 7, N: 3, D: 4, factor: "Gf" }),
+
+  // RR11: 8-element constraint satisfaction with bidirectional conditionals
+  // 8 people seated around a circular table with 6 constraints including
+  // if-then-else conditionals. Must resolve all constraints simultaneously.
+  // R=5 (6 constraints including conditionals), T=4 (circular + bidirectional), B=8, N=4, D=5
+  item({
+    id: "rr11",
+    premise: "Eight diplomats (A-H) sit around a circular table. Constraints: (1) A sits directly opposite E. (2) B is adjacent to C but not adjacent to D. (3) If F is adjacent to A, then G must be adjacent to H; otherwise G sits opposite H. (4) D sits exactly 3 seats from A. (5) H is not adjacent to A or E. (6) C and F cannot both be in the same half of the table as B.",
+    question: "If B sits in seat 1 and A sits in seat 3, which seat must G occupy?",
+    options: ["6", "5", "8", "2"],
+    correct: 0,
+    timeLimit: 180,
+  }, { R: 5, T: 4, B: 8, N: 4, D: 5, factor: "Gf" }),
+
+  // RR12: Multi-system causal network with delayed effects and thresholds
+  // 7 variables with threshold-based activation, delayed propagation, and feedback loops.
+  // Must simulate 4 time steps to find equilibrium.
+  // R=5 (7 causal links + thresholds + delays), T=5 (temporal simulation with thresholds), B=9, N=4, D=5
+  item({
+    id: "rr12",
+    premise: "Seven variables (A-G) form a causal network. Rules: A activates B after 1 step delay. B and C together (both >0) activate D immediately. D activates E, but only if D>2. E inhibits A (sets A=0) after 2 step delay. F = A + C at each step. G activates when F>5. C is constant at 3. Initial values at t=0: A=4, B=0, C=3, D=0, E=0, F=7, G=1.",
+    question: "What are the values of (A, D, E, G) at t=4?",
+    options: [
+      "A=0, D=3, E=1, G=0",
+      "A=4, D=3, E=1, G=1",
+      "A=0, D=0, E=0, G=0",
+      "A=4, D=0, E=0, G=1"
+    ],
+    correct: 0,
+    timeLimit: 180,
+  }, { R: 5, T: 5, B: 9, N: 4, D: 5, factor: "Gf" }),
+
+  // RR13: Nested conditional with quantifier logic and exception handling
+  // 5 categorical rules with nested exceptions and universal/existential quantifiers.
+  // R=5 (5 rules with nested conditions), T=5 (quantifier reasoning + exception priority), B=8, N=4, D=5
+  item({
+    id: "rr13",
+    premise: "In a classification system: (1) All items with property P are class Alpha. (2) All items with property Q are class Beta. (3) Exception: items with both P and Q are class Gamma UNLESS they also have property R. (4) Items with P, Q, and R are class Alpha only if they lack property S; otherwise they are class Delta. (5) All class Delta items that also have property T are reclassified as Gamma. Item X has properties: P, Q, R, S, T.",
+    question: "What is the final class of item X?",
+    options: ["Gamma", "Delta", "Alpha", "Beta"],
+    correct: 0,
+    timeLimit: 150,
+  }, { R: 5, T: 5, B: 8, N: 4, D: 5, factor: "Gf" }),
 ];
 
 // ========================================
@@ -446,6 +543,38 @@ export const conceptualLinks = [
     correct: 0,
     timeLimit: 60,
   }, { R: 3, T: 3, B: 5, N: 4, D: 4, factor: "Gc" }),
+
+  // CL10b: Meta-structural relation — observer affects observed system
+  // R=4, T=3, B=5, N=4, D=5
+  item({
+    id: "cl10b",
+    analogy: "Observer Effect is to Quantum Mechanics as Reflexivity is to ___",
+    options: ["Social Science", "Mathematics", "Consciousness", "Epistemology"],
+    correct: 0,
+    timeLimit: 75,
+  }, { R: 4, T: 3, B: 5, N: 4, D: 5, factor: "Gc" }),
+
+  // CL11: Cross-domain structural invariant — Gödel incompleteness maps to Heisenberg uncertainty
+  // Both express fundamental limits of a formal system's self-description.
+  // R=4 (cross-domain mapping + meta-epistemological relation + formal limits + self-reference), T=4, B=6, N=5, D=5
+  item({
+    id: "cl11",
+    analogy: "Gödel's Incompleteness is to Formal Systems as Heisenberg's Uncertainty is to ___",
+    options: ["Measurement Systems", "Quantum Mechanics", "Physics", "Probability"],
+    correct: 0,
+    timeLimit: 90,
+  }, { R: 4, T: 4, B: 6, N: 5, D: 5, factor: "Gc" }),
+
+  // CL12: Second-order relation — the relationship between two analogies
+  // Must identify that both pairs share the meta-relation "necessary precondition for emergence"
+  // R=5 (meta-analogy: relation between relations + emergence + necessity + sufficiency), T=5, B=7, N=5, D=5
+  item({
+    id: "cl12",
+    analogy: "Recursion is to Consciousness as Autocatalysis is to ___",
+    options: ["Life", "Chemistry", "Metabolism", "Reproduction"],
+    correct: 0,
+    timeLimit: 90,
+  }, { R: 5, T: 5, B: 7, N: 5, D: 5, factor: "Gc" }),
 ];
 
 // ========================================
@@ -525,8 +654,8 @@ export const wordDepth = [
     timeLimit: 45,
   }, { R: 1, T: 1, B: 3, N: 2, D: 3, factor: "Gc" }),
 
-  // WD7: Rare word, abstract meaning about cognition
-  // R=1, T=1, B=3, N=3, D=3
+  // WD7: Rare word, abstract meaning about cognition — requires comparing 4 related meanings
+  // R=2, T=2, B=3, N=3, D=3
   item({
     id: "wd7",
     question: "'Perspicacious' most precisely means:",
@@ -538,10 +667,10 @@ export const wordDepth = [
     ],
     correct: 0,
     timeLimit: 60,
-  }, { R: 1, T: 1, B: 3, N: 3, D: 3, factor: "Gc" }),
+  }, { R: 2, T: 2, B: 3, N: 3, D: 3, factor: "Gc" }),
 
   // WD8: Very rare, meta-concept about truth/appearance
-  // R=1, T=1, B=3, N=3, D=4 (similarity/truthful are near-misses)
+  // R=2, T=2, B=3, N=3, D=4 (similarity/truthful are near-misses)
   item({
     id: "wd8",
     question: "'Verisimilitude' most precisely means:",
@@ -553,10 +682,10 @@ export const wordDepth = [
     ],
     correct: 0,
     timeLimit: 60,
-  }, { R: 1, T: 1, B: 3, N: 3, D: 4, factor: "Gc" }),
+  }, { R: 2, T: 2, B: 3, N: 3, D: 4, factor: "Gc" }),
 
-  // WD9: Self-referential word — meta-linguistic
-  // R=1, T=1, B=3, N=3, D=4
+  // WD9: Self-referential word — meta-linguistic self-reference
+  // R=1, T=2, B=3, N=3, D=4
   item({
     id: "wd9",
     question: "'Sesquipedalian' most precisely means:",
@@ -568,10 +697,10 @@ export const wordDepth = [
     ],
     correct: 0,
     timeLimit: 60,
-  }, { R: 1, T: 1, B: 3, N: 3, D: 4, factor: "Gc" }),
+  }, { R: 1, T: 2, B: 3, N: 3, D: 4, factor: "Gc" }),
 
-  // WD10: Rare cognitive/perceptual concept
-  // R=1, T=1, B=3, N=3, D=4
+  // WD10: Rare cognitive/perceptual concept — metacognitive bias concept
+  // R=2, T=3, B=3, N=3, D=4
   item({
     id: "wd10",
     question: "'Apophenia' most precisely means:",
@@ -583,7 +712,97 @@ export const wordDepth = [
     ],
     correct: 0,
     timeLimit: 60,
-  }, { R: 1, T: 1, B: 3, N: 3, D: 4, factor: "Gc" }),
+  }, { R: 2, T: 3, B: 3, N: 3, D: 4, factor: "Gc" }),
+
+  // WD13: Technical philosophical term with overlapping near-concepts
+  // R=3 (distinguish 3 similar concepts), T=2, B=4, N=3, D=4
+  item({
+    id: "wd13",
+    question: "'Qualia' most precisely refers to:",
+    options: [
+      "Individual instances of subjective, conscious experience",
+      "The measurable qualities of sensory stimuli",
+      "The philosophical study of consciousness",
+      "Neural correlates of perceptual awareness"
+    ],
+    correct: 0,
+    timeLimit: 60,
+  }, { R: 3, T: 2, B: 4, N: 3, D: 4, factor: "Gc" }),
+
+  // WD14: Rare logical/philosophical term with near-synonym distractors
+  // R=3, T=2, B=4, N=4, D=4
+  item({
+    id: "wd14",
+    question: "'Apodictic' most precisely means:",
+    options: [
+      "Necessarily or demonstrably true, beyond dispute",
+      "Based on empirical evidence and observation",
+      "Self-evidently true without requiring proof",
+      "Logically valid but not necessarily sound"
+    ],
+    correct: 0,
+    timeLimit: 60,
+  }, { R: 3, T: 2, B: 4, N: 4, D: 4, factor: "Gc" }),
+
+  // WD15: Technical term requiring cross-domain understanding
+  // R=3, T=3, B=4, N=4, D=4
+  item({
+    id: "wd15",
+    question: "'Ergodicity' in its precise technical sense means:",
+    options: [
+      "The property where time averages converge to ensemble averages for a system",
+      "The tendency of all systems to reach maximum entropy",
+      "The irreversibility of thermodynamic processes",
+      "The statistical independence of sequential observations"
+    ],
+    correct: 0,
+    timeLimit: 75,
+  }, { R: 3, T: 3, B: 4, N: 4, D: 4, factor: "Gc" }),
+
+  // WD16: Philosophical term with highly similar distractors
+  // R=3, T=3, B=5, N=4, D=5
+  item({
+    id: "wd16",
+    question: "'Hypostasis' in philosophical usage most precisely means:",
+    options: [
+      "The underlying reality or substance, or the reification of an abstract concept",
+      "A fundamental assumption upon which a theory rests",
+      "The process by which abstract ideas become concrete institutions",
+      "A state of suspended existence between two opposing forces"
+    ],
+    correct: 0,
+    timeLimit: 75,
+  }, { R: 3, T: 3, B: 5, N: 4, D: 5, factor: "Gc" }),
+
+  // WD11: Extremely rare philosophical/logical term with near-synonym distractors
+  // R=4 (must distinguish from 3 highly similar concepts), T=4, B=5 (hold 4 competing definitions), N=4, D=5
+  item({
+    id: "wd11",
+    question: "'Apeiron' in its original philosophical sense most precisely means:",
+    options: [
+      "The boundless, indefinite source from which all things arise and to which they return",
+      "The concept of infinite mathematical regression",
+      "A state of perfect formlessness preceding creation",
+      "The unknowable essence underlying all phenomena"
+    ],
+    correct: 0,
+    timeLimit: 75,
+  }, { R: 4, T: 4, B: 5, N: 4, D: 5, factor: "Gc" }),
+
+  // WD12: Rare term requiring precise differentiation of overlapping metacognitive concepts
+  // R=4, T=5, B=6, N=4, D=5
+  item({
+    id: "wd12",
+    question: "'Hyperpraxis' most precisely means:",
+    options: [
+      "Excessive or compulsive engagement in purposeful activity beyond functional necessity",
+      "The ability to perform multiple complex actions simultaneously",
+      "An elevated state of practical skill transcending conscious effort",
+      "Pathological repetition of goal-directed movements"
+    ],
+    correct: 0,
+    timeLimit: 75,
+  }, { R: 4, T: 5, B: 6, N: 4, D: 5, factor: "Gc" }),
 ];
 
 // ========================================
@@ -626,6 +845,14 @@ export const memorySequences = [
     { R: 1, T: 2, B: 7, N: 2, D: 1, factor: "Gwm" }),
   item({ id: "ms13", type: "backward", sequence: [6, 3, 8, 1, 5, 9, 2, 7], timeLimit: 28 },
     { R: 1, T: 2, B: 8, N: 2, D: 1, factor: "Gwm" }),
+
+  // Extreme forward spans — 9, 10, 11 digits
+  item({ id: "ms14", type: "forward", sequence: [2, 8, 5, 1, 7, 4, 9, 3, 6], timeLimit: 28 },
+    { R: 1, T: 1, B: 9, N: 1, D: 1, factor: "Gwm" }),
+  item({ id: "ms15", type: "forward", sequence: [6, 1, 9, 4, 7, 2, 8, 5, 3, 0], timeLimit: 32 },
+    { R: 1, T: 1, B: 10, N: 1, D: 1, factor: "Gwm" }),
+  item({ id: "ms16", type: "forward", sequence: [3, 9, 2, 7, 0, 5, 8, 1, 6, 4, 9], timeLimit: 35 },
+    { R: 1, T: 1, B: 11, N: 1, D: 1, factor: "Gwm" }),
 ];
 
 // ========================================
@@ -729,6 +956,61 @@ export const quantitativeReasoning = [
     timeLimit: 90,
   }, { R: 1, T: 2, B: 5, N: 3, D: 3, factor: "Gq" }),
 
+  // QR9b: Alternating operations — ×2 then +3 repeating
+  // R=2 (two alternating rules), T=2, B=4, N=2, D=3
+  // b ≈ +0.80 → IQ ~112
+  item({
+    id: "qr9b",
+    sequence: "1, 2, 5, 10, 13, 26, ___",
+    options: ["29", "52", "30", "28"],
+    correct: 0,
+    timeLimit: 75,
+  }, { R: 2, T: 2, B: 4, N: 2, D: 3, factor: "Gq" }),
+
+  // QR9c: Second-order differences increasing by 3
+  // R=2 (first + second order), T=3, B=5, N=3, D=3
+  // b ≈ +1.20 → IQ ~118
+  item({
+    id: "qr9c",
+    sequence: "1, 4, 10, 20, 35, ___",
+    options: ["56", "50", "55", "60"],
+    correct: 0,
+    timeLimit: 75,
+  }, { R: 2, T: 3, B: 5, N: 3, D: 3, factor: "Gq" }),
+
+  // QR9d: Triangular numbers × position index
+  // R=3 (triangular + position + multiplication), T=3, B=5, N=3, D=3
+  // b ≈ +1.50 → IQ ~123
+  item({
+    id: "qr9d",
+    sequence: "1, 6, 18, 40, 75, ___",
+    options: ["126", "105", "120", "130"],
+    correct: 0,
+    timeLimit: 90,
+  }, { R: 3, T: 3, B: 5, N: 3, D: 3, factor: "Gq" }),
+
+  // QR9e: Recursive with two operations — a(n) = 2·a(n-1) - a(n-2) + n
+  // R=3 (two lookbacks + position-dependent increment), T=3, B=5, N=3, D=4
+  // b ≈ +1.85 → IQ ~128
+  item({
+    id: "qr9e",
+    sequence: "1, 3, 8, 18, 35, ___",
+    options: ["61", "55", "58", "65"],
+    correct: 0,
+    timeLimit: 90,
+  }, { R: 3, T: 3, B: 5, N: 3, D: 4, factor: "Gq" }),
+
+  // QR9f: Cube differences — n³ - (n-1)³ = 3n²-3n+1
+  // R=3 (cubic + differencing + quadratic result), T=3, B=5, N=3, D=4
+  // b ≈ +2.10 → IQ ~132
+  item({
+    id: "qr9f",
+    sequence: "1, 7, 19, 37, 61, ___",
+    options: ["91", "85", "95", "87"],
+    correct: 0,
+    timeLimit: 90,
+  }, { R: 3, T: 3, B: 5, N: 3, D: 4, factor: "Gq" }),
+
   // QR10: n²(n+1) — polynomial with interaction
   // R=3 (squaring + increment + multiplication), T=3, B=5, N=3, D=4
   item({
@@ -738,6 +1020,52 @@ export const quantitativeReasoning = [
     correct: 0,
     timeLimit: 90,
   }, { R: 3, T: 3, B: 5, N: 3, D: 4, factor: "Gq" }),
+
+  // QR10b: Multi-step optimization with constraints
+  // R=4, T=4, B=6, N=3, D=4
+  item({
+    id: "qr10b",
+    question: "A function f satisfies: f(x+y) = f(x)\u00b7f(y) for all real x,y, and f(1) = 3. What is f(5)?",
+    options: ["243", "125", "81", "729"],
+    correct: 0,
+    timeLimit: 90,
+  }, { R: 4, T: 4, B: 6, N: 3, D: 4, factor: "Gq" }),
+
+  // QR10c: Abstract number theory reasoning
+  // R=4, T=4, B=7, N=4, D=5
+  item({
+    id: "qr10c",
+    question: "How many integers from 1 to 1000 are neither perfect squares nor perfect cubes?",
+    options: ["963", "958", "965", "970"],
+    correct: 0,
+    timeLimit: 120,
+  }, { R: 4, T: 4, B: 7, N: 4, D: 5, factor: "Gq" }),
+
+  // QR11: Nested recurrence with modular arithmetic
+  // a(n) = a(n-1)² mod 97 + a(n-2), requiring simultaneous modular squaring and addition
+  // R=5 (squaring + modular reduction + addition + two-term lookback + interaction), T=5, B=7, N=4, D=5
+  item({
+    id: "qr11",
+    sequence: "3, 5, 14, 201 mod 97 + 5 = 12, 156 mod 97 + 14 = 73, ...",
+    question: "Given a(1)=3, a(2)=5, and a(n) = a(n-1)² mod 97 + a(n-2), what is a(6)?",
+    options: ["45", "78", "62", "31"],
+    correct: 0,
+    timeLimit: 150,
+  }, { R: 5, T: 5, B: 7, N: 4, D: 5, factor: "Gq" }),
+
+  // QR12: Multi-rule interleaved sequence with conditional branching
+  // If previous term is even: divide by 2 then add the position index.
+  // If previous term is odd: multiply by 3 then subtract the position index.
+  // Starting from 7: must track parity, position, and two different operations.
+  // R=5 (parity check + two operation branches + position tracking + cumulative state), T=5, B=8, N=4, D=5
+  item({
+    id: "qr12",
+    sequence: "Position 1: 7 (odd→3×7−1=20), Position 2: 20 (even→20/2+2=12), Position 3: 12 (even→12/2+3=9), Position 4: 9 (odd→3×9−4=23), Position 5: 23 (odd→3×23−5=64), Position 6: ?",
+    question: "Given the rule: if a(n) is even, a(n+1) = a(n)/2 + (n+1); if a(n) is odd, a(n+1) = 3×a(n) − (n+1). Starting with a(1)=7, what is a(7)?",
+    options: ["38", "35", "41", "29"],
+    correct: 0,
+    timeLimit: 150,
+  }, { R: 5, T: 5, B: 8, N: 4, D: 5, factor: "Gq" }),
 ];
 
 // ========================================
@@ -768,8 +1096,8 @@ export const subtests = [
     factor: "Gf-WM",
     description: "Visual pattern completion requiring simultaneous rule tracking and active manipulation in working memory",
     icon: "🧩",
-    itemCount: 10,
-    estimatedTime: "8 min",
+    itemCount: 13,
+    estimatedTime: "10 min",
     weight: 0.20,
   },
   {
@@ -779,7 +1107,7 @@ export const subtests = [
     factor: "Gf-WMC",
     description: "Multi-step logical deduction requiring large relational structures to be held simultaneously",
     icon: "🔗",
-    itemCount: 10,
+    itemCount: 13,
     estimatedTime: "10 min",
     weight: 0.20,
   },
@@ -790,7 +1118,7 @@ export const subtests = [
     factor: "Gc",
     description: "Verbal analogies measuring depth of abstract conceptual reasoning",
     icon: "💡",
-    itemCount: 10,
+    itemCount: 13,
     estimatedTime: "5 min",
     weight: 0.15,
   },
@@ -801,7 +1129,7 @@ export const subtests = [
     factor: "Gc",
     description: "Vocabulary depth — precision of semantic knowledge",
     icon: "📖",
-    itemCount: 10,
+    itemCount: 16,
     estimatedTime: "5 min",
     weight: 0.10,
   },
@@ -812,7 +1140,7 @@ export const subtests = [
     factor: "Gwm",
     description: "Forward and backward digit span — pure working memory capacity",
     icon: "🧠",
-    itemCount: 13,
+    itemCount: 16,
     estimatedTime: "6 min",
     weight: 0.15,
   },
@@ -823,8 +1151,8 @@ export const subtests = [
     factor: "Gq",
     description: "Number pattern recognition and mathematical rule extraction",
     icon: "🔢",
-    itemCount: 10,
-    estimatedTime: "8 min",
+    itemCount: 19,
+    estimatedTime: "12 min",
     weight: 0.10,
   },
   {

@@ -1,0 +1,6 @@
+name = "structuramentis"
+compatibility_date = "2024-01-01"
+
+[[kv_namespaces]]
+binding = "TRACKING"
+id = "e6cd03fc206244b888fcc5fb9001fa6c"

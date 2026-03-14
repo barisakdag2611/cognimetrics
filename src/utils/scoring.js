@@ -5,7 +5,7 @@
 
 import CryptoJS from 'crypto-js';
 
-const VERIFICATION_SECRET = "CogniMetrics-2026-Structural-Assessment";
+const VERIFICATION_SECRET = "StructuraMentis-2026-Structural-Assessment";
 
 // 2PL IRT probability
 function irtProbability(theta, a, b) {
@@ -31,10 +31,10 @@ function logLikelihood(theta, responses) {
 export function estimateTheta(responses) {
   if (responses.length === 0) return 0;
 
-  // Grid search
+  // Grid search (extended range for extreme items)
   let bestTheta = 0;
   let bestLL = -Infinity;
-  for (let theta = -4; theta <= 4; theta += 0.1) {
+  for (let theta = -4; theta <= 5; theta += 0.1) {
     const ll = logLikelihood(theta, responses);
     if (ll > bestLL) {
       bestLL = ll;
@@ -57,18 +57,23 @@ export function estimateTheta(responses) {
     if (Math.abs(secondDeriv) < 1e-10) break;
     const step = firstDeriv / secondDeriv;
     theta -= step;
-    theta = Math.max(-4, Math.min(4, theta));
+    theta = Math.max(-4, Math.min(5, theta));
   }
 
   return theta;
 }
 
 // Convert theta to IQ scale (mean=100, SD=15)
+// Internal range: 40-175. Display capped at 160 (shows ">160")
 export function thetaToIQ(theta) {
-  // theta is on a standard normal-ish scale
-  // Map theta range [-4, 4] to IQ range [40, 160]
   const iq = 100 + theta * 15;
-  return Math.round(Math.max(40, Math.min(160, iq)));
+  return Math.round(Math.max(40, Math.min(175, iq)));
+}
+
+// Format IQ for display — shows ">160" for scores above 160
+export function formatIQ(iq) {
+  if (iq > 160) return ">160";
+  return String(iq);
 }
 
 // Score each subtest independently
@@ -162,25 +167,62 @@ export function calculateFactorScores(subtestScores) {
   return factors;
 }
 
-// Speed Match scoring (special case — based on speed + accuracy)
+// Speed Match scoring — IRT-compatible via efficiency metric
+// Maps accuracy × speed into a pseudo-IRT theta with proper scaling
 export function scoreSpeedMatch(trials, totalTimeMs) {
   const correct = trials.filter(t => t.correct).length;
   const accuracy = correct / trials.length;
   const avgTimePerTrial = totalTimeMs / trials.length;
 
-  // Composite score: accuracy * speed factor
-  // Average response time norm: ~1500ms per trial is average
-  const speedFactor = Math.max(0.5, Math.min(2.0, 1500 / avgTimePerTrial));
-  const rawScore = accuracy * speedFactor;
+  // Efficiency = accuracy weighted by speed relative to norm
+  // Norm: 1200ms per trial is mean, SD ~400ms
+  const speedZ = (1200 - avgTimePerTrial) / 400; // positive = faster than average
+  const clampedSpeedZ = Math.max(-2, Math.min(2, speedZ));
 
-  // Map to theta: rawScore 0.5=theta-2, 1.0=theta0, 1.5=theta+2
-  const theta = (rawScore - 1.0) * 4;
+  // Accuracy contributes most, speed modulates
+  // accuracyTheta: transform accuracy to theta via logit
+  const accuracyLogit = Math.log(Math.max(accuracy, 0.01) / Math.max(1 - accuracy, 0.01));
+
+  // Combined theta: 70% accuracy logit + 30% speed z-score
+  // This preserves IRT-like scaling while incorporating speed
+  const theta = 0.7 * Math.max(-3, Math.min(3, accuracyLogit)) + 0.3 * clampedSpeedZ;
+
   return {
     theta: Math.max(-3, Math.min(3, theta)),
     correct,
     total: trials.length,
     avgTimeMs: Math.round(avgTimePerTrial),
     accuracy: Math.round(accuracy * 100),
+  };
+}
+
+// Standard Error of Measurement for a theta estimate
+// Uses Fisher Information from 2PL model
+export function calculateSEM(theta, responses) {
+  if (responses.length === 0) return 999;
+
+  let fisherInfo = 0;
+  for (const r of responses) {
+    const p = irtProbability(theta, r.discrimination, r.difficulty);
+    const a = r.discrimination;
+    fisherInfo += a * a * p * (1 - p);
+  }
+
+  if (fisherInfo <= 0) return 999;
+  return 1 / Math.sqrt(fisherInfo);
+}
+
+// 95% confidence interval for an IQ estimate
+export function iqConfidenceInterval(theta, responses) {
+  const sem = calculateSEM(theta, responses);
+  const iq = thetaToIQ(theta);
+  const marginIQ = Math.round(sem * 15 * 1.96); // 95% CI
+  return {
+    iq,
+    sem: Math.round(sem * 100) / 100,
+    lower: Math.max(40, iq - marginIQ),
+    upper: Math.min(175, iq + marginIQ),
+    marginIQ,
   };
 }
 
@@ -194,7 +236,7 @@ export function generateVerificationCode(testData) {
   });
   const hash = CryptoJS.HmacSHA256(payload, VERIFICATION_SECRET);
   const code = CryptoJS.enc.Base64.stringify(hash).substring(0, 12).replace(/[+/=]/g, 'X');
-  return `CM-${code}`.toUpperCase();
+  return `SM-${code}`.toUpperCase();
 }
 
 // Generate unique test ID

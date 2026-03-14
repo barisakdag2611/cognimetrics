@@ -5,8 +5,8 @@ export default function LanguageSelect({ onSelect }) {
         {/* Decorative line */}
         <div className="lang-ornament">&#x2726;</div>
 
-        <h1 className="lang-select-title">COGNIMETRICS</h1>
-        <p className="lang-select-subtitle">Structural Cognitive Assessment</p>
+        <h1 className="lang-select-title">STRVCTVRA MENTIS</h1>
+        <p className="lang-select-subtitle">Zihnin Yapısı</p>
 
         <div className="lang-divider">
           <span className="lang-divider-line" />
@@ -23,7 +23,6 @@ export default function LanguageSelect({ onSelect }) {
           <button className="lang-option" onClick={() => onSelect('tr')}>
             <span className="lang-option-name">Türkçe</span>
             <span className="lang-option-sub">Türkiye Edisyonu</span>
-            <span className="lang-option-badge">İlk 12 saat ücretsiz</span>
           </button>
         </div>
 
@@ -34,6 +33,7 @@ export default function LanguageSelect({ onSelect }) {
           <span className="lang-footer-dot">&#xB7;</span>
           <span>Cross-Structural Isomorphism</span>
         </div>
+        <div className="copyright">&copy; 2026 Muhammet Barış Akdağ. All rights reserved.</div>
       </div>
     </div>
   );

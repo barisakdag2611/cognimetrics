@@ -1,23 +1,4 @@
-// Launch: 2026-03-13T17:00:00Z — 12 hour free window for TR
-const LAUNCH_TIME = new Date('2026-03-13T17:00:00Z').getTime();
-const FREE_WINDOW_MS = 12 * 60 * 60 * 1000;
-
-function isFreeWindow() {
-  return Date.now() < LAUNCH_TIME + FREE_WINDOW_MS;
-}
-
-function getRemainingFreeTime() {
-  const remaining = (LAUNCH_TIME + FREE_WINDOW_MS) - Date.now();
-  if (remaining <= 0) return null;
-  const hours = Math.floor(remaining / (1000 * 60 * 60));
-  const mins = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
-  return `${hours}s ${mins}dk`;
-}
-
 export default function LandingPage({ t, onStart, onMethodology }) {
-  const isFree = t.freePromo && isFreeWindow();
-  const remaining = getRemainingFreeTime();
-
   return (
     <div className="landing">
       <div className="landing-content">
@@ -69,14 +50,6 @@ export default function LandingPage({ t, onStart, onMethodology }) {
           <button className="btn-primary" onClick={onStart}>
             {t.startBtn}
           </button>
-          {isFree ? (
-            <div className="landing-promo">
-              <div className="promo-badge">{t.freePromo}</div>
-              {remaining && <div className="promo-countdown">Kalan süre: {remaining}</div>}
-            </div>
-          ) : (
-            <div className="landing-price">{t.priceText}</div>
-          )}
           <button className="btn-secondary" onClick={onMethodology}>
             {t.methodologyBtn}
           </button>
@@ -102,7 +75,7 @@ export default function LandingPage({ t, onStart, onMethodology }) {
         </div>
 
         <div className="landing-creator">
-          {t.createdBy} <strong>Muhammet Baris Akdag</strong>
+          &copy; 2026 Muhammet Barış Akdağ. All rights reserved.
         </div>
       </div>
     </div>

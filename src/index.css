@@ -1,16 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
 :root {
   /* Muhaymin-inspired palette — scholarly, warm, elite */
-  --bg-primary: #0d1117;
-  --bg-secondary: #131920;
-  --bg-card: rgba(201, 168, 76, 0.04);
-  --bg-card-hover: rgba(201, 168, 76, 0.08);
+  --bg-primary: #fefcf8;
+  --bg-secondary: #f5f0e8;
+  --bg-card: rgba(158, 72, 52, 0.06);
+  --bg-card-hover: rgba(158, 72, 52, 0.12);
 
-  --gold: #c9a84c;
-  --gold-light: #e8d5a0;
-  --gold-dim: #8b7355;
-  --gold-glow: rgba(201, 168, 76, 0.15);
+  --gold: #8b3520;
+  --gold-light: #6b2818;
+  --gold-dim: #7a3020;
+  --gold-glow: rgba(158, 72, 52, 0.15);
 
   --teal: #2c5f6e;
   --teal-light: #3d8a9e;
@@ -20,8 +20,8 @@
   --cream-dim: #c4b99a;
   --parchment: #e8dcc8;
 
-  --text-primary: #e8dcc8;
-  --text-secondary: #a89b7e;
+  --text-primary: #1a1a1a;
+  --text-secondary: #2e2720;
   --text-muted: #6b6050;
 
   --accent: var(--gold);
@@ -32,13 +32,14 @@
   --warning: #d4a843;
   --danger: #c45c5c;
 
-  --border: rgba(201, 168, 76, 0.12);
-  --border-strong: rgba(201, 168, 76, 0.25);
+  --border: rgba(158, 72, 52, 0.20);
+  --border-strong: rgba(158, 72, 52, 0.35);
 
   --radius: 4px;
   --radius-sm: 3px;
 
   --serif: 'Cormorant Garamond', 'Georgia', serif;
+  --inscription: 'Cinzel', 'Trajan Pro', serif;
   --sans: 'Inter', system-ui, -apple-system, sans-serif;
   --mono: 'JetBrains Mono', ui-monospace, monospace;
 }
@@ -76,16 +77,16 @@ input {
 
 ::selection {
   background: var(--gold);
-  color: var(--bg-primary);
+  color: #ffffff;
 }
 
 ::-webkit-scrollbar {
   width: 4px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--bg-primary);
+  background: var(--bg-secondary);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--gold-dim);
+  background: var(--gold);
   border-radius: 2px;
 }

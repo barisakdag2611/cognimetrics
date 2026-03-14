@@ -1,10 +1,11 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import LanguageSelect from './components/LanguageSelect';
 import LandingPage from './components/LandingPage';
 import TestRunner from './components/TestRunner';
 import ResultsPage from './components/ResultsPage';
 import MethodologyPage from './components/MethodologyPage';
 import { translations } from './data/translations';
+import { trackPageView } from './utils/tracking';
 import './App.css';
 
 function App() {
@@ -13,6 +14,16 @@ function App() {
   const [lang, setLang] = useState(null);
 
   const t = lang ? translations[lang] : null;
+
+  // Track every page view
+  useEffect(() => {
+    trackPageView(page);
+  }, [page]);
+
+  // Track initial site visit
+  useEffect(() => {
+    trackPageView('site_visit');
+  }, []);
 
   const selectLang = useCallback((l) => {
     setLang(l);
