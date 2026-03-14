@@ -400,6 +400,41 @@ export const relationalReasoning = [
     timeLimit: 120,
   }, { R: 4, T: 4, B: 7, N: 3, D: 4, factor: "Gf" }),
 
+  // RR10b: State-cycling graph traversal — track room states + apply movement rule
+  // 5 rooms in a cycle with shortcuts, each room has a cycling state (R→G→B→R).
+  // Robot follows: always move to adjacent room with earliest alphabetical state, ties→lower number.
+  // After visiting, room state cycles. Must simulate 7 moves.
+  // R=4 (graph connectivity + 5 simultaneous states + cycle rule + tie-breaking), T=4, B=8, N=4, D=4
+  // b = +3.90, IQ ~158.5
+  // Trace: Start R1(R→G). States:[G,G,B,R,G]. M1→R3(B→R):[G,G,R,R,G]. M2→R1(G→B):[B,G,R,R,G].
+  // M3→R2(G→B):[B,B,R,R,G]. M4→R1(B→R):[R,B,R,R,G]. M5→R2(B→R):[R,R,R,R,G].
+  // M6→R1(R→G):[G,R,R,R,G]. M7→R5(G→B):[G,R,R,R,B]. Answer: Room 5.
+  item({
+    id: "rr10b",
+    premise: "Five rooms (1-5) are connected in a cycle: 1↔2↔3↔4↔5↔1, plus shortcuts 1↔3 and 2↔4. Each room has a state that cycles: Red→Green→Blue→Red. Initial states: [Red, Green, Blue, Red, Green]. A robot starts in Room 1 (which then cycles to Green). It always moves to the adjacent room whose state comes earliest alphabetically (B<G<R). Ties: choose lower-numbered room. After visiting a room, that room's state cycles forward.",
+    question: "After 7 moves, which room is the robot in?",
+    options: ["5", "3", "1", "2"],
+    correct: 0,
+    timeLimit: 180,
+  }, { R: 4, T: 4, B: 8, N: 4, D: 4, factor: "Gf" }),
+
+  // RR10c: Multi-rule voting system — track conditional, oppositional, and majority-dependent votes
+  // 7 members with 6 interacting voting rules including veto, mirroring, opposition, conditional, and majority-inverse.
+  // Must resolve all rules to determine final vote count.
+  // R=5 (6 interacting rules across 7 members), T=4 (conditional + contra-conditional + majority-inverse), B=7, N=4, D=4
+  // b = +4.15, IQ ~162.2
+  // Trace: P=yes, Q=yes, S=yes given. R=yes(rule3:Q=R). T=no(rule4:S↔T opposite).
+  // U=yes(rule5:P=yes AND Q∈{Q,R}=yes). V=no(rule6:majority{Q,R,S}=yes→V=opposite=no).
+  // Yes: P,Q,R,S,U=5. No: T,V=2. 5≥4 and P not opposed → passes.
+  item({
+    id: "rr10c",
+    premise: "Seven committee members (P, Q, R, S, T, U, V) vote on proposals under these rules: (1) P has veto power — any proposal P opposes fails regardless of other votes. (2) A proposal passes with ≥4 yes votes. (3) Q always votes the same as R. (4) S and T always vote opposite to each other. (5) U votes yes only if P votes yes AND at least one of {Q, R} votes yes. (6) V votes the opposite of the majority of {Q, R, S}.",
+    question: "If P, Q, and S all vote yes, how many members vote yes in total?",
+    options: ["5", "4", "6", "3"],
+    correct: 0,
+    timeLimit: 150,
+  }, { R: 5, T: 4, B: 7, N: 4, D: 4, factor: "Gf" }),
+
   // RR11: 8-element constraint satisfaction with bidirectional conditionals
   // 8 people seated around a circular table with 6 constraints including
   // if-then-else conditionals. Must resolve all constraints simultaneously.
@@ -408,7 +443,7 @@ export const relationalReasoning = [
     id: "rr11",
     premise: "Eight diplomats (A-H) sit around a circular table. Constraints: (1) A sits directly opposite E. (2) B is adjacent to C but not adjacent to D. (3) If F is adjacent to A, then G must be adjacent to H; otherwise G sits opposite H. (4) D sits exactly 3 seats from A. (5) H is not adjacent to A or E. (6) C and F cannot both be in the same half of the table as B.",
     question: "If B sits in seat 1 and A sits in seat 3, which seat must G occupy?",
-    options: ["6", "5", "8", "2"],
+    options: ["4", "6", "8", "2"],
     correct: 0,
     timeLimit: 180,
   }, { R: 5, T: 4, B: 8, N: 4, D: 5, factor: "Gf" }),
@@ -655,15 +690,15 @@ export const wordDepth = [
     timeLimit: 45,
   }, { R: 1, T: 1, B: 3, N: 2, D: 3, factor: "Gc" }),
 
-  // WD4: Requires distinguishing between related concepts
-  // R=1, T=1, B=3, N=2, D=3 → b=-0.60, IQ ~91 (same as wd6)
+  // WD4: Requires psychological inference (irony → intent), not just vocabulary lookup
+  // R=1, T=1, B=3, N=3, D=3 → b=-0.30, IQ ~95.5
   item({
     id: "wd4",
     question: "Which word means 'the use of irony to mock or convey contempt'?",
     options: ["Sarcasm", "Humor", "Satire", "Wit"],
     correct: 0,
     timeLimit: 45,
-  }, { R: 1, T: 1, B: 3, N: 2, D: 3, factor: "Gc" }),
+  }, { R: 1, T: 1, B: 3, N: 3, D: 3, factor: "Gc" }),
 
   // WD5: Abstract concept, fine distinctions
   // R=1, T=1, B=3, N=2, D=4 → b=-0.40, IQ ~94
@@ -942,15 +977,15 @@ export const quantitativeReasoning = [
     timeLimit: 60,
   }, { R: 1, T: 2, B: 4, N: 3, D: 3, factor: "Gq" }),
 
-  // QR6: Factorial — n! = n × (n-1)! (b=+0.35, IQ ~105)
-  // R=1, T=3 (must identify factorial growth), B=4, N=3 (less familiar operation), D=2
+  // QR6: Factorial — n! = n × (n-1)! (b=-0.05, IQ ~99)
+  // R=1, T=3 (must identify factorial growth), B=4, N=3 (less familiar operation), D=1 (distractors obviously wrong)
   item({
     id: "qr6",
     sequence: "1, 2, 6, 24, 120, ___",
     options: ["720", "600", "240", "360"],
     correct: 0,
     timeLimit: 60,
-  }, { R: 1, T: 3, B: 4, N: 3, D: 2, factor: "Gq" }),
+  }, { R: 1, T: 3, B: 4, N: 3, D: 1, factor: "Gq" }),
 
   // QR7: Increasing differences — differences form +2 sequence (b=+0.40, IQ ~106)
   // R=2 (first-order sequence + second-order pattern), T=2, B=4, N=2, D=3
@@ -1138,7 +1173,7 @@ export const subtests = [
     factor: "Gf-WMC",
     description: "Multi-step logical deduction requiring large relational structures to be held simultaneously",
     icon: "🔗",
-    itemCount: 13,
+    itemCount: 15,
     estimatedTime: "10 min",
     weight: 0.20,
   },
