@@ -9,8 +9,8 @@
     <!-- SEO -->
     <meta name="description" content="Structura Mentis is a structural cognitive assessment designed to measure fluid intelligence through pattern recognition, spatial reasoning, and logical analysis." />
     <meta name="keywords" content="IQ test, cognitive assessment, intelligence test, pattern recognition, spatial reasoning, logical analysis, Structura Mentis" />
-    <meta name="author" content="Muhammet Baris Akdag" />
-    <meta name="copyright" content="Muhammet Baris Akdag" />
+    <meta name="author" content="Muhammet Barış Akdağ" />
+    <meta name="copyright" content="© 2026 Muhammet Barış Akdağ. All rights reserved." />
     <link rel="canonical" href="https://structuramentis.org/" />
 
     <!-- Open Graph -->
@@ -26,12 +26,31 @@
     <meta name="twitter:description" content="A structural cognitive assessment designed to measure fluid intelligence through pattern recognition, spatial reasoning, and logical analysis." />
 
     <!-- Security -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob:; font-src 'self' https://fonts.gstatic.com; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://structuramentis.org; frame-ancestors 'none'; base-uri 'self'; form-action 'self';" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/cognimetrics/favicon.svg" />
-    <script type="module" crossorigin src="/cognimetrics/assets/index-C7rFAT0k.js"></script>
-    <link rel="stylesheet" crossorigin href="/cognimetrics/assets/index-D4cgNQPy.css">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Redirect Instagram in-app browser to native browser -->
+    <script>
+      (function() {
+        var ua = navigator.userAgent || '';
+        if (/Instagram|FBAN|FBAV/i.test(ua)) {
+          var url = window.location.href;
+          // iOS: use intent to open Safari
+          if (/iPhone|iPad|iPod/i.test(ua)) {
+            window.location.href = 'x-safari-' + url;
+            setTimeout(function() { window.open(url, '_system'); }, 300);
+          }
+          // Android: use intent to open default browser
+          else if (/Android/i.test(ua)) {
+            window.location.href = 'intent://' + url.replace(/^https?:\/\//, '') + '#Intent;scheme=https;action=android.intent.action.VIEW;end';
+          }
+        }
+      })();
+    </script>
+    <script type="module" crossorigin src="/assets/index-Dye02Fyb.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Dvx2_Vud.css">
   </head>
   <body>
     <div id="root"></div>
