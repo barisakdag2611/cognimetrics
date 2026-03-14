@@ -350,24 +350,9 @@ export const relationalReasoning = [
     timeLimit: 90,
   }, { R: 3, T: 3, B: 6, N: 3, D: 3, factor: "Gf" }),
 
-  // RR8: Dynamic system with feedback — must simulate to equilibrium
-  // R=4 (4 causal links forming a cycle), T=4 (conditional + recursive simulation), B=5 (5 variables), N=3, D=4
-  item({
-    id: "rr8",
-    premise: "In a system: if A and B are both true, C becomes false. If C is false and D is true, E becomes true. If E is true, A becomes false. Initially: A=true, B=true, D=true, C=true, E=false.",
-    question: "After the system reaches equilibrium, what are the final values?",
-    options: [
-      "A=false, B=true, C=false, D=true, E=true",
-      "A=true, B=true, C=false, D=true, E=true",
-      "A=false, B=true, C=true, D=true, E=false",
-      "The system oscillates and never reaches equilibrium"
-    ],
-    correct: 0,
-    timeLimit: 120,
-  }, { R: 4, T: 4, B: 5, N: 3, D: 4, factor: "Gf" }),
-
-  // RR9: Gear system — ratio + direction propagation through chain
+  // RR8: Gear system — ratio + direction propagation through chain
   // R=3 (ratio × direction × chain), T=3 (multiplicative chain), B=6 (4 gears × teeth + direction), N=3, D=3
+  // b = +2.05, IQ ~130.8 — comes BEFORE dynamic system (IQ 142)
   // A→B: 12/8=1.5, 3×1.5=4.5 turns, reverses to CCW
   // B→C: 8/16=0.5, 4.5×0.5=2.25, reverses to CW
   // C→D: 16/6=8/3, 2.25×8/3=6, reverses to CCW → answer: 6 turns counterclockwise
@@ -384,6 +369,23 @@ export const relationalReasoning = [
     correct: 0,
     timeLimit: 120,
   }, { R: 3, T: 3, B: 6, N: 3, D: 3, factor: "Gf" }),
+
+  // RR9b: Dynamic system with feedback — must simulate to equilibrium
+  // R=4 (4 causal links forming a cycle), T=4 (conditional + recursive simulation), B=5 (5 variables), N=3, D=4
+  // b = +2.80, IQ ~142
+  item({
+    id: "rr9b",
+    premise: "In a system: if A and B are both true, C becomes false. If C is false and D is true, E becomes true. If E is true, A becomes false. Initially: A=true, B=true, D=true, C=true, E=false.",
+    question: "After the system reaches equilibrium, what are the final values?",
+    options: [
+      "A=false, B=true, C=false, D=true, E=true",
+      "A=true, B=true, C=false, D=true, E=true",
+      "A=false, B=true, C=true, D=true, E=false",
+      "The system oscillates and never reaches equilibrium"
+    ],
+    correct: 0,
+    timeLimit: 120,
+  }, { R: 4, T: 4, B: 5, N: 3, D: 4, factor: "Gf" }),
 
   // RR10: Interleaved cyclical rule application — must track rule index + state
   // R=4 (3 rules + cycle tracking), T=4 (conditional application by position), B=7 (sequence + rule state + position), N=3, D=4
@@ -593,15 +595,23 @@ export const conceptualLinks = [
 // ========================================
 // WAIS Vocabulary isomorphism:
 // Structural demands: semantic precision.
-// Difficulty scales with:
-//   Word frequency (rare = harder)
-//   Abstractness (abstract = harder)
-//   Distractor similarity (near-synonyms = harder)
-// B is low (2-3) but D scales high for hard items.
+//
+// IMPORTANT: For vocabulary recognition, the cognitive operation is
+// fundamentally identification (T=1-2) with low relational complexity (R=1-2).
+// The primary difficulty drivers are:
+//   N (novelty) = word frequency/rarity — rare words are harder
+//   D (distractor quality) = semantic proximity of wrong answers
+//   B = number of competing definitions to evaluate (2-4)
+//
+// R and T are kept honest: vocabulary recognition does NOT involve
+// multi-relational binding (R>2) or compound transformations (T>2).
+// This means WD has a natural ceiling around IQ ~128, which is
+// consistent with WAIS Vocabulary's contribution to the composite.
+// High-ability differentiation is handled by Gf subtests, not Gc.
 
 export const wordDepth = [
   // WD1: Common word, concrete meaning
-  // R=1, T=1 (identify), B=2, N=1 (familiar), D=1 (obvious distractors)
+  // R=1, T=1, B=2, N=1, D=1 → b=-1.65, IQ ~75
   item({
     id: "wd1",
     question: "Which word means 'to make something better'?",
@@ -611,7 +621,7 @@ export const wordDepth = [
   }, { R: 1, T: 1, B: 2, N: 1, D: 1, factor: "Gc" }),
 
   // WD2: Medium frequency, precise temporal meaning
-  // R=1, T=1, B=2, N=1, D=2 (sequential is a plausible confuse)
+  // R=1, T=1, B=2, N=1, D=2 → b=-1.45, IQ ~78
   item({
     id: "wd2",
     question: "Which word means 'happening at the same time'?",
@@ -621,7 +631,7 @@ export const wordDepth = [
   }, { R: 1, T: 1, B: 2, N: 1, D: 2, factor: "Gc" }),
 
   // WD3: Lower frequency, specific political meaning
-  // R=1, T=1, B=2, N=2, D=3 (resign/retire are near-synonyms)
+  // R=1, T=1, B=2, N=2, D=3 → b=-0.85, IQ ~87
   item({
     id: "wd3",
     question: "Which word means 'to formally give up a position of power'?",
@@ -630,28 +640,8 @@ export const wordDepth = [
     timeLimit: 30,
   }, { R: 1, T: 1, B: 2, N: 2, D: 3, factor: "Gc" }),
 
-  // WD4: Requires distinguishing between related concepts
-  // R=1, T=1, B=3 (must compare 4 similar concepts), N=2, D=3
-  item({
-    id: "wd4",
-    question: "Which word means 'the use of irony to mock or convey contempt'?",
-    options: ["Sarcasm", "Humor", "Satire", "Wit"],
-    correct: 0,
-    timeLimit: 45,
-  }, { R: 1, T: 1, B: 3, N: 2, D: 3, factor: "Gc" }),
-
-  // WD5: Abstract concept, fine distinctions
-  // R=1, T=1, B=3, N=2, D=4 (cynicism, nihilism, skepticism are all close)
-  item({
-    id: "wd5",
-    question: "Which word best describes 'a tendency to see the worst aspect of things'?",
-    options: ["Pessimism", "Cynicism", "Nihilism", "Skepticism"],
-    correct: 0,
-    timeLimit: 45,
-  }, { R: 1, T: 1, B: 3, N: 2, D: 4, factor: "Gc" }),
-
-  // WD6: Rare word, precise temporal meaning
-  // R=1, T=1, B=3, N=2, D=3
+  // WD6: Rare word, precise temporal meaning (reordered: before wd4 by b value)
+  // R=1, T=1, B=3, N=2, D=3 → b=-0.60, IQ ~91
   item({
     id: "wd6",
     question: "'Ephemeral' most precisely means:",
@@ -665,38 +655,28 @@ export const wordDepth = [
     timeLimit: 45,
   }, { R: 1, T: 1, B: 3, N: 2, D: 3, factor: "Gc" }),
 
-  // WD7: Rare word, abstract meaning about cognition — requires comparing 4 related meanings
-  // R=2, T=2, B=3, N=3, D=3
+  // WD4: Requires distinguishing between related concepts
+  // R=1, T=1, B=3, N=2, D=3 → b=-0.60, IQ ~91 (same as wd6)
   item({
-    id: "wd7",
-    question: "'Perspicacious' most precisely means:",
-    options: [
-      "Having keen mental perception and understanding",
-      "Being extremely careful and precise",
-      "Showing great ambition",
-      "Being stubbornly persistent"
-    ],
+    id: "wd4",
+    question: "Which word means 'the use of irony to mock or convey contempt'?",
+    options: ["Sarcasm", "Humor", "Satire", "Wit"],
     correct: 0,
-    timeLimit: 60,
-  }, { R: 2, T: 2, B: 3, N: 3, D: 3, factor: "Gc" }),
+    timeLimit: 45,
+  }, { R: 1, T: 1, B: 3, N: 2, D: 3, factor: "Gc" }),
 
-  // WD8: Very rare, meta-concept about truth/appearance
-  // R=2, T=2, B=3, N=3, D=4 (similarity/truthful are near-misses)
+  // WD5: Abstract concept, fine distinctions
+  // R=1, T=1, B=3, N=2, D=4 → b=-0.40, IQ ~94
   item({
-    id: "wd8",
-    question: "'Verisimilitude' most precisely means:",
-    options: [
-      "The appearance of being true or real",
-      "The quality of being similar",
-      "A truthful statement",
-      "An exact replica"
-    ],
+    id: "wd5",
+    question: "Which word best describes 'a tendency to see the worst aspect of things'?",
+    options: ["Pessimism", "Cynicism", "Nihilism", "Skepticism"],
     correct: 0,
-    timeLimit: 60,
-  }, { R: 2, T: 2, B: 3, N: 3, D: 4, factor: "Gc" }),
+    timeLimit: 45,
+  }, { R: 1, T: 1, B: 3, N: 2, D: 4, factor: "Gc" }),
 
-  // WD9: Self-referential word — meta-linguistic self-reference
-  // R=1, T=2, B=3, N=3, D=4
+  // WD9: Self-referential word — meta-linguistic (reordered by b)
+  // R=1, T=1, B=3, N=3, D=3 → b=-0.25, IQ ~96
   item({
     id: "wd9",
     question: "'Sesquipedalian' most precisely means:",
@@ -708,10 +688,41 @@ export const wordDepth = [
     ],
     correct: 0,
     timeLimit: 60,
+  }, { R: 1, T: 1, B: 3, N: 3, D: 3, factor: "Gc" }),
+
+  // WD7: Rare word, abstract meaning about cognition
+  // R=1, T=2, B=3, N=3, D=3 → b=0.05, IQ ~101
+  // T=2: must distinguish between related cognitive concepts (not just identify)
+  item({
+    id: "wd7",
+    question: "'Perspicacious' most precisely means:",
+    options: [
+      "Having keen mental perception and understanding",
+      "Being extremely careful and precise",
+      "Showing great ambition",
+      "Being stubbornly persistent"
+    ],
+    correct: 0,
+    timeLimit: 60,
+  }, { R: 1, T: 2, B: 3, N: 3, D: 3, factor: "Gc" }),
+
+  // WD8: Very rare, meta-concept about truth/appearance
+  // R=1, T=2, B=3, N=3, D=4 → b=0.25, IQ ~104
+  item({
+    id: "wd8",
+    question: "'Verisimilitude' most precisely means:",
+    options: [
+      "The appearance of being true or real",
+      "The quality of being similar",
+      "A truthful statement",
+      "An exact replica"
+    ],
+    correct: 0,
+    timeLimit: 60,
   }, { R: 1, T: 2, B: 3, N: 3, D: 4, factor: "Gc" }),
 
-  // WD10: Rare cognitive/perceptual concept — metacognitive bias concept
-  // R=2, T=3, B=3, N=3, D=4
+  // WD10: Rare cognitive/perceptual concept
+  // R=1, T=2, B=3, N=3, D=4 → b=0.25, IQ ~104
   item({
     id: "wd10",
     question: "'Apophenia' most precisely means:",
@@ -723,10 +734,11 @@ export const wordDepth = [
     ],
     correct: 0,
     timeLimit: 60,
-  }, { R: 2, T: 3, B: 3, N: 3, D: 4, factor: "Gc" }),
+  }, { R: 1, T: 2, B: 3, N: 3, D: 4, factor: "Gc" }),
 
   // WD13: Technical philosophical term with overlapping near-concepts
-  // R=3 (distinguish 3 similar concepts), T=2, B=4, N=3, D=4
+  // R=2, T=1, B=4, N=3, D=4 → b=0.50, IQ ~108
+  // R=2: must simultaneously compare 2 conceptual dimensions (subjective vs objective)
   item({
     id: "wd13",
     question: "'Qualia' most precisely refers to:",
@@ -738,10 +750,10 @@ export const wordDepth = [
     ],
     correct: 0,
     timeLimit: 60,
-  }, { R: 3, T: 2, B: 4, N: 3, D: 4, factor: "Gc" }),
+  }, { R: 2, T: 1, B: 4, N: 3, D: 4, factor: "Gc" }),
 
   // WD14: Rare logical/philosophical term with near-synonym distractors
-  // R=3, T=2, B=4, N=4, D=4
+  // R=2, T=1, B=4, N=4, D=4 → b=0.85, IQ ~113
   item({
     id: "wd14",
     question: "'Apodictic' most precisely means:",
@@ -753,10 +765,11 @@ export const wordDepth = [
     ],
     correct: 0,
     timeLimit: 60,
-  }, { R: 3, T: 2, B: 4, N: 4, D: 4, factor: "Gc" }),
+  }, { R: 2, T: 1, B: 4, N: 4, D: 4, factor: "Gc" }),
 
   // WD15: Technical term requiring cross-domain understanding
-  // R=3, T=3, B=4, N=4, D=4
+  // R=2, T=2, B=4, N=4, D=4 → b=1.15, IQ ~117
+  // T=2: must grasp convergence concept (transformation from two domains to one)
   item({
     id: "wd15",
     question: "'Ergodicity' in its precise technical sense means:",
@@ -768,10 +781,10 @@ export const wordDepth = [
     ],
     correct: 0,
     timeLimit: 75,
-  }, { R: 3, T: 3, B: 4, N: 4, D: 4, factor: "Gc" }),
+  }, { R: 2, T: 2, B: 4, N: 4, D: 4, factor: "Gc" }),
 
   // WD16: Philosophical term with highly similar distractors
-  // R=3, T=3, B=5, N=4, D=5
+  // R=2, T=2, B=4, N=4, D=5 → b=1.35, IQ ~120
   item({
     id: "wd16",
     question: "'Hypostasis' in philosophical usage most precisely means:",
@@ -783,10 +796,11 @@ export const wordDepth = [
     ],
     correct: 0,
     timeLimit: 75,
-  }, { R: 3, T: 3, B: 5, N: 4, D: 5, factor: "Gc" }),
+  }, { R: 2, T: 2, B: 4, N: 4, D: 5, factor: "Gc" }),
 
-  // WD11: Extremely rare philosophical/logical term with near-synonym distractors
-  // R=4 (must distinguish from 3 highly similar concepts), T=4, B=5 (hold 4 competing definitions), N=4, D=5
+  // WD11: Extremely rare philosophical term with near-synonym distractors
+  // R=2, T=2, B=4, N=5, D=5 → b=1.70, IQ ~126
+  // N=5: word is so rare that prior knowledge actively misleads (common "infinite" associations)
   item({
     id: "wd11",
     question: "'Apeiron' in its original philosophical sense most precisely means:",
@@ -798,10 +812,11 @@ export const wordDepth = [
     ],
     correct: 0,
     timeLimit: 75,
-  }, { R: 4, T: 4, B: 5, N: 4, D: 5, factor: "Gc" }),
+  }, { R: 2, T: 2, B: 4, N: 5, D: 5, factor: "Gc" }),
 
-  // WD12: Rare term requiring precise differentiation of overlapping metacognitive concepts
-  // R=4, T=5, B=6, N=4, D=5
+  // WD12: Rare term requiring precise differentiation of overlapping concepts
+  // R=2, T=2, B=4, N=5, D=5 → b=1.70, IQ ~126
+  // Same structural ceiling as WD11 — vocabulary recognition maxes out here
   item({
     id: "wd12",
     question: "'Hyperpraxis' most precisely means:",
@@ -813,7 +828,7 @@ export const wordDepth = [
     ],
     correct: 0,
     timeLimit: 75,
-  }, { R: 4, T: 5, B: 6, N: 4, D: 5, factor: "Gc" }),
+  }, { R: 2, T: 2, B: 4, N: 5, D: 5, factor: "Gc" }),
 ];
 
 // ========================================
@@ -917,17 +932,17 @@ export const quantitativeReasoning = [
     timeLimit: 45,
   }, { R: 1, T: 2, B: 4, N: 2, D: 2, factor: "Gq" }),
 
-  // QR5: Increasing differences — differences form +2 sequence
-  // R=2 (first-order sequence + second-order pattern), T=2, B=4, N=2, D=3
+  // QR5: Prime number sequence (reordered: b=+0.25, IQ ~104)
+  // R=1, T=2, B=4, N=3 (requires prime concept), D=3
   item({
     id: "qr5",
-    sequence: "3, 5, 9, 15, 23, ___",
-    options: ["33", "31", "29", "35"],
+    sequence: "2, 3, 5, 7, 11, 13, ___",
+    options: ["17", "15", "19", "16"],
     correct: 0,
     timeLimit: 60,
-  }, { R: 2, T: 2, B: 4, N: 2, D: 3, factor: "Gq" }),
+  }, { R: 1, T: 2, B: 4, N: 3, D: 3, factor: "Gq" }),
 
-  // QR6: Factorial — n! = n × (n-1)!
+  // QR6: Factorial — n! = n × (n-1)! (b=+0.35, IQ ~105)
   // R=1, T=3 (must identify factorial growth), B=4, N=3 (less familiar operation), D=2
   item({
     id: "qr6",
@@ -937,27 +952,27 @@ export const quantitativeReasoning = [
     timeLimit: 60,
   }, { R: 1, T: 3, B: 4, N: 3, D: 2, factor: "Gq" }),
 
-  // QR7: Prime number sequence
-  // R=1, T=2, B=4, N=3 (requires prime concept), D=3
+  // QR7: Increasing differences — differences form +2 sequence (b=+0.40, IQ ~106)
+  // R=2 (first-order sequence + second-order pattern), T=2, B=4, N=2, D=3
   item({
     id: "qr7",
-    sequence: "2, 3, 5, 7, 11, 13, ___",
-    options: ["17", "15", "19", "16"],
+    sequence: "3, 5, 9, 15, 23, ___",
+    options: ["33", "31", "29", "35"],
     correct: 0,
     timeLimit: 60,
-  }, { R: 1, T: 2, B: 4, N: 3, D: 3, factor: "Gq" }),
+  }, { R: 2, T: 2, B: 4, N: 2, D: 3, factor: "Gq" }),
 
-  // QR8: 2ⁿ - 1 (Mersenne-like)
-  // R=2 (exponential + offset), T=3, B=4, N=3, D=3
+  // QR8: Alternating operations — ×2 then +3 repeating (b=+0.40, IQ ~106)
+  // R=2 (two alternating rules), T=2, B=4, N=2, D=3
   item({
     id: "qr8",
-    sequence: "1, 3, 7, 15, 31, ___",
-    options: ["63", "47", "55", "62"],
+    sequence: "1, 2, 5, 10, 13, 26, ___",
+    options: ["29", "52", "30", "28"],
     correct: 0,
     timeLimit: 75,
-  }, { R: 2, T: 3, B: 4, N: 3, D: 3, factor: "Gq" }),
+  }, { R: 2, T: 2, B: 4, N: 2, D: 3, factor: "Gq" }),
 
-  // QR9: Tribonacci — each term = sum of three preceding
+  // QR9: Tribonacci — each term = sum of three preceding (b=+0.50, IQ ~108)
   // R=1, T=2, B=5 (need 3 preceding terms), N=3, D=3
   item({
     id: "qr9",
@@ -967,16 +982,15 @@ export const quantitativeReasoning = [
     timeLimit: 90,
   }, { R: 1, T: 2, B: 5, N: 3, D: 3, factor: "Gq" }),
 
-  // QR9b: Alternating operations — ×2 then +3 repeating
-  // R=2 (two alternating rules), T=2, B=4, N=2, D=3
-  // b ≈ +0.80 → IQ ~112
+  // QR9g: 2ⁿ - 1 (Mersenne-like) (b=+1.05, IQ ~116)
+  // R=2 (exponential + offset), T=3, B=4, N=3, D=3
   item({
-    id: "qr9b",
-    sequence: "1, 2, 5, 10, 13, 26, ___",
-    options: ["29", "52", "30", "28"],
+    id: "qr9g",
+    sequence: "1, 3, 7, 15, 31, ___",
+    options: ["63", "47", "55", "62"],
     correct: 0,
     timeLimit: 75,
-  }, { R: 2, T: 2, B: 4, N: 2, D: 3, factor: "Gq" }),
+  }, { R: 2, T: 3, B: 4, N: 3, D: 3, factor: "Gq" }),
 
   // QR9c: Second-order differences increasing by 3
   // R=2 (first + second order), T=3, B=5, N=3, D=3
