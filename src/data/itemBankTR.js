@@ -119,6 +119,16 @@ export const conceptualLinksTR = [
     timeLimit: 75,
   }, { R: 4, T: 3, B: 5, N: 4, D: 5, factor: "Gc" }),
 
+  // CL10c-TR: Profilaktik paradoks — tehdidi kullanarak tehdidi önleme
+  // b = 2.15, IQ ~132
+  item({
+    id: "cl10c_tr",
+    analogy: "Aşı, Hastalık için neyse; Kontrollü Yakma, ___ için odur",
+    options: ["Orman Yangını", "Orman", "İtfaiyecilik", "Duman"],
+    correct: 0,
+    timeLimit: 75,
+  }, { R: 3, T: 3, B: 5, N: 4, D: 3, factor: "Gc" }),
+
   // CL11-TR: Çapraz-alan yapısal değişmez — sistem kendi sınırıyla karşılaşıyor
   item({
     id: "cl11_tr",
@@ -127,6 +137,16 @@ export const conceptualLinksTR = [
     correct: 0,
     timeLimit: 90,
   }, { R: 4, T: 4, B: 6, N: 5, D: 5, factor: "Gc" }),
+
+  // CL11b-TR: Çapraz-alan üretici ilişki — kıtlık değer üretir, belirsizlik bilgi üretir
+  // b = 3.15, IQ ~147
+  item({
+    id: "cl11b_tr",
+    analogy: "Kıtlık, Değer için neyse; Belirsizlik, ___ için odur",
+    options: ["Bilgi", "Risk", "Olasılık", "Kaygı"],
+    correct: 0,
+    timeLimit: 90,
+  }, { R: 4, T: 4, B: 5, N: 4, D: 4, factor: "Gc" }),
 
   // CL12-TR: İkinci-derece yapısal değişmez — basit tekrar → emergent düzen
   item({

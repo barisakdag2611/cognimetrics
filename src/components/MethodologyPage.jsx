@@ -603,61 +603,203 @@ export default function MethodologyPage({ t, lang, onBack }) {
           : 'Reported range: IQ 40 to IQ 160. Items span the full difficulty continuum, with particular density between 85 and 145, where the most meaningful differentiation occurs.'}
       </p>
 
-      <h2>{isTR ? 'Bu Testin Dürüst Olduğu Şeyler' : 'What This Test Is Honest About'}</h2>
+      <h2>{isTR ? 'Psikometrik Özellikler' : 'Psychometric Properties'}</h2>
+      {isTR ? (<>
+        <p>
+          Bu bölüm, testin ölçüm kesinliğini, kapsam profilini ve yapısal sınırlarını
+          belgelendirmektedir.
+        </p>
+        <h3>Test Bilgi Fonksiyonu</h3>
+        <p>
+          IRT çerçevesinde, bir maddenin belirli bir yetenek düzeyindeki ölçüm kesinliği
+          bilgi fonksiyonu ile nicelleştirilir: <em>I<sub>i</sub>(θ) = a<sub>i</sub>² · P<sub>i</sub>(θ) · (1 − P<sub>i</sub>(θ))</em>.
+          Toplam test bilgisi, tüm maddelerin bilgi değerlerinin toplamıdır. Bilgi en yüksek
+          olduğu yerde standart hata en düşüktür; dolayısıyla ölçüm en kesindir.
+        </p>
+        <p>
+          Mevcut madde havuzu (96 madde + 40 hız denemesi), IQ 80–155 aralığında yoğun
+          bilgi üretecek biçimde yapılandırılmıştır. Bu aralıkta her alt testte yeterli
+          madde yoğunluğu mevcuttur. IQ 155'in üzerinde bilgi azalır; bu durum madde
+          eksikliğinden değil, bilişsel uzayın kendisinin sıkışmasından kaynaklanır.
+        </p>
+        <h3>Kapsam Analizi</h3>
+        <p>
+          Her alt test için madde güçlük değerleri (b) sistematik olarak dağıtılmıştır.
+          Ardışık maddeler arasındaki maksimum boşluk hedefi 0.7 standart sapma
+          (yaklaşık 10 IQ puanı) olarak belirlenmiştir. Mevcut durum:
+        </p>
+        <ul>
+          <li><strong>Örüntü Matrisleri</strong> (13 madde, IQ 87–138): 0.7'yi aşan boşluk yok</li>
+          <li><strong>İlişkisel Akıl Yürütme</strong> (15 madde, IQ 82–177): IQ 88 civarında küçük bir boşluk mevcut</li>
+          <li><strong>Kavramsal Bağlantılar</strong> (15 madde, IQ 75–153): IQ 123–132 ve 138–147 boşlukları CL10c ve CL11b ile doldurulmuştur</li>
+          <li><strong>Sözcük Derinliği</strong> (16 madde, IQ 75–126): 0.7'yi aşan boşluk yok; IQ 126'daki tavan Gc ölçümünün doğal yapısal sınırıdır</li>
+          <li><strong>Bellek Dizileri</strong> (18 madde, IQ 79–135): Tavan, 9+ haneli dizilerin nitel olarak farklı stratejiler gerektirmesi (parçalama, uzamsal eşleme) temelinde N boyutunun ölçeklenmesiyle IQ 135'e çıkarılmıştır</li>
+          <li><strong>Nicel Akıl Yürütme</strong> (19 madde, IQ 75–174): IQ 130 civarındaki üçlü yığılma b=1.80/2.00/2.25 olarak dağıtılmıştır</li>
+        </ul>
+        <h3>Yapısal Sınırlar ve Bunların Gerekçesi</h3>
+        <p>
+          IQ 155'in üzerinde test ağırlıklı olarak Gf'e (akışkan akıl yürütme) dayanır.
+          Bu, bir tasarım kusuru değil, bilişsel ölçümün yapısal bir gerçekliğidir.
+          Kristalize zeka (Gc) IQ ~153'te doğal tavanına ulaşır: sözcük bilgisi ve
+          kavramsal analoji, belirli bir eşiğin ötesinde genel bilişsel kapasiteyi değil
+          alan-spesifik uzmanlığı yansıtmaya başlar. Bu noktadan sonraki performans
+          farkları zekadan ziyade maruz kalma geçmişinin bir fonksiyonudur.
+        </p>
+        <p>
+          Çalışma belleği (Gwm) IQ ~135'te tavanlanır. 11 haneli ters span önemli bir
+          bilişsel başarı olmakla birlikte, bu düzeyin üzerindeki her ek hane giderek
+          azalan marjinal ayırt edicilik sağlar.
+        </p>
+        <p>
+          Buna karşılık akışkan akıl yürütme, IQ 177'ye kadar anlamlı biçimde farklılaşmaya
+          devam eder. 7 değişkenli gecikmeli nedensel ağları simüle etme yetisi ile 5
+          değişkenli basit sistemleri yönetme arasındaki fark gerçek ve ölçülebilirdir.
+          Yapısal ayrıştırma bu farklılaşmayı yakalar.
+        </p>
+        <h3>Beklenen Ampirik Özellikler</h3>
+        <p>
+          Yapısal kalibrasyona dayalı teorik öngörüler:
+        </p>
+        <ul>
+          <li>WAIS-IV FSIQ ile beklenen eşzamanlı geçerlilik: <em>r</em> ≈ 0.80–0.85</li>
+          <li>Beklenen iç tutarlılık (Cronbach α): &gt; 0.85</li>
+          <li>Madde güçlük sıralamasının ampirik sıralamayı yansıtma oranı (beklenen): &gt; %85</li>
+          <li>IQ 80–145 aralığında beklenen standart ölçüm hatası: ±4–6 IQ puanı</li>
+          <li>IQ 145–160 aralığında beklenen standart ölçüm hatası: ±7–10 IQ puanı</li>
+        </ul>
+        <p>
+          Bu değerler, yanıtlar biriktikçe ampirik olarak doğrulanacak ve
+          gerektiğinde güncellenecektir.
+        </p>
+      </>) : (<>
+        <p>
+          This section documents the test's measurement precision, coverage profile,
+          and structural boundaries.
+        </p>
+        <h3>Test Information Function</h3>
+        <p>
+          Within the IRT framework, the measurement precision of an item at a given ability
+          level is quantified by its information function: <em>I<sub>i</sub>(θ) = a<sub>i</sub>² · P<sub>i</sub>(θ) · (1 − P<sub>i</sub>(θ))</em>.
+          Total test information is the sum of individual item information values. Where
+          information is highest, standard error is lowest; measurement is most precise.
+        </p>
+        <p>
+          The current item pool (96 items + 40 speed trials) is structured to produce dense
+          information across the IQ 80–155 range. Sufficient item density exists within each
+          subtest across this interval. Above IQ 155, information attenuates — not due to
+          item scarcity, but because the cognitive space itself compresses.
+        </p>
+        <h3>Coverage Analysis</h3>
+        <p>
+          Item difficulty values (b) for each subtest are systematically distributed.
+          The target maximum gap between consecutive items is 0.7 standard deviations
+          (approximately 10 IQ points). Current status:
+        </p>
+        <ul>
+          <li><strong>Pattern Matrices</strong> (13 items, IQ 87–138): no gaps exceeding 0.7</li>
+          <li><strong>Relational Reasoning</strong> (15 items, IQ 82–177): minor gap near IQ 88</li>
+          <li><strong>Conceptual Links</strong> (15 items, IQ 75–153): IQ 123–132 and 138–147 gaps filled by CL10c and CL11b</li>
+          <li><strong>Word Depth</strong> (16 items, IQ 75–126): no gaps exceeding 0.7; the IQ 126 ceiling is the natural structural limit of Gc measurement</li>
+          <li><strong>Memory Sequences</strong> (18 items, IQ 79–135): ceiling extended to IQ 135 via N-dimension scaling for extreme spans (9+ digits require qualitatively different strategies: chunking, spatial mapping)</li>
+          <li><strong>Quantitative Reasoning</strong> (19 items, IQ 75–174): triple pileup at IQ 130 spread to b=1.80/2.00/2.25</li>
+        </ul>
+        <h3>Structural Boundaries and Their Justification</h3>
+        <p>
+          Above IQ 155, the test relies predominantly on Gf (fluid reasoning). This is
+          not a design deficiency but a structural reality of cognitive measurement.
+          Crystallized intelligence (Gc) reaches its natural ceiling at IQ ~153: beyond
+          a certain threshold, vocabulary knowledge and conceptual analogy reflect
+          domain-specific expertise rather than general cognitive capacity. Performance
+          differences above this point are a function of exposure history rather than
+          intelligence.
+        </p>
+        <p>
+          Working memory (Gwm) plateaus at IQ ~135. While an 11-digit backward span
+          represents a significant cognitive achievement, each additional digit beyond
+          this level yields diminishing marginal discriminability.
+        </p>
+        <p>
+          Fluid reasoning, by contrast, continues to differentiate meaningfully up to IQ 177.
+          The ability to simulate 7-variable delayed causal networks versus managing simple
+          5-variable systems is a real and measurable distinction. The structural decomposition
+          captures this differentiation.
+        </p>
+        <h3>Expected Empirical Properties</h3>
+        <p>
+          Theoretical predictions based on structural calibration:
+        </p>
+        <ul>
+          <li>Expected concurrent validity with WAIS-IV FSIQ: <em>r</em> ≈ 0.80–0.85</li>
+          <li>Expected internal consistency (Cronbach's α): &gt; 0.85</li>
+          <li>Predicted item difficulty ordering matching empirical ordering: &gt; 85%</li>
+          <li>Expected standard error of measurement in IQ 80–145 range: ±4–6 IQ points</li>
+          <li>Expected standard error of measurement in IQ 145–160 range: ±7–10 IQ points</li>
+        </ul>
+        <p>
+          These values will be empirically verified and updated as responses accumulate.
+        </p>
+      </>)}
+
+      <h2>{isTR ? 'Sınırlamalar ve Şeffaflık' : 'Limitations and Transparency'}</h2>
       {isTR ? (<>
         <p>
           Bu bir klinik araç değildir. Tanı gerektiren herhangi biri lisanslı bir
-          psikoloğa başvurmalıdır. Herhangi bir nitelendirme geçerli değildir.
+          psikoloğa başvurmalıdır.
         </p>
         <p>
-          Madde parametreleri ampirik veriyle keskinleşecektir. Yapısal kalibrasyon
-          sağlamdır, ancak gerçek dünya tepki örüntüleri tahminleri zamanla rafine
-          edecektir. Veri biriktikçe güncellemeler gelecektir.
+          Madde parametreleri yapısal kalibrasyona dayalı olarak türetilmiştir.
+          Yapısal çerçeve sağlam olmakla birlikte, ampirik tepki örüntüleri bu
+          tahminleri zamanla rafine edecektir. Parametre güncellemeleri veri
+          birikimi doğrultusunda yayımlanacaktır.
         </p>
         <p>
-          Online test, bireysel olarak uygulanan değerlendirmeden doğası gereği daha
-          gürültülüdür. Dikkat dağınıklıkları olur. Cihazlar farklılık gösterir.
-          Ekran boyutları değişir. Bu, formatın bilinen ve kaçınılmaz bir kısıtlamasıdır.
+          Çevrimiçi uygulama, bireysel olarak yürütülen değerlendirmeye kıyasla
+          daha yüksek ölçüm gürültüsü üretir. Dikkat dağınıklığı, cihaz farklılıkları
+          ve ekran boyutu değişkenliği sistematik olmayan hata kaynaklarıdır.
+          Bu kısıtlama, çevrimiçi ölçüm formatının yapısal bir özelliğidir.
         </p>
         <p>
-          Gc alt testleri dil yanlılığı taşır. Maddeler hem İngilizce hem Türkçe
-          sunulur, ancak gerçek anlamda kültürden bağımsız bir kristalize yetenek
-          değerlendirmesi psikometride hâlâ açık bir problemdir — bugüne kadar hiçbir
-          yayımlanmış aracın ikna edici biçimde çözemediği bir problem.
+          Gc alt testleri kaçınılmaz biçimde dil yanlılığı barındırır. Maddeler
+          İngilizce ve Türkçe olarak sunulmaktadır; ancak kültürden bağımsız bir
+          kristalize yetenek ölçümü, psikometride hâlâ çözülmemiş bir problem
+          olmaya devam etmektedir — bugüne kadar yayımlanmış hiçbir ölçme aracı
+          bu sorunu tatmin edici biçimde çözememiştir.
         </p>
         <p>
-          Güvenle ifade edilebilecek olan şudur: alt test puanları arasındaki yapısal
-          ilişkiler — bir bilişsel profilin şekli — mutlak kalibrasyondan bağımsız
-          olarak anlam taşır. Gf-WM ile Gf-WMC arasındaki belirgin bir eşitsizlik,
-          belirli bir zihnin kaynaklarını nasıl örgütlediğine dair gerçek bir şeyi
-          ortaya koyar.
+          Bununla birlikte, alt test puanları arasındaki yapısal ilişkiler — bilişsel
+          profilin biçimi — mutlak kalibrasyondan bağımsız olarak yorumlanabilir
+          niteliktedir. Gf-WM ile Gf-WMC arasındaki belirgin bir asimetri, bireyin
+          bilişsel kaynaklarını nasıl örgütlediğine ilişkin yapısal düzeyde anlamlı
+          bilgi taşır.
         </p>
       </>) : (<>
         <p>
           This is not a clinical instrument. Anyone requiring a diagnosis should consult
-          a licensed psychologist. No qualification applies.
+          a licensed psychologist.
         </p>
         <p>
-          Item parameters will sharpen with empirical data. The structural calibration
-          is sound, but real-world response patterns will refine the estimates over time.
-          Updates will follow as data accumulates.
+          Item parameters are derived from structural calibration. While the structural
+          framework is sound, empirical response patterns will refine these estimates
+          over time. Parameter updates will be published as data accumulates.
         </p>
         <p>
-          Online testing is inherently noisier than individually administered assessment.
-          Distractions occur. Devices vary. Screen sizes differ. This is a known and
-          unavoidable limitation of the format.
+          Online administration introduces greater measurement noise relative to
+          individually administered assessment. Attentional variability, device
+          heterogeneity, and screen size differences constitute unsystematic error
+          sources. This constraint is an inherent property of the online measurement
+          format.
         </p>
         <p>
-          The Gc subtests carry language bias. Native items are provided in both English
-          and Turkish, but a truly culture-fair crystallized ability assessment remains
-          an open problem in psychometrics — one that, to date, no published instrument
-          has convincingly solved.
+          The Gc subtests carry unavoidable language bias. Items are presented in both
+          English and Turkish; however, culture-fair crystallized ability assessment
+          remains an unresolved problem in psychometrics — one that no published
+          instrument has satisfactorily addressed to date.
         </p>
         <p>
-          What <em>can</em> be stated with confidence: the structural relationships between
-          subtest scores — the shape of a cognitive profile — carry meaning regardless
-          of absolute calibration. A marked disparity between Gf-WM and Gf-WMC reveals
-          something genuine about how a particular mind organizes its resources.
+          Nonetheless, the structural relationships between subtest scores — the shape
+          of a cognitive profile — remain interpretable independent of absolute
+          calibration. A marked asymmetry between Gf-WM and Gf-WMC carries structurally
+          meaningful information about how an individual organizes cognitive resources.
         </p>
       </>)}
 

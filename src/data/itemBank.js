@@ -609,6 +609,20 @@ export const conceptualLinks = [
     timeLimit: 75,
   }, { R: 4, T: 3, B: 5, N: 4, D: 5, factor: "Gc" }),
 
+  // CL10c: Prophylactic paradox — using controlled dose of threat to prevent catastrophic version
+  // Vaccine uses weakened disease to prevent disease; controlled burn uses fire to prevent wildfire.
+  // N=4: counter-intuitive because you're using the threat itself as prevention.
+  // "Forest" is the thing being protected, not prevented — key distinction.
+  // R=3, T=3, B=5, N=4, D=3
+  // b = 2.15, IQ ~132.3
+  item({
+    id: "cl10c",
+    analogy: "Vaccine is to Disease as Controlled Burn is to ___",
+    options: ["Wildfire", "Forest", "Firefighting", "Smoke"],
+    correct: 0,
+    timeLimit: 75,
+  }, { R: 3, T: 3, B: 5, N: 4, D: 3, factor: "Gc" }),
+
   // CL11: Cross-domain structural invariant — both express fundamental limits of self-description
   // Gödel: formal systems cannot prove their own consistency (internal limit).
   // Cantor's diagonal: sets cannot enumerate their own power set (internal limit).
@@ -623,6 +637,23 @@ export const conceptualLinks = [
     correct: 0,
     timeLimit: 90,
   }, { R: 4, T: 4, B: 6, N: 5, D: 5, factor: "Gc" }),
+
+  // CL11b: Cross-domain generative relation — scarcity generates value, uncertainty generates information
+  // Shannon's insight: information = surprise = uncertainty reduction. Without uncertainty, there is
+  // no information (a message you already know carries zero bits). Similarly, without scarcity,
+  // there is no value (abundant air has no market price).
+  // N=4: counter-intuitive because uncertainty is intuitively negative, but it's the PREREQUISITE
+  // for information to exist. "Risk" is a strong distractor (uncertainty does create risk) but
+  // risk is a consequence, not the structural parallel to value.
+  // R=4, T=4, B=5, N=4, D=4
+  // b = 3.15, IQ ~147.3
+  item({
+    id: "cl11b",
+    analogy: "Scarcity is to Value as Uncertainty is to ___",
+    options: ["Information", "Risk", "Probability", "Anxiety"],
+    correct: 0,
+    timeLimit: 90,
+  }, { R: 4, T: 4, B: 5, N: 4, D: 4, factor: "Gc" }),
 
   // CL12: Second-order structural invariant — both pairs share the meta-relation
   // "emergent complexity arises from simple recursive self-application"
@@ -1228,8 +1259,8 @@ export const subtests = [
     factor: "Gc",
     description: "Verbal analogies measuring depth of abstract conceptual reasoning",
     icon: "💡",
-    itemCount: 13,
-    estimatedTime: "5 min",
+    itemCount: 15,
+    estimatedTime: "6 min",
     weight: 0.15,
   },
   {
