@@ -40,8 +40,8 @@ export const conceptualLinksTR = [
   // CL3-TR: Gelişimsel — öncül→sonuç
   item({
     id: "cl3_tr",
-    analogy: "Tohum, Ağaç'ın başlangıcıysa; Hamur, ___'ın başlangıcıdır",
-    options: ["Ekmek", "Un", "Fırın", "Maya"],
+    analogy: "Palamut, Meşe'nin başlangıcıysa; Koza, ___'ın başlangıcıdır",
+    options: ["Kelebek", "İpek", "Tırtıl", "Ağaç"],
     correct: 0,
     timeLimit: 30,
   }, { R: 1, T: 2, B: 3, N: 1, D: 2, factor: "Gc" }),
@@ -73,11 +73,11 @@ export const conceptualLinksTR = [
     timeLimit: 45,
   }, { R: 2, T: 2, B: 4, N: 2, D: 3, factor: "Gc" }),
 
-  // CL7-TR: Süreç→yapı — bozucu süreç
+  // CL7-TR: Süreç→yapı — bozucu süreç yapıyı aşındırır
   item({
     id: "cl7_tr",
-    analogy: "Pas, Demir'i çürütürse; Dedikodu, ___'ı çürütür",
-    options: ["Güven", "İnsan", "Toplum", "Söz"],
+    analogy: "Entropi, Düzen'i bozarsa; Erozyon, ___'ı bozar",
+    options: ["Arazi", "Su", "Toprak", "Jeoloji"],
     correct: 0,
     timeLimit: 60,
   }, { R: 2, T: 2, B: 4, N: 3, D: 3, factor: "Gc" }),
@@ -91,11 +91,11 @@ export const conceptualLinksTR = [
     timeLimit: 60,
   }, { R: 2, T: 3, B: 4, N: 3, D: 3, factor: "Gc" }),
 
-  // CL9-TR: Biçimsel yapı→somutlaşma
+  // CL9-TR: Biçimsel yapı→somutlaşma — kural sistemi alanı kısıtlar
   item({
     id: "cl9_tr",
-    analogy: "Gramer, Dil'in kuralıysa; Ahlak, ___'ın kuralıdır",
-    options: ["Davranış", "Toplum", "Din", "Vicdan"],
+    analogy: "Gramer, Dil'i kısıtlarsa; Algoritma, ___'ı kısıtlar",
+    options: ["Hesaplama", "Matematik", "Yazılım", "Mantık"],
     correct: 0,
     timeLimit: 60,
   }, { R: 3, T: 3, B: 4, N: 3, D: 4, factor: "Gc" }),
@@ -109,30 +109,30 @@ export const conceptualLinksTR = [
     timeLimit: 60,
   }, { R: 3, T: 3, B: 5, N: 4, D: 4, factor: "Gc" }),
 
-  // CL10b-TR: Meta-yapısal ilişki — gözlemci gözleneni etkiler
+  // CL10b-TR: Üretici mekanizma→alan — doğal seçilim biyolojiyi üretir
   // R=4, T=3, B=5, N=4, D=5
   item({
     id: "cl10b_tr",
-    analogy: "Gözlemci Etkisi, Kuantum Mekaniği için neyse; Refleksivite, ___ için odur",
-    options: ["Sosyal Bilim", "Matematik", "Bilinç", "Epistemoloji"],
+    analogy: "Doğal Seçilim, Biyoloji için neyse; Piyasa Güçleri, ___ için odur",
+    options: ["Ekonomi", "Kapitalizm", "Ticaret", "Servet"],
     correct: 0,
     timeLimit: 75,
   }, { R: 4, T: 3, B: 5, N: 4, D: 5, factor: "Gc" }),
 
-  // CL11-TR: Çapraz-alan yapısal değişmez
+  // CL11-TR: Çapraz-alan yapısal değişmez — sistem kendi sınırıyla karşılaşıyor
   item({
     id: "cl11_tr",
-    analogy: "Gödel'in Eksiklik Teoremi, Biçimsel Sistemler için neyse; Heisenberg'in Belirsizlik İlkesi, ___ için odur",
-    options: ["Ölçüm Sistemleri", "Kuantum Mekaniği", "Fizik", "Olasılık"],
+    analogy: "Gödel'in Eksiklik Teoremi, Biçimsel Sistemler için neyse; Cantor'un Köşegenlemesi, ___ için odur",
+    options: ["Sonsuz Kümeler", "Reel Sayılar", "Sayma", "Paradokslar"],
     correct: 0,
     timeLimit: 90,
   }, { R: 4, T: 4, B: 6, N: 5, D: 5, factor: "Gc" }),
 
-  // CL12-TR: İkinci-derece ilişki
+  // CL12-TR: İkinci-derece yapısal değişmez — basit tekrar → emergent düzen
   item({
     id: "cl12_tr",
-    analogy: "Özyineleme, Bilinç için neyse; Otokataliz, ___ için odur",
-    options: ["Yaşam", "Kimya", "Metabolizma", "Üreme"],
+    analogy: "İterasyon, Fraktallar için neyse; Geri Besleme, ___ için odur",
+    options: ["Homeostaz", "Salınım", "Güçlendirme", "Kontrol"],
     correct: 0,
     timeLimit: 90,
   }, { R: 5, T: 5, B: 7, N: 5, D: 5, factor: "Gc" }),
@@ -309,63 +309,65 @@ export const wordDepthTR = [
     timeLimit: 60,
   }, { R: 3, T: 2, B: 4, N: 4, D: 4, factor: "Gc" }),
 
-  // WD15-TR: Teknik terim, disiplinlerarası anlam
-  // R=3, T=3, B=4, N=4, D=4
+  // WD15-TR: Kültür-bağımsız, disiplinlerarası kavram
+  // R=2, T=2, B=4, N=4, D=4
   item({
     id: "wd15_tr",
-    question: "'Ergodiklik' kesin teknik anlamıyla ne demektir?",
+    question: "'Propriosepsiyon' en doğru olarak ne anlama gelir?",
     options: [
-      "Bir sistemde zaman ortalamalarının topluluk ortalamalarına yakınsaması özelliği",
-      "Tüm sistemlerin maksimum entropiye ulaşma eğilimi",
-      "Termodinamik süreçlerin geri döndürülemezliği",
-      "Ardışık gözlemlerin istatistiksel bağımsızlığı"
+      "Kişinin kendi bedeninin uzaydaki konumunu ve hareketini algılama duyusu",
+      "Başkalarının duygularını ince ipuçlarından sezme yetisi",
+      "Kendi düşünce süreçlerinin farkındalığının artması",
+      "Çevresel duyusal bilginin bilinçdışı işlenmesi"
     ],
     correct: 0,
     timeLimit: 75,
-  }, { R: 3, T: 3, B: 4, N: 4, D: 4, factor: "Gc" }),
+  }, { R: 2, T: 2, B: 4, N: 4, D: 4, factor: "Gc" }),
 
-  // WD16-TR: Felsefi terim, çok yakın çeldiriciler
-  // R=3, T=3, B=5, N=4, D=5
+  // WD16-TR: Soyutu somutmuş gibi ele alma hatası
+  // R=2, T=2, B=4, N=4, D=5
   item({
     id: "wd16_tr",
-    question: "'Hipostaz' felsefi kullanımda en doğru olarak ne anlama gelir?",
+    question: "'Şeyleştirme' (reifikasyon) en doğru olarak ne anlama gelir?",
     options: [
-      "Bir şeyin altında yatan gerçeklik veya töz, ya da soyut bir kavramın somutlaştırılması",
-      "Bir teorinin üzerine kurulduğu temel varsayım",
-      "Soyut düşüncelerin somut kurumlara dönüşme süreci",
-      "İki karşıt güç arasında askıda kalma durumu"
+      "Soyut bir kavramı sanki somut, elle tutulur bir şeymiş gibi ele alma",
+      "Karmaşık fikirleri iletişim için kasıtlı olarak basitleştirme",
+      "İnsan dışı varlıklara insani özellikler atfetme",
+      "Örtük bilgiyi açık ve kodlanmış hale getirme süreci"
     ],
     correct: 0,
     timeLimit: 75,
-  }, { R: 3, T: 3, B: 5, N: 4, D: 5, factor: "Gc" }),
+  }, { R: 2, T: 2, B: 4, N: 4, D: 5, factor: "Gc" }),
 
-  // WD11-TR: Son derece nadir felsefi terim
+  // WD11-TR: Nadir retorik terim
+  // R=2, T=2, B=4, N=5, D=5
   item({
     id: "wd11_tr",
-    question: "'Apeiron' orijinal felsefi anlamıyla en doğru olarak ne anlama gelir?",
+    question: "'Enthymeme' (entimem) klasik retorikte en doğru olarak ne anlama gelir?",
     options: [
-      "Her şeyin kendisinden çıkıp geri döndüğü sınırsız, belirsiz kaynak",
-      "Sonsuz matematiksel gerileme kavramı",
-      "Yaratılıştan önceki kusursuz biçimsizlik hali",
-      "Tüm fenomenlerin altında yatan bilinemez öz"
+      "Bir öncülün açıkça belirtilmediği, ima yoluyla bırakıldığı kıyas",
+      "Kesin bir sonuca ulaşmayan bir argüman",
+      "Sonucun öncülü yeniden ifade ettiği bir akıl yürütme biçimi",
+      "İkna aracı olarak kullanılan örtük bir karşılaştırma"
     ],
     correct: 0,
     timeLimit: 75,
-  }, { R: 4, T: 4, B: 5, N: 4, D: 5, factor: "Gc" }),
+  }, { R: 2, T: 2, B: 4, N: 5, D: 5, factor: "Gc" }),
 
-  // WD12-TR: Nadir üstbilişsel terim
+  // WD12-TR: Gerçek felsefi terim — epistemolojik kavram
+  // R=2, T=2, B=4, N=5, D=5
   item({
     id: "wd12_tr",
-    question: "'Hiperpraksi' en doğru olarak ne anlama gelir?",
+    question: "'Solipsizm' katı felsefi anlamıyla en doğru olarak ne anlama gelir?",
     options: [
-      "İşlevsel gerekliğin ötesinde amaçlı etkinliğe aşırı veya zorlantılı katılım",
-      "Birden fazla karmaşık eylemi eşzamanlı gerçekleştirme yetisi",
-      "Bilinçli çabayı aşan yüksek pratik beceri durumu",
-      "Hedefe yönelik hareketlerin patolojik tekrarı"
+      "Yalnızca kişinin kendi zihninin kesin olarak var olduğunun bilinebileceği görüşü",
+      "Tüm bilginin nihayetinde duyusal deneyimden türediği görüşü",
+      "Gerçekliğin temelde fiziksel değil zihinsel olduğu inancı",
+      "Dış bilginin güvenilirliğine ilişkin felsefi şüphe"
     ],
     correct: 0,
     timeLimit: 75,
-  }, { R: 4, T: 5, B: 6, N: 4, D: 5, factor: "Gc" }),
+  }, { R: 2, T: 2, B: 4, N: 5, D: 5, factor: "Gc" }),
 ];
 
 // ========================================
@@ -467,10 +469,10 @@ export const relationalReasoningTR = [
     premise: "Dört dişli sırayla birbirine geçer: A→B→C→D. A'nın 12, B'nin 8, C'nin 16, D'nin 6 dişi var. A tam 3 tur saat yönünde dönünce:",
     question: "D kaç tur döner ve hangi yöne?",
     options: [
+      "6 tur saat yönünün tersine",
       "12 tur saat yönünde",
-      "12 tur saat yönünün tersine",
       "8 tur saat yönünde",
-      "6 tur saat yönünün tersine"
+      "12 tur saat yönünün tersine"
     ],
     correct: 0,
     timeLimit: 120,
@@ -480,17 +482,37 @@ export const relationalReasoningTR = [
     id: "rr10_tr",
     premise: "Bir dizi, döngüsel olarak uygulanan üç kuralla üretilir. Kural 1: 2 ile çarp. Kural 2: 3 ekle. Kural 3: 1 çıkar. 1'den başlayarak: 1, 2, 5, 4, 8, 11, 10, 20, 23, ...",
     question: "Dizideki 12. sayı nedir?",
-    options: ["44", "45", "43", "46"],
+    options: ["47", "44", "46", "45"],
     correct: 0,
     timeLimit: 120,
   }, { R: 4, T: 4, B: 7, N: 3, D: 4, factor: "Gf" }),
+
+  // RR10b-TR: Durum-döngülü graf geçişi
+  item({
+    id: "rr10b_tr",
+    premise: "Beş oda (1-5) bir döngüde bağlıdır: 1↔2↔3↔4↔5↔1, ayrıca kısayollar 1↔3 ve 2↔4. Her odanın döngüsel bir durumu var: Kırmızı→Yeşil→Mavi→Kırmızı. Başlangıç durumları: [Kırmızı, Yeşil, Mavi, Kırmızı, Yeşil]. Bir robot Oda 1'de başlar (oda Yeşil'e döner). Robot her zaman alfabetik olarak en erken duruma sahip komşu odaya gider (M<K<Y). Beraberlikte düşük numaralı oda seçilir. Ziyaret edilen odanın durumu ileri döner.",
+    question: "7 hareketten sonra robot hangi odadadır?",
+    options: ["5", "3", "1", "2"],
+    correct: 0,
+    timeLimit: 180,
+  }, { R: 4, T: 4, B: 8, N: 4, D: 4, factor: "Gf" }),
+
+  // RR10c-TR: Çok-kurallı oylama sistemi
+  item({
+    id: "rr10c_tr",
+    premise: "Yedi komite üyesi (P, Q, R, S, T, U, V) şu kurallarla oy kullanır: (1) P'nin veto hakkı var — P karşı çıkarsa teklif reddedilir. (2) Teklif ≥4 evet oyuyla geçer. (3) Q her zaman R ile aynı oy kullanır. (4) S ve T her zaman birbirinin tersi oy kullanır. (5) U ancak P evet oyu verirse VE {Q, R}'den en az biri evet oyu verirse evet oyu verir. (6) V, {Q, R, S} çoğunluğunun tersini oy olarak kullanır.",
+    question: "P, Q ve S hepsi evet oyu verirse, toplam kaç üye evet oyu verir?",
+    options: ["5", "4", "6", "3"],
+    correct: 0,
+    timeLimit: 150,
+  }, { R: 5, T: 4, B: 7, N: 4, D: 4, factor: "Gf" }),
 
   // RR11-TR
   item({
     id: "rr11_tr",
     premise: "Sekiz diplomat (A-H) yuvarlak bir masada oturuyor. Kısıtlar: (1) A, E'nin tam karşısında oturur. (2) B, C'nin yanında oturur ama D'nin yanında oturamaz. (3) F, A'nın yanındaysa G, H'nin yanında olmalıdır; değilse G, H'nin karşısında oturur. (4) D, A'dan tam 3 koltuk uzaktadır. (5) H, A veya E'nin yanında oturamaz. (6) C ve F, B ile aynı yarıda olamaz.",
     question: "B 1. koltuktaysa ve A 3. koltuktaysa, G hangi koltuktadır?",
-    options: ["6", "5", "8", "2"],
+    options: ["4", "6", "8", "2"],
     correct: 0,
     timeLimit: 180,
   }, { R: 5, T: 4, B: 8, N: 4, D: 5, factor: "Gf" }),
@@ -498,7 +520,7 @@ export const relationalReasoningTR = [
   // RR12-TR
   item({
     id: "rr12_tr",
-    premise: "Yedi değişken (A-G) bir nedensel ağ oluşturur. Kurallar: A, 1 adım gecikmeli B'yi etkinleştirir. B ve C birlikte (ikisi >0) D'yi anında etkinleştirir. D ancak D>2 ise E'yi etkinleştirir. E, 2 adım gecikmeli A'yı sıfırlar. F = her adımda A + C. G, F>5 olduğunda aktif olur. C sabit 3'tür. t=0'da: A=4, B=0, C=3, D=0, E=0, F=7, G=1.",
+    premise: "Yedi değişken (A-G) bir nedensel ağ oluşturur. Bir değişken etkinleştirildiğinde, bir kural onu açıkça değiştirene kadar etkin kalır. Kurallar: A, 1 adım gecikmeli B'yi etkinleştirir. B ve C birlikte (ikisi >0) D'yi anında etkinleştirir. D ancak D>2 ise E'yi etkinleştirir. E, 2 adım gecikmeli A'yı sıfırlar. F = her adımda A + C. G, F>5 olduğunda aktif olur. C sabit 3'tür. t=0'da: A=4, B=0, C=3, D=0, E=0, F=7, G=1.",
     question: "t=4'te (A, D, E, G) değerleri nedir?",
     options: [
       "A=0, D=3, E=1, G=0",
