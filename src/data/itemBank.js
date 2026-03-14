@@ -468,7 +468,7 @@ export const relationalReasoning = [
   // b = +5.15, IQ ~177.2
   item({
     id: "rr13",
-    premise: "Seven variables (A-G) form a causal network. Rules: A activates B after 1 step delay. B and C together (both >0) activate D immediately. D activates E, but only if D>2. E inhibits A (sets A=0) after 2 step delay. F = A + C at each step. G activates when F>5. C is constant at 3. Initial values at t=0: A=4, B=0, C=3, D=0, E=0, F=7, G=1.",
+    premise: "Seven variables (A-G) form a causal network. Once a variable is activated, it stays at its activated value until a rule explicitly changes it. Rules: A activates B after 1 step delay. B and C together (both >0) activate D immediately. D activates E, but only if D>2. E inhibits A (sets A=0) after 2 step delay. F = A + C at each step. G activates when F>5. C is constant at 3. Initial values at t=0: A=4, B=0, C=3, D=0, E=0, F=7, G=1.",
     question: "What are the values of (A, D, E, G) at t=4?",
     options: [
       "A=0, D=3, E=1, G=0",
@@ -514,10 +514,11 @@ export const conceptualLinks = [
 
   // CL3: Developmental/causal — precursor→outcome
   // R=1, T=2 (transformation: growth), B=3, N=1, D=2
+  // b = -1.10, IQ ~83.5
   item({
     id: "cl3",
-    analogy: "Seed is to Tree as Egg is to ___",
-    options: ["Bird", "Nest", "Shell", "Chicken"],
+    analogy: "Acorn is to Oak as Larva is to ___",
+    options: ["Beetle", "Soil", "Cocoon", "Wing"],
     correct: 0,
     timeLimit: 30,
   }, { R: 1, T: 2, B: 3, N: 1, D: 2, factor: "Gc" }),
@@ -552,12 +553,13 @@ export const conceptualLinks = [
     timeLimit: 45,
   }, { R: 2, T: 2, B: 4, N: 2, D: 3, factor: "Gc" }),
 
-  // CL7: Process→substrate — entropic process acts on structure
+  // CL7: Process→substrate — degrading process acts on structure
   // R=2, T=2, B=4, N=3 (requires abstract concept of entropy), D=3
+  // b = 0.15, IQ ~102
   item({
     id: "cl7",
     analogy: "Entropy is to Order as Erosion is to ___",
-    options: ["Landscape", "Water", "Mountain", "Geology"],
+    options: ["Terrain", "Water", "Sediment", "Geology"],
     correct: 0,
     timeLimit: 60,
   }, { R: 2, T: 2, B: 4, N: 3, D: 3, factor: "Gc" }),
@@ -572,12 +574,13 @@ export const conceptualLinks = [
     timeLimit: 60,
   }, { R: 2, T: 3, B: 4, N: 3, D: 3, factor: "Gc" }),
 
-  // CL9: Formal structure→instantiation — syntax constrains grammar, protocol constrains communication
+  // CL9: Formal structure→instantiation — grammar constrains language, algorithm constrains computation
   // R=3 (structure-instance + domain-mapping + meta-relation), T=3, B=4, N=3, D=4
+  // b = 0.95, IQ ~114
   item({
     id: "cl9",
-    analogy: "Syntax is to Grammar as Protocol is to ___",
-    options: ["Communication", "Network", "Internet", "Rules"],
+    analogy: "Grammar is to Language as Algorithm is to ___",
+    options: ["Computation", "Mathematics", "Software", "Logic"],
     correct: 0,
     timeLimit: 60,
   }, { R: 3, T: 3, B: 4, N: 3, D: 4, factor: "Gc" }),
@@ -592,34 +595,48 @@ export const conceptualLinks = [
     timeLimit: 60,
   }, { R: 3, T: 3, B: 5, N: 4, D: 4, factor: "Gc" }),
 
-  // CL10b: Meta-structural relation — observer affects observed system
+  // CL10b: Meta-structural relation — foundational limit constrains domain
   // R=4, T=3, B=5, N=4, D=5
+  // b = 1.55, IQ ~123
+  // Natural selection is the generative mechanism OF biology (explains its complexity),
+  // just as market forces are the generative mechanism OF economics.
+  // "Capitalism" is a strong distractor (N=4) but is a system, not a mechanism.
   item({
     id: "cl10b",
-    analogy: "Observer Effect is to Quantum Mechanics as Reflexivity is to ___",
-    options: ["Social Science", "Mathematics", "Consciousness", "Epistemology"],
+    analogy: "Natural Selection is to Biology as Market Forces are to ___",
+    options: ["Economics", "Capitalism", "Trade", "Wealth"],
     correct: 0,
     timeLimit: 75,
   }, { R: 4, T: 3, B: 5, N: 4, D: 5, factor: "Gc" }),
 
-  // CL11: Cross-domain structural invariant — Gödel incompleteness maps to Heisenberg uncertainty
-  // Both express fundamental limits of a formal system's self-description.
-  // R=4 (cross-domain mapping + meta-epistemological relation + formal limits + self-reference), T=4, B=6, N=5, D=5
+  // CL11: Cross-domain structural invariant — both express fundamental limits of self-description
+  // Gödel: formal systems cannot prove their own consistency (internal limit).
+  // Cantor's diagonal: sets cannot enumerate their own power set (internal limit).
+  // The shared meta-relation: a system confronting its own expressive boundary.
+  // "Infinite Sets" = the domain Cantor's result constrains, just as "Formal Systems" = Gödel's domain.
+  // R=4, T=4, B=6, N=5, D=5
+  // b = 2.55, IQ ~138
   item({
     id: "cl11",
-    analogy: "Gödel's Incompleteness is to Formal Systems as Heisenberg's Uncertainty is to ___",
-    options: ["Measurement Systems", "Quantum Mechanics", "Physics", "Probability"],
+    analogy: "Gödel's Incompleteness is to Formal Systems as Cantor's Diagonal is to ___",
+    options: ["Infinite Sets", "Real Numbers", "Counting", "Paradoxes"],
     correct: 0,
     timeLimit: 90,
   }, { R: 4, T: 4, B: 6, N: 5, D: 5, factor: "Gc" }),
 
-  // CL12: Second-order relation — the relationship between two analogies
-  // Must identify that both pairs share the meta-relation "necessary precondition for emergence"
-  // R=5 (meta-analogy: relation between relations + emergence + necessity + sufficiency), T=5, B=7, N=5, D=5
+  // CL12: Second-order structural invariant — both pairs share the meta-relation
+  // "emergent complexity arises from simple recursive self-application"
+  // Iteration (repeated function application) gives rise to fractals (emergent geometric complexity).
+  // Feedback loops (repeated signal cycling) give rise to homeostasis (emergent systemic stability).
+  // The shared deep structure: simple repetition → emergent order.
+  // "Homeostasis" is the correct emergent phenomenon. "Oscillation" is a near-miss (feedback can cause
+  // oscillation, but the question asks what feedback gives RISE to, not what it IS).
+  // R=5, T=5, B=7, N=5, D=5
+  // b = 3.55, IQ ~153
   item({
     id: "cl12",
-    analogy: "Recursion is to Consciousness as Autocatalysis is to ___",
-    options: ["Life", "Chemistry", "Metabolism", "Reproduction"],
+    analogy: "Iteration is to Fractals as Feedback is to ___",
+    options: ["Homeostasis", "Oscillation", "Amplification", "Control"],
     correct: 0,
     timeLimit: 90,
   }, { R: 5, T: 5, B: 7, N: 5, D: 5, factor: "Gc" }),
@@ -665,12 +682,12 @@ export const wordDepth = [
     timeLimit: 30,
   }, { R: 1, T: 1, B: 2, N: 1, D: 2, factor: "Gc" }),
 
-  // WD3: Lower frequency, specific political meaning
+  // WD3: Lower frequency, specific monarchical meaning
   // R=1, T=1, B=2, N=2, D=3 → b=-0.85, IQ ~87
   item({
     id: "wd3",
-    question: "Which word means 'to formally give up a position of power'?",
-    options: ["Abdicate", "Resign", "Retire", "Surrender"],
+    question: "Which word means 'to formally renounce a throne or crown'?",
+    options: ["Abdicate", "Resign", "Exile", "Surrender"],
     correct: 0,
     timeLimit: 30,
   }, { R: 1, T: 1, B: 2, N: 2, D: 3, factor: "Gc" }),
@@ -690,12 +707,12 @@ export const wordDepth = [
     timeLimit: 45,
   }, { R: 1, T: 1, B: 3, N: 2, D: 3, factor: "Gc" }),
 
-  // WD4: Requires psychological inference (irony → intent), not just vocabulary lookup
+  // WD4: Requires inference about intent — verbal irony directed at a person
   // R=1, T=1, B=3, N=3, D=3 → b=-0.30, IQ ~95.5
   item({
     id: "wd4",
-    question: "Which word means 'the use of irony to mock or convey contempt'?",
-    options: ["Sarcasm", "Humor", "Satire", "Wit"],
+    question: "Which word means 'using verbal irony to mock a specific person, often to their face'?",
+    options: ["Sarcasm", "Satire", "Parody", "Wit"],
     correct: 0,
     timeLimit: 45,
   }, { R: 1, T: 1, B: 3, N: 3, D: 3, factor: "Gc" }),
@@ -787,79 +804,86 @@ export const wordDepth = [
     timeLimit: 60,
   }, { R: 2, T: 1, B: 4, N: 3, D: 4, factor: "Gc" }),
 
-  // WD14: Rare logical/philosophical term with near-synonym distractors
+  // WD14: Rare philosophical term — epistemic modality
   // R=2, T=1, B=4, N=4, D=4 → b=0.85, IQ ~113
+  // "Apodictic" = expressing necessary truth (Kant: apodiktisch).
+  // Key distinction: "necessarily true" (cannot be otherwise) vs "probably true" or "self-evident."
   item({
     id: "wd14",
     question: "'Apodictic' most precisely means:",
     options: [
-      "Necessarily or demonstrably true, beyond dispute",
-      "Based on empirical evidence and observation",
-      "Self-evidently true without requiring proof",
-      "Logically valid but not necessarily sound"
+      "Expressing or of the nature of necessary truth; logically certain",
+      "Highly probable but not conclusively proven",
+      "Accepted as true by general consensus without proof",
+      "True by definition, following from the meaning of the terms"
     ],
     correct: 0,
     timeLimit: 60,
   }, { R: 2, T: 1, B: 4, N: 4, D: 4, factor: "Gc" }),
 
-  // WD15: Technical term requiring cross-domain understanding
+  // WD15: Rare but cross-domain word — philosophical/linguistic/cognitive
   // R=2, T=2, B=4, N=4, D=4 → b=1.15, IQ ~117
-  // T=2: must grasp convergence concept (transformation from two domains to one)
+  // T=2: must distinguish between meta-cognition subtypes
   item({
     id: "wd15",
-    question: "'Ergodicity' in its precise technical sense means:",
+    question: "'Proprioception' most precisely means:",
     options: [
-      "The property where time averages converge to ensemble averages for a system",
-      "The tendency of all systems to reach maximum entropy",
-      "The irreversibility of thermodynamic processes",
-      "The statistical independence of sequential observations"
+      "The sense of the position and movement of one's own body in space",
+      "The ability to perceive emotions in others through subtle cues",
+      "Heightened awareness of one's own thought processes",
+      "The unconscious processing of peripheral sensory information"
     ],
     correct: 0,
     timeLimit: 75,
   }, { R: 2, T: 2, B: 4, N: 4, D: 4, factor: "Gc" }),
 
-  // WD16: Philosophical term with highly similar distractors
+  // WD16: Rare word — treating abstraction as concrete reality (reification error)
   // R=2, T=2, B=4, N=4, D=5 → b=1.35, IQ ~120
+  // D=5: "Anthropomorphism" is a powerful near-miss (attributing human traits vs. treating abstract as concrete)
   item({
     id: "wd16",
-    question: "'Hypostasis' in philosophical usage most precisely means:",
+    question: "'Reification' most precisely means:",
     options: [
-      "The underlying reality or substance, or the reification of an abstract concept",
-      "A fundamental assumption upon which a theory rests",
-      "The process by which abstract ideas become concrete institutions",
-      "A state of suspended existence between two opposing forces"
+      "Treating an abstract concept as if it were a concrete, tangible thing",
+      "The deliberate simplification of complex ideas for communication",
+      "Attributing human characteristics to non-human entities",
+      "The process of making implicit knowledge explicit and codified"
     ],
     correct: 0,
     timeLimit: 75,
   }, { R: 2, T: 2, B: 4, N: 4, D: 5, factor: "Gc" }),
 
-  // WD11: Extremely rare philosophical term with near-synonym distractors
+  // WD11: Rare epistemological term with near-concept distractors
   // R=2, T=2, B=4, N=5, D=5 → b=1.70, IQ ~126
-  // N=5: word is so rare that prior knowledge actively misleads (common "infinite" associations)
+  // N=5: easily confused with "tautology" or "axiom" — but "truism" is the key distinction
+  // Enthymeme = syllogism with unstated premise. Distinct from: incomplete argument (lacks conclusion),
+  // circular reasoning (conclusion in premise), implied analogy (comparison not deduction).
   item({
     id: "wd11",
-    question: "'Apeiron' in its original philosophical sense most precisely means:",
+    question: "'Enthymeme' in classical rhetoric most precisely means:",
     options: [
-      "The boundless, indefinite source from which all things arise and to which they return",
-      "The concept of infinite mathematical regression",
-      "A state of perfect formlessness preceding creation",
-      "The unknowable essence underlying all phenomena"
+      "A syllogism in which one premise is implied rather than explicitly stated",
+      "An argument that reaches no definitive conclusion",
+      "A form of reasoning where the conclusion restates the premise",
+      "An implied comparison used as a persuasive device"
     ],
     correct: 0,
     timeLimit: 75,
   }, { R: 2, T: 2, B: 4, N: 5, D: 5, factor: "Gc" }),
 
-  // WD12: Rare term requiring precise differentiation of overlapping concepts
+  // WD12: Rare but real philosophical term — epistemological concept
   // R=2, T=2, B=4, N=5, D=5 → b=1.70, IQ ~126
   // Same structural ceiling as WD11 — vocabulary recognition maxes out here
+  // "Solipsism" is distinct from skepticism (doubting external knowledge) and
+  // idealism (mind-dependent reality) — it specifically claims ONLY one's own mind is certain.
   item({
     id: "wd12",
-    question: "'Hyperpraxis' most precisely means:",
+    question: "'Solipsism' in its strict philosophical sense most precisely means:",
     options: [
-      "Excessive or compulsive engagement in purposeful activity beyond functional necessity",
-      "The ability to perform multiple complex actions simultaneously",
-      "An elevated state of practical skill transcending conscious effort",
-      "Pathological repetition of goal-directed movements"
+      "The position that only one's own mind can be known to exist with certainty",
+      "The view that all knowledge is ultimately derived from sensory experience",
+      "The belief that reality is fundamentally mental rather than physical",
+      "The philosophical doubt about the reliability of external knowledge"
     ],
     correct: 0,
     timeLimit: 75,
@@ -877,7 +901,10 @@ export const wordDepth = [
 // This is the purest structural mapping — no ambiguity.
 
 export const memorySequences = [
-  // Forward span — difficulty scales linearly with B
+  // Forward span — difficulty scales with B
+  // N=1 for familiar spans (3-8), N=2+ for extreme spans (9+)
+  // Justification: spans beyond 8 require qualitatively different strategies
+  // (chunking, association chains, spatial mapping) — genuine novelty.
   item({ id: "ms1", type: "forward", sequence: [3, 7, 2], timeLimit: 10 },
     { R: 1, T: 1, B: 3, N: 1, D: 1, factor: "Gwm" }),
   item({ id: "ms2", type: "forward", sequence: [5, 1, 8, 4], timeLimit: 12 },
@@ -890,10 +917,12 @@ export const memorySequences = [
     { R: 1, T: 1, B: 7, N: 1, D: 1, factor: "Gwm" }),
   item({ id: "ms6", type: "forward", sequence: [3, 6, 1, 9, 4, 7, 2, 8], timeLimit: 22 },
     { R: 1, T: 1, B: 8, N: 1, D: 1, factor: "Gwm" }),
+  // 9-digit forward: beyond typical WM capacity, requires chunking strategy (N=2)
+  // b = +0.45, IQ ~106.8
   item({ id: "ms7", type: "forward", sequence: [5, 8, 2, 9, 1, 6, 3, 7, 4], timeLimit: 25 },
-    { R: 1, T: 1, B: 9, N: 1, D: 1, factor: "Gwm" }),
+    { R: 1, T: 1, B: 9, N: 2, D: 1, factor: "Gwm" }),
 
-  // Backward span — same B but T=2 (must reverse)
+  // Backward span — T=2 (reversal transform)
   item({ id: "ms8", type: "backward", sequence: [6, 2, 9], timeLimit: 15 },
     { R: 1, T: 2, B: 3, N: 2, D: 1, factor: "Gwm" }),
   item({ id: "ms9", type: "backward", sequence: [3, 7, 1, 5], timeLimit: 18 },
@@ -904,16 +933,31 @@ export const memorySequences = [
     { R: 1, T: 2, B: 6, N: 2, D: 1, factor: "Gwm" }),
   item({ id: "ms12", type: "backward", sequence: [1, 4, 7, 2, 9, 5, 3], timeLimit: 25 },
     { R: 1, T: 2, B: 7, N: 2, D: 1, factor: "Gwm" }),
+  // 8-digit backward: extreme reversal demands metacognitive strategy (N=3)
+  // b = +0.85, IQ ~112.8
   item({ id: "ms13", type: "backward", sequence: [6, 3, 8, 1, 5, 9, 2, 7], timeLimit: 28 },
-    { R: 1, T: 2, B: 8, N: 2, D: 1, factor: "Gwm" }),
+    { R: 1, T: 2, B: 8, N: 3, D: 1, factor: "Gwm" }),
 
-  // Extreme forward spans — 9, 10, 11 digits
-  item({ id: "ms14", type: "forward", sequence: [2, 8, 5, 1, 7, 4, 9, 3, 6], timeLimit: 28 },
-    { R: 1, T: 1, B: 9, N: 1, D: 1, factor: "Gwm" }),
-  item({ id: "ms15", type: "forward", sequence: [6, 1, 9, 4, 7, 2, 8, 5, 3, 0], timeLimit: 32 },
-    { R: 1, T: 1, B: 10, N: 1, D: 1, factor: "Gwm" }),
-  item({ id: "ms16", type: "forward", sequence: [3, 9, 2, 7, 0, 5, 8, 1, 6, 4, 9], timeLimit: 35 },
-    { R: 1, T: 1, B: 11, N: 1, D: 1, factor: "Gwm" }),
+  // Extreme forward spans — 10, 11 digits
+  // N scales with novelty: 10 digits (N=3, genuinely unusual), 11 digits (N=4, requires meta-cognitive adaptation)
+  // b = +1.05, IQ ~115.8
+  item({ id: "ms14", type: "forward", sequence: [6, 1, 9, 4, 7, 2, 8, 5, 3, 0], timeLimit: 32 },
+    { R: 1, T: 1, B: 10, N: 3, D: 1, factor: "Gwm" }),
+  // b = +1.65, IQ ~124.8
+  item({ id: "ms15", type: "forward", sequence: [3, 9, 2, 7, 0, 5, 8, 1, 6, 4, 9], timeLimit: 35 },
+    { R: 1, T: 1, B: 11, N: 4, D: 1, factor: "Gwm" }),
+
+  // Extreme backward spans — 9, 10, 11 digits
+  // Backward extreme demands both chunking AND reversal — N and D scale higher
+  // b = +1.30, IQ ~119.5
+  item({ id: "ms16", type: "backward", sequence: [2, 7, 4, 9, 1, 5, 8, 3, 6], timeLimit: 32 },
+    { R: 1, T: 2, B: 9, N: 3, D: 2, factor: "Gwm" }),
+  // b = +1.90, IQ ~128.5
+  item({ id: "ms17", type: "backward", sequence: [5, 0, 8, 3, 6, 1, 9, 4, 7, 2], timeLimit: 38 },
+    { R: 1, T: 2, B: 10, N: 4, D: 2, factor: "Gwm" }),
+  // b = +2.35, IQ ~135.3
+  item({ id: "ms18", type: "backward", sequence: [8, 3, 6, 0, 9, 2, 7, 4, 1, 5, 3], timeLimit: 42 },
+    { R: 1, T: 2, B: 11, N: 4, D: 3, factor: "Gwm" }),
 ];
 
 // ========================================
@@ -1051,19 +1095,18 @@ export const quantitativeReasoning = [
 
   // QR9e: Cubic sequence — third differences constant at 2
   // Differences: 2,5,10,17 → second: 3,5,7 → third: 2,2
-  // R=3 (three levels of differencing), T=3, B=5, N=3, D=4
-  // b ≈ +1.85 → IQ ~128
+  // R=3, T=3, B=5, N=3, D=3 → b = +1.80, IQ ~127
   item({
     id: "qr9e",
     sequence: "1, 3, 8, 18, 35, ___",
     options: ["61", "55", "58", "65"],
     correct: 0,
     timeLimit: 90,
-  }, { R: 3, T: 3, B: 5, N: 3, D: 4, factor: "Gq" }),
+  }, { R: 3, T: 3, B: 5, N: 3, D: 3, factor: "Gq" }),
 
   // QR9f: Cube differences — n³ - (n-1)³ = 3n²-3n+1
-  // R=3 (cubic + differencing + quadratic result), T=3, B=5, N=3, D=4
-  // b ≈ +2.10 → IQ ~132
+  // Harder: must recognize cubic relationship AND compute differences
+  // R=3, T=3, B=5, N=3, D=4 → b = +2.00, IQ ~130
   item({
     id: "qr9f",
     sequence: "1, 7, 19, 37, 61, ___",
@@ -1072,15 +1115,16 @@ export const quantitativeReasoning = [
     timeLimit: 90,
   }, { R: 3, T: 3, B: 5, N: 3, D: 4, factor: "Gq" }),
 
-  // QR10: n²(n+1) — polynomial with interaction
-  // R=3 (squaring + increment + multiplication), T=3, B=5, N=3, D=4
+  // QR10: n²(n+1) — polynomial with interaction term
+  // Harder than qr9f: multiplication of two varying quantities, not just differencing
+  // R=3, T=3, B=6, N=3, D=4 → b = +2.25, IQ ~133.8
   item({
     id: "qr10",
     sequence: "2, 12, 36, 80, 150, ___",
     options: ["252", "210", "240", "270"],
     correct: 0,
     timeLimit: 90,
-  }, { R: 3, T: 3, B: 5, N: 3, D: 4, factor: "Gq" }),
+  }, { R: 3, T: 3, B: 6, N: 3, D: 4, factor: "Gq" }),
 
   // QR10b: Multi-step optimization with constraints
   // R=4, T=4, B=6, N=3, D=4
@@ -1206,8 +1250,8 @@ export const subtests = [
     factor: "Gwm",
     description: "Forward and backward digit span — pure working memory capacity",
     icon: "🧠",
-    itemCount: 16,
-    estimatedTime: "6 min",
+    itemCount: 18,
+    estimatedTime: "7 min",
     weight: 0.15,
   },
   {
