@@ -25,25 +25,11 @@ function item(content, decomp) {
 // Hard:  3+ rules, compound transforms, 6+ bindings
 
 export const patternMatrices = [
-  // PM1: Latin square — each shape once per row/column
-  // R=1 (one rule: permutation), T=2 (cyclic shift), B=3 (track 3 shapes), N=2, D=2
+  // PM1: Increment pattern — dots increase +1 per cell (easiest: N=1)
+  // R=1 (one rule: +1), T=2 (increment), B=3, N=1 (very familiar), D=2
+  // b = -0.90, IQ ~86.5
   item({
     id: "pm1",
-    grid: [
-      ["circle", "square", "triangle"],
-      ["square", "triangle", "circle"],
-      ["triangle", "circle", "?"]
-    ],
-    rule: "Latin square: each shape once per row and column",
-    options: ["square", "triangle", "circle", "diamond"],
-    correct: 0,
-    timeLimit: 60,
-  }, { R: 1, T: 2, B: 3, N: 2, D: 2, factor: "Gf" }),
-
-  // PM2: Increment pattern — dots increase +1 per cell
-  // R=1 (one rule: +1), T=2 (increment), B=3, N=1 (very familiar), D=2
-  item({
-    id: "pm2",
     grid: [
       ["1dot", "2dot", "3dot"],
       ["2dot", "3dot", "4dot"],
@@ -54,6 +40,22 @@ export const patternMatrices = [
     correct: 1,
     timeLimit: 60,
   }, { R: 1, T: 2, B: 3, N: 1, D: 2, factor: "Gf" }),
+
+  // PM2: Latin square — each shape once per row/column
+  // R=1 (one rule: permutation), T=2 (cyclic shift), B=3 (track 3 shapes), N=2, D=2
+  // b = -0.55, IQ ~91.8
+  item({
+    id: "pm2",
+    grid: [
+      ["circle", "square", "triangle"],
+      ["square", "triangle", "circle"],
+      ["triangle", "circle", "?"]
+    ],
+    rule: "Latin square: each shape once per row and column",
+    options: ["square", "triangle", "circle", "diamond"],
+    correct: 0,
+    timeLimit: 60,
+  }, { R: 1, T: 2, B: 3, N: 2, D: 2, factor: "Gf" }),
 
   // PM3: Two independent attributes — shape by row, color by column
   // R=2 (two rules: shape AND color), T=1 (identity per axis), B=4 (2 attrs × track), N=2, D=2
@@ -141,8 +143,8 @@ export const patternMatrices = [
   }, { R: 2, T: 3, B: 5, N: 2, D: 3, factor: "Gf" }),
 
   // PM7b: Mirror symmetry + color shift — left half mirrors right, colors rotate
-  // R=2, T=3, B=5, N=3, D=3
-  // b ≈ +0.55 → IQ ~108
+  // R=2, T=3, B=5, N=2, D=3
+  // b = +0.95 → IQ ~114 (mirror is familiar, N=2 not 3)
   item({
     id: "pm7b",
     grid: [
@@ -154,11 +156,11 @@ export const patternMatrices = [
     options: ["blue-right", "red-right", "green-right", "yellow-right"],
     correct: 0,
     timeLimit: 90,
-  }, { R: 2, T: 3, B: 5, N: 3, D: 3, factor: "Gf" }),
+  }, { R: 2, T: 3, B: 5, N: 2, D: 3, factor: "Gf" }),
 
   // PM7c: XOR-like pattern — cell = row XOR column property
   // R=2, T=3, B=5, N=3, D=3
-  // b ≈ +0.55 → IQ ~108
+  // b = +1.30 → IQ ~119.5 (double Latin square is novel, N=3)
   item({
     id: "pm7c",
     grid: [
@@ -319,10 +321,23 @@ export const relationalReasoning = [
     timeLimit: 90,
   }, { R: 3, T: 2, B: 6, N: 2, D: 3, factor: "Gf" }),
 
-  // RR6: Causal system — 3 switches, 3 lights, non-trivial mapping
-  // R=3 (3 switch-light mappings to infer), T=3 (compound: toggle + interaction), B=6, N=3, D=3
+  // RR6: Code-breaking — letter→number mapping from 3 examples
+  // R=3 (3 simultaneous equations), T=3 (solve system), B=6 (6 letter-number pairs), N=2, D=3
+  // b = +1.70, IQ ~125.5 — comes BEFORE rr7 (IQ 130.8)
   item({
     id: "rr6",
+    premise: "A code maps letters to numbers: CAB = 312, BAD = 213, ACE = 135. Each letter always maps to the same number.",
+    question: "What is the code for BED?",
+    options: ["253", "235", "325", "532"],
+    correct: 0,
+    timeLimit: 90,
+  }, { R: 3, T: 3, B: 6, N: 2, D: 3, factor: "Gf" }),
+
+  // RR7: Causal system — 3 switches, 3 lights, non-trivial mapping
+  // R=3 (3 switch-light mappings to infer), T=3 (compound: toggle + interaction), B=6, N=3, D=3
+  // b = +2.05, IQ ~130.8
+  item({
+    id: "rr7",
     premise: "Three switches (X, Y, Z) control three lights (1, 2, 3) — not necessarily in order. Flipping X turns on light 2. Flipping X and Y turns on lights 2 and 3. Flipping all three turns on only light 1.",
     question: "What does switch Z control?",
     options: [
@@ -334,17 +349,6 @@ export const relationalReasoning = [
     correct: 0,
     timeLimit: 90,
   }, { R: 3, T: 3, B: 6, N: 3, D: 3, factor: "Gf" }),
-
-  // RR7: Code-breaking — letter→number mapping from 3 examples
-  // R=3 (3 simultaneous equations), T=3 (solve system), B=6 (6 letter-number pairs), N=2, D=3
-  item({
-    id: "rr7",
-    premise: "A code maps letters to numbers: CAB = 312, BAD = 213, ACE = 135. Each letter always maps to the same number.",
-    question: "What is the code for BED?",
-    options: ["253", "235", "325", "532"],
-    correct: 0,
-    timeLimit: 90,
-  }, { R: 3, T: 3, B: 6, N: 2, D: 3, factor: "Gf" }),
 
   // RR8: Dynamic system with feedback — must simulate to equilibrium
   // R=4 (4 causal links forming a cycle), T=4 (conditional + recursive simulation), B=5 (5 variables), N=3, D=4
@@ -364,15 +368,18 @@ export const relationalReasoning = [
 
   // RR9: Gear system — ratio + direction propagation through chain
   // R=3 (ratio × direction × chain), T=3 (multiplicative chain), B=6 (4 gears × teeth + direction), N=3, D=3
+  // A→B: 12/8=1.5, 3×1.5=4.5 turns, reverses to CCW
+  // B→C: 8/16=0.5, 4.5×0.5=2.25, reverses to CW
+  // C→D: 16/6=8/3, 2.25×8/3=6, reverses to CCW → answer: 6 turns counterclockwise
   item({
     id: "rr9",
     premise: "Four gears mesh in sequence: A→B→C→D. A has 12 teeth, B has 8, C has 16, D has 6. When A makes exactly 3 full turns clockwise:",
     question: "How many turns does D make and in which direction?",
     options: [
+      "6 turns counterclockwise",
       "12 turns clockwise",
-      "12 turns counterclockwise",
       "8 turns clockwise",
-      "6 turns counterclockwise"
+      "12 turns counterclockwise"
     ],
     correct: 0,
     timeLimit: 120,
@@ -380,11 +387,13 @@ export const relationalReasoning = [
 
   // RR10: Interleaved cyclical rule application — must track rule index + state
   // R=4 (3 rules + cycle tracking), T=4 (conditional application by position), B=7 (sequence + rule state + position), N=3, D=4
+  // Sequence: 1, ×2→2, +3→5, -1→4, ×2→8, +3→11, -1→10, ×2→20, +3→23, -1→22, ×2→44, +3→47
+  // 10th=22, 11th=44, 12th=47
   item({
     id: "rr10",
     premise: "A sequence is generated by three interleaved rules applied cyclically. Rule 1: multiply by 2. Rule 2: add 3. Rule 3: subtract 1. Starting from 1: 1, 2, 5, 4, 8, 11, 10, 20, 23, ...",
     question: "What is the 12th number in this sequence?",
-    options: ["44", "45", "43", "46"],
+    options: ["47", "44", "46", "45"],
     correct: 0,
     timeLimit: 120,
   }, { R: 4, T: 4, B: 7, N: 3, D: 4, factor: "Gf" }),
@@ -402,12 +411,26 @@ export const relationalReasoning = [
     timeLimit: 180,
   }, { R: 5, T: 4, B: 8, N: 4, D: 5, factor: "Gf" }),
 
-  // RR12: Multi-system causal network with delayed effects and thresholds
+  // RR12: Nested conditional with quantifier logic and exception handling
+  // 5 categorical rules with nested exceptions and universal/existential quantifiers.
+  // R=5 (5 rules with nested conditions), T=5 (quantifier reasoning + exception priority), B=8, N=4, D=5
+  // b = +4.90, IQ ~173.5
+  item({
+    id: "rr12",
+    premise: "In a classification system: (1) All items with property P are class Alpha. (2) All items with property Q are class Beta. (3) Exception: items with both P and Q are class Gamma UNLESS they also have property R. (4) Items with P, Q, and R are class Alpha only if they lack property S; otherwise they are class Delta. (5) All class Delta items that also have property T are reclassified as Gamma. Item X has properties: P, Q, R, S, T.",
+    question: "What is the final class of item X?",
+    options: ["Gamma", "Delta", "Alpha", "Beta"],
+    correct: 0,
+    timeLimit: 150,
+  }, { R: 5, T: 5, B: 8, N: 4, D: 5, factor: "Gf" }),
+
+  // RR13: Multi-system causal network with delayed effects and thresholds
   // 7 variables with threshold-based activation, delayed propagation, and feedback loops.
   // Must simulate 4 time steps to find equilibrium.
   // R=5 (7 causal links + thresholds + delays), T=5 (temporal simulation with thresholds), B=9, N=4, D=5
+  // b = +5.15, IQ ~177.2
   item({
-    id: "rr12",
+    id: "rr13",
     premise: "Seven variables (A-G) form a causal network. Rules: A activates B after 1 step delay. B and C together (both >0) activate D immediately. D activates E, but only if D>2. E inhibits A (sets A=0) after 2 step delay. F = A + C at each step. G activates when F>5. C is constant at 3. Initial values at t=0: A=4, B=0, C=3, D=0, E=0, F=7, G=1.",
     question: "What are the values of (A, D, E, G) at t=4?",
     options: [
@@ -419,18 +442,6 @@ export const relationalReasoning = [
     correct: 0,
     timeLimit: 180,
   }, { R: 5, T: 5, B: 9, N: 4, D: 5, factor: "Gf" }),
-
-  // RR13: Nested conditional with quantifier logic and exception handling
-  // 5 categorical rules with nested exceptions and universal/existential quantifiers.
-  // R=5 (5 rules with nested conditions), T=5 (quantifier reasoning + exception priority), B=8, N=4, D=5
-  item({
-    id: "rr13",
-    premise: "In a classification system: (1) All items with property P are class Alpha. (2) All items with property Q are class Beta. (3) Exception: items with both P and Q are class Gamma UNLESS they also have property R. (4) Items with P, Q, and R are class Alpha only if they lack property S; otherwise they are class Delta. (5) All class Delta items that also have property T are reclassified as Gamma. Item X has properties: P, Q, R, S, T.",
-    question: "What is the final class of item X?",
-    options: ["Gamma", "Delta", "Alpha", "Beta"],
-    correct: 0,
-    timeLimit: 150,
-  }, { R: 5, T: 5, B: 8, N: 4, D: 5, factor: "Gf" }),
 ];
 
 // ========================================
@@ -989,8 +1000,9 @@ export const quantitativeReasoning = [
     timeLimit: 90,
   }, { R: 3, T: 3, B: 5, N: 3, D: 3, factor: "Gq" }),
 
-  // QR9e: Recursive with two operations — a(n) = 2·a(n-1) - a(n-2) + n
-  // R=3 (two lookbacks + position-dependent increment), T=3, B=5, N=3, D=4
+  // QR9e: Cubic sequence — third differences constant at 2
+  // Differences: 2,5,10,17 → second: 3,5,7 → third: 2,2
+  // R=3 (three levels of differencing), T=3, B=5, N=3, D=4
   // b ≈ +1.85 → IQ ~128
   item({
     id: "qr9e",
@@ -1033,10 +1045,11 @@ export const quantitativeReasoning = [
 
   // QR10c: Abstract number theory reasoning
   // R=4, T=4, B=7, N=4, D=5
+  // Squares: 31, Cubes: 10, Sixth powers: 3 (1,64,729). Inclusion-exclusion: 31+10-3=38. Answer: 1000-38=962
   item({
     id: "qr10c",
     question: "How many integers from 1 to 1000 are neither perfect squares nor perfect cubes?",
-    options: ["963", "958", "965", "970"],
+    options: ["962", "963", "958", "970"],
     correct: 0,
     timeLimit: 120,
   }, { R: 4, T: 4, B: 7, N: 4, D: 5, factor: "Gq" }),
@@ -1044,11 +1057,15 @@ export const quantitativeReasoning = [
   // QR11: Nested recurrence with modular arithmetic
   // a(n) = a(n-1)² mod 97 + a(n-2), requiring simultaneous modular squaring and addition
   // R=5 (squaring + modular reduction + addition + two-term lookback + interaction), T=5, B=7, N=4, D=5
+  // a(1)=3, a(2)=5
+  // a(3) = 25 mod 97 + 3 = 28
+  // a(4) = 784 mod 97 + 5 = 8 + 5 = 13 (784 = 8×97 + 8)
+  // a(5) = 169 mod 97 + 28 = 72 + 28 = 100
+  // a(6) = 10000 mod 97 + 13 = 9 + 13 = 22 (10000 = 103×97 + 9)
   item({
     id: "qr11",
-    sequence: "3, 5, 14, 201 mod 97 + 5 = 12, 156 mod 97 + 14 = 73, ...",
     question: "Given a(1)=3, a(2)=5, and a(n) = a(n-1)² mod 97 + a(n-2), what is a(6)?",
-    options: ["45", "78", "62", "31"],
+    options: ["22", "45", "13", "100"],
     correct: 0,
     timeLimit: 150,
   }, { R: 5, T: 5, B: 7, N: 4, D: 5, factor: "Gq" }),
@@ -1061,7 +1078,7 @@ export const quantitativeReasoning = [
   item({
     id: "qr12",
     sequence: "Position 1: 7 (odd→3×7−1=20), Position 2: 20 (even→20/2+2=12), Position 3: 12 (even→12/2+3=9), Position 4: 9 (odd→3×9−4=23), Position 5: 23 (odd→3×23−5=64), Position 6: ?",
-    question: "Given the rule: if a(n) is even, a(n+1) = a(n)/2 + (n+1); if a(n) is odd, a(n+1) = 3×a(n) − (n+1). Starting with a(1)=7, what is a(7)?",
+    question: "Given the rule: if a(n) is even, a(n+1) = a(n)/2 + n; if a(n) is odd, a(n+1) = 3×a(n) − n. Starting with a(1)=7, what is a(7)?",
     options: ["38", "35", "41", "29"],
     correct: 0,
     timeLimit: 150,
