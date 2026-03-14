@@ -10,6 +10,10 @@ import {
   scoreSubtests, calculateCompositeIQ, calculateFactorScores,
   scoreSpeedMatch, generateVerificationCode, generateTestId, thetaToIQ
 } from '../utils/scoring';
+import {
+  trackTestStart, trackSubtestStart, trackSubtestComplete,
+  trackTestComplete, trackTestQuit
+} from '../utils/tracking';
 
 const SUBTEST_ORDER = [
   'pattern_matrices', 'relational_reasoning', 'conceptual_links',
@@ -38,48 +42,157 @@ const WEIGHTS = {
 
 // Shape rendering for pattern matrices
 function renderShape(desc) {
-  const shapes = {
-    'circle': { shape: 'circle', color: '#6366f1' },
-    'square': { shape: 'square', color: '#10b981' },
-    'triangle': { shape: 'triangle', color: '#f59e0b' },
-    'diamond': { shape: 'diamond', color: '#ef4444' },
+  const baseShapes = ['circle', 'square', 'triangle', 'diamond'];
+  const colorMap = {
+    red: '#ef4444', blue: '#3b82f6', green: '#10b981',
+    default_circle: '#6366f1', default_square: '#10b981',
+    default_triangle: '#f59e0b', default_diamond: '#ef4444',
   };
-
-  // Parse composite descriptions
-  const parts = desc.split('-');
-
-  // Simple shape names
-  if (shapes[desc]) {
-    return renderSVGShape(shapes[desc].shape, shapes[desc].color);
-  }
+  const sizeScales = { small: 0.6, medium: 0.8, large: 1.0 };
 
   // Dot patterns
   const dotMatch = desc.match(/^(\d)dot$/);
-  if (dotMatch) {
-    const count = parseInt(dotMatch[1]);
-    return renderDots(count);
+  if (dotMatch) return renderDots(parseInt(dotMatch[1]));
+
+  // Line counts: "2lines", "3lines", "4lines"
+  const lineMatch = desc.match(/^(\d)lines$/);
+  if (lineMatch) return renderLines(parseInt(lineMatch[1]));
+
+  // Compound: "X-inside-Y"
+  const insideMatch = desc.match(/^(.+)-inside-(.+)$/);
+  if (insideMatch) {
+    const innerDesc = insideMatch[1];
+    const outerDesc = insideMatch[2];
+    // Parse size from compound prefix (e.g. "small-circle-inside-square" → size on inner)
+    const innerParsed = parseShapeDesc(innerDesc);
+    const outerParsed = parseShapeDesc(outerDesc);
+    return renderCompound(outerParsed, innerParsed);
   }
 
-  // Color-shape combos
-  const colorShapeMatch = desc.match(/^(red|blue|green)-(circle|square|triangle)$/);
-  if (colorShapeMatch) {
-    const colors = { red: '#ef4444', blue: '#3b82f6', green: '#10b981' };
-    return renderSVGShape(colorShapeMatch[2], colors[colorShapeMatch[1]]);
+  // Parse composite descriptions (size, color, fill, rotation, shape)
+  const parsed = parseShapeDesc(desc);
+  if (parsed.shape) {
+    return renderSVGShapeAdvanced(parsed);
   }
+
+  // Legacy: lines with prefix (filled-2lines, dashed-2lines, 2lines-cross, etc.)
+  const prefixLineMatch = desc.match(/(\d)lines/);
+  if (prefixLineMatch) return renderLines(parseInt(prefixLineMatch[1]));
 
   // Fallback: show text
   return <span style={{ fontSize: 11, color: '#94a3b8' }}>{desc}</span>;
 }
 
-function renderSVGShape(shape, color) {
+// Parse a shape description string into { shape, color, size, fill, rotated }
+function parseShapeDesc(desc) {
+  const baseShapes = ['circle', 'square', 'triangle', 'diamond'];
+  const colorMap = { red: '#ef4444', blue: '#3b82f6', green: '#10b981' };
+  const defaultColors = {
+    circle: '#6366f1', square: '#10b981', triangle: '#f59e0b', diamond: '#ef4444',
+  };
+  const sizeScales = { small: 0.6, medium: 0.8, large: 1.0 };
+
+  const parts = desc.split('-');
+  let shape = null, color = null, size = 1.0, fill = 'filled', rotated = false;
+
+  for (const part of parts) {
+    if (baseShapes.includes(part)) shape = part;
+    else if (colorMap[part]) color = colorMap[part];
+    else if (sizeScales[part] !== undefined) size = sizeScales[part];
+    else if (part === 'filled' || part === 'hollow' || part === 'striped') fill = part;
+    else if (part === 'rotated') rotated = true;
+  }
+
+  if (shape && !color) color = defaultColors[shape];
+  return { shape, color, size, fill, rotated };
+}
+
+function renderSVGShapeAdvanced({ shape, color, size, fill, rotated }) {
+  const svgSize = 40;
+  const scale = size;
+  const rotation = rotated ? 45 : 0;
+
+  // Build a unique id for striped pattern
+  const patternId = `stripe-${shape}-${Math.random().toString(36).substr(2, 5)}`;
+
+  const fillAttr = fill === 'filled' ? color
+    : fill === 'hollow' ? 'none'
+    : `url(#${patternId})`;
+  const strokeAttr = fill === 'hollow' ? color : (fill === 'striped' ? color : 'none');
+  const strokeWidth = fill === 'hollow' ? 2.5 : (fill === 'striped' ? 1.5 : 0);
+
   return (
-    <svg width="40" height="40" viewBox="0 0 40 40">
-      {shape === 'circle' && <circle cx="20" cy="20" r="14" fill={color} />}
-      {shape === 'square' && <rect x="6" y="6" width="28" height="28" fill={color} />}
-      {shape === 'triangle' && <polygon points="20,4 36,36 4,36" fill={color} />}
-      {shape === 'diamond' && <polygon points="20,4 36,20 20,36 4,20" fill={color} />}
+    <svg width={svgSize} height={svgSize} viewBox="0 0 40 40">
+      {fill === 'striped' && (
+        <defs>
+          <pattern id={patternId} width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="0" y2="5" stroke={color} strokeWidth="2" />
+          </pattern>
+        </defs>
+      )}
+      <g transform={`translate(20,20) rotate(${rotation}) scale(${scale}) translate(-20,-20)`}>
+        {shape === 'circle' && <circle cx="20" cy="20" r="14" fill={fillAttr} stroke={strokeAttr} strokeWidth={strokeWidth} />}
+        {shape === 'square' && <rect x="6" y="6" width="28" height="28" fill={fillAttr} stroke={strokeAttr} strokeWidth={strokeWidth} />}
+        {shape === 'triangle' && <polygon points="20,4 36,36 4,36" fill={fillAttr} stroke={strokeAttr} strokeWidth={strokeWidth} />}
+        {shape === 'diamond' && <polygon points="20,4 36,20 20,36 4,20" fill={fillAttr} stroke={strokeAttr} strokeWidth={strokeWidth} />}
+      </g>
     </svg>
   );
+}
+
+// Render X-inside-Y compound shape
+function renderCompound(outerParsed, innerParsed) {
+  const outerColor = outerParsed.color || '#6366f1';
+  const innerColor = innerParsed.color || '#ef4444';
+  const outerShape = outerParsed.shape;
+  const innerShape = innerParsed.shape;
+
+  function shapeElements(s, cx, cy, r, fillC) {
+    if (s === 'circle') return <circle cx={cx} cy={cy} r={r} fill={fillC} />;
+    const half = r;
+    if (s === 'square') return <rect x={cx - half} y={cy - half} width={half * 2} height={half * 2} fill={fillC} />;
+    if (s === 'triangle') return <polygon points={`${cx},${cy - r} ${cx + r},${cy + r} ${cx - r},${cy + r}`} fill={fillC} />;
+    if (s === 'diamond') return <polygon points={`${cx},${cy - r} ${cx + r},${cy} ${cx},${cy + r} ${cx - r},${cy}`} fill={fillC} />;
+    return null;
+  }
+
+  const outerScale = outerParsed.size || 1.0;
+  const innerScale = innerParsed.size || 1.0;
+
+  return (
+    <svg width="40" height="40" viewBox="0 0 40 40">
+      <g transform={`translate(20,20) scale(${outerScale}) translate(-20,-20)`}>
+        {shapeElements(outerShape, 20, 20, 16, outerColor)}
+      </g>
+      <g transform={`translate(20,20) scale(${innerScale * 0.5}) translate(-20,-20)`}>
+        {shapeElements(innerShape, 20, 20, 14, innerColor)}
+      </g>
+    </svg>
+  );
+}
+
+// Render N lines radiating from center
+function renderLines(count) {
+  const lines = [];
+  for (let i = 0; i < count; i++) {
+    const angle = (i * 180) / count;
+    const rad = (angle * Math.PI) / 180;
+    const x1 = 20 + 14 * Math.cos(rad);
+    const y1 = 20 + 14 * Math.sin(rad);
+    const x2 = 20 - 14 * Math.cos(rad);
+    const y2 = 20 - 14 * Math.sin(rad);
+    lines.push(<line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#6366f1" strokeWidth="2.5" strokeLinecap="round" />);
+  }
+  return (
+    <svg width="40" height="40" viewBox="0 0 40 40">
+      {lines}
+    </svg>
+  );
+}
+
+// Legacy simple renderer (kept for any direct calls)
+function renderSVGShape(shape, color) {
+  return renderSVGShapeAdvanced({ shape, color, size: 1.0, fill: 'filled', rotated: false });
 }
 
 function renderDots(count) {
@@ -108,7 +221,10 @@ export default function TestRunner({ t, lang, onComplete, onQuit }) {
   const [itemIndex, setItemIndex] = useState(0);
   const [responses, setResponses] = useState([]);
   const [timeLeft, setTimeLeft] = useState(0);
-  const [startTime] = useState(Date.now());
+  const [startTime] = useState(() => {
+    trackTestStart(lang);
+    return Date.now();
+  });
   const [itemStartTime, setItemStartTime] = useState(Date.now());
 
   // Memory sequence state
@@ -128,6 +244,12 @@ export default function TestRunner({ t, lang, onComplete, onQuit }) {
 
   const currentSubtestId = SUBTEST_ORDER[subtestIndex];
   const currentSubtest = subtests.find(s => s.id === currentSubtestId);
+
+  const handleQuit = useCallback(() => {
+    const completed = SUBTEST_ORDER.slice(0, subtestIndex);
+    trackTestQuit(currentSubtestId, completed);
+    onQuit();
+  }, [subtestIndex, currentSubtestId, onQuit]);
 
   // Timer
   useEffect(() => {
@@ -154,7 +276,10 @@ export default function TestRunner({ t, lang, onComplete, onQuit }) {
         const timer = setTimeout(() => {
           setPhase('memory-input');
           setMemoryInput('');
-          setTimeout(() => inputRef.current?.focus(), 100);
+          setTimeout(() => {
+            if (Array.isArray(inputRef.current)) inputRef.current[0]?.focus();
+            else inputRef.current?.focus();
+          }, 100);
         }, 500);
         return () => clearTimeout(timer);
       }
@@ -193,6 +318,7 @@ export default function TestRunner({ t, lang, onComplete, onQuit }) {
   function startSubtest() {
     setItemIndex(0);
     setItemStartTime(Date.now());
+    trackSubtestStart(currentSubtestId, lang);
 
     if (currentSubtestId === 'memory_sequences') {
       setMemoryDigitIndex(0);
@@ -260,6 +386,7 @@ export default function TestRunner({ t, lang, onComplete, onQuit }) {
       setItemIndex(itemIndex + 1);
       setMemoryDigitIndex(0);
       setMemoryInput('');
+      inputRef.current = [];
       setItemStartTime(Date.now());
       setPhase('memory-show');
     } else {
@@ -336,6 +463,23 @@ export default function TestRunner({ t, lang, onComplete, onQuit }) {
   }
 
   function moveToNextSubtest(currentResponses, speedResult) {
+    // Track completed subtest
+    const justFinished = currentSubtestId;
+    const subtestResponses = currentResponses.filter(r => r.subtestId === justFinished);
+    if (subtestResponses.length > 0 && justFinished !== 'speed_match') {
+      const correct = subtestResponses.filter(r => r.correct).length;
+      trackSubtestComplete(justFinished, {
+        iq: 0, theta: 0, correct, total: subtestResponses.length,
+        percentage: Math.round((correct / subtestResponses.length) * 100),
+      });
+    } else if (speedResult) {
+      trackSubtestComplete('speed_match', {
+        iq: thetaToIQ(speedResult.theta), theta: speedResult.theta,
+        correct: speedResult.correct, total: speedResult.total,
+        percentage: speedResult.accuracy,
+      });
+    }
+
     if (subtestIndex + 1 < SUBTEST_ORDER.length) {
       setSubtestIndex(subtestIndex + 1);
       setPhase('intro');
@@ -378,6 +522,19 @@ export default function TestRunner({ t, lang, onComplete, onQuit }) {
 
     results.verificationCode = generateVerificationCode(results);
 
+    results.lang = lang;
+    trackTestComplete(results);
+
+    // Submit results to server via fetch (reliable, not sendBeacon)
+    try {
+      fetch('/api/results', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(results),
+        keepalive: true,
+      }).catch(() => {});
+    } catch (e) {}
+
     onComplete(results);
   }
 
@@ -396,7 +553,7 @@ export default function TestRunner({ t, lang, onComplete, onQuit }) {
           subtest={currentSubtest}
           progress={progress}
           timeLeft={null}
-          onQuit={onQuit}
+          onQuit={handleQuit}
           itemText={`${t.subtestOf} ${subtestIndex + 1}/${SUBTEST_ORDER.length}`}
         />
         <div className="test-body">
@@ -440,7 +597,7 @@ export default function TestRunner({ t, lang, onComplete, onQuit }) {
           subtest={currentSubtest}
           progress={progress}
           timeLeft={timeLeft}
-          onQuit={onQuit}
+          onQuit={handleQuit}
           itemText={`${itemIndex + 1}/${items.length}`}
         />
         <div className="test-body">
@@ -505,7 +662,7 @@ export default function TestRunner({ t, lang, onComplete, onQuit }) {
           subtest={currentSubtest}
           progress={progress}
           timeLeft={null}
-          onQuit={onQuit}
+          onQuit={handleQuit}
           itemText={`${itemIndex + 1}/${memorySequences.length}`}
         />
         <div className="test-body">
@@ -537,7 +694,7 @@ export default function TestRunner({ t, lang, onComplete, onQuit }) {
           subtest={currentSubtest}
           progress={progress}
           timeLeft={null}
-          onQuit={onQuit}
+          onQuit={handleQuit}
           itemText={`${itemIndex + 1}/${memorySequences.length}`}
         />
         <div className="test-body">
@@ -548,29 +705,60 @@ export default function TestRunner({ t, lang, onComplete, onQuit }) {
             }
           </div>
           <div className="memory-input-area">
-            <input
-              ref={inputRef}
-              className="memory-input"
-              type="text"
-              inputMode="numeric"
-              maxLength={item.sequence.length}
-              value={memoryInput}
-              onChange={e => {
-                const val = e.target.value.replace(/[^0-9]/g, '');
-                setMemoryInput(val);
-              }}
-              onKeyDown={e => {
-                if (e.key === 'Enter' && memoryInput.length === item.sequence.length) {
-                  handleMemorySubmit();
-                }
-              }}
-              autoFocus
-            />
+            <div className="memory-boxes">
+              {Array.from({ length: item.sequence.length }, (_, i) => (
+                <input
+                  key={i}
+                  ref={el => {
+                    if (!inputRef.current) inputRef.current = [];
+                    inputRef.current[i] = el;
+                  }}
+                  className="memory-box"
+                  type="text"
+                  inputMode="numeric"
+                  maxLength={1}
+                  value={memoryInput[i] || ''}
+                  autoFocus={i === 0}
+                  onChange={e => {
+                    const digit = e.target.value.replace(/[^0-9]/g, '');
+                    if (!digit) return;
+                    setMemoryInput(prev => {
+                      const arr = prev.split('');
+                      arr[i] = digit;
+                      return arr.join('');
+                    });
+                    // Auto-advance to next box
+                    if (digit && i < item.sequence.length - 1 && inputRef.current?.[i + 1]) {
+                      inputRef.current[i + 1].focus();
+                    }
+                  }}
+                  onKeyDown={e => {
+                    if (e.key === 'Backspace' && !memoryInput[i]) {
+                      // Move to previous box on backspace if current is empty
+                      if (i > 0 && inputRef.current?.[i - 1]) {
+                        setMemoryInput(prev => {
+                          const arr = prev.split('');
+                          arr[i - 1] = '';
+                          return arr.join('').replace(/\s+$/, '');
+                        });
+                        inputRef.current[i - 1].focus();
+                      }
+                    } else if (e.key === 'Enter') {
+                      const filled = memoryInput.replace(/[^0-9]/g, '');
+                      if (filled.length === item.sequence.length) {
+                        handleMemorySubmit();
+                      }
+                    }
+                  }}
+                  onFocus={e => e.target.select()}
+                />
+              ))}
+            </div>
             <button
               className="btn-primary"
-              disabled={memoryInput.length !== item.sequence.length}
+              disabled={memoryInput.replace(/[^0-9]/g, '').length !== item.sequence.length}
               onClick={handleMemorySubmit}
-              style={{ opacity: memoryInput.length === item.sequence.length ? 1 : 0.5 }}
+              style={{ opacity: memoryInput.replace(/[^0-9]/g, '').length === item.sequence.length ? 1 : 0.5 }}
             >
               {t.submit}
             </button>
@@ -589,7 +777,7 @@ export default function TestRunner({ t, lang, onComplete, onQuit }) {
           subtest={currentSubtest}
           progress={progress}
           timeLeft={timeLeft}
-          onQuit={onQuit}
+          onQuit={handleQuit}
           itemText={`${speedTrialIndex + 1}/${speedMatch.totalTrials}`}
         />
         <div className="test-body">
