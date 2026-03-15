@@ -249,6 +249,87 @@ export const patternMatrices = [
     correct: 0,
     timeLimit: 105,
   }, { R: 3, T: 4, B: 6, N: 3, D: 4, factor: "Gf" }),
+
+  // ========================================
+  // CEILING ITEMS — IQ 145-160+
+  // ========================================
+  // These items target b = +3.0 to +4.0 (IQ 145-160)
+  // R=4-5, T=4-5 level: meta-relational, multi-dimensional,
+  // recursive transformations with near-miss distractors (D=4).
+
+  // PM11: 4×4 grid — 4 attributes vary independently (shape, color, size, rotation)
+  // Each row and column: Latin square on ALL 4 attributes simultaneously
+  // R=4 (4 independent rules tracked simultaneously), T=4 (recursive constraint satisfaction),
+  // B=7 (4 attrs × track + partial completions), N=3 (novel: 4-way Latin square), D=4 (near-miss)
+  // b = -3.0 + 0.50×4 + 0.30×4 + 0.25×5 + 0.35×3 + 0.20×4 = +3.30 → IQ ~150
+  item({
+    id: "pm11",
+    grid: [
+      ["small-red-circle-0", "large-blue-square-90", "medium-green-triangle-180", "tiny-yellow-diamond-270"],
+      ["medium-yellow-square-270", "tiny-green-circle-180", "large-red-diamond-90", "small-blue-triangle-0"],
+      ["large-green-diamond-0", "medium-red-triangle-270", "tiny-blue-circle-90", "?"],
+      ["tiny-blue-triangle-180", "small-yellow-diamond-0", "?-row4", "?-row4"]
+    ],
+    rule: "4×4 Latin square on shape, color, size, AND rotation simultaneously — each attribute appears exactly once per row and column. Find the missing cell at row 3, column 4.",
+    options: [
+      "small-yellow-square-180",
+      "small-yellow-triangle-180",
+      "medium-yellow-square-180",
+      "small-green-square-180"
+    ],
+    correct: 0,
+    timeLimit: 150,
+  }, { R: 4, T: 4, B: 7, N: 3, D: 4, factor: "Gf" }),
+
+  // PM12: Transformation rule changes per diagonal — meta-rule
+  // Rows apply rotation, columns apply color shift, diagonals apply size change
+  // But the RULE ITSELF changes: main diagonal uses +90° rotation,
+  // anti-diagonal uses -90° rotation. Must infer the meta-pattern.
+  // R=4 (3 transform dimensions + meta-rule), T=5 (meta-transformation: rule about rules),
+  // B=7 (track all transforms + which rule applies where), N=4 (counter-intuitive: rule switches), D=4
+  // b = -3.0 + 0.50×4 + 0.30×5 + 0.25×5 + 0.35×4 + 0.20×4 = +3.55 → IQ ~153
+  item({
+    id: "pm12",
+    grid: [
+      ["small-red-up", "medium-blue-right", "large-green-down"],
+      ["medium-green-right", "large-red-up", "small-blue-left"],
+      ["large-blue-down", "small-green-left", "?"]
+    ],
+    rule: "Shape transforms: rows cycle color (R→G→B), columns cycle size (S→M→L). Diagonal rule: main diagonal rotates +90° per step, anti-diagonal rotates -90°. The meta-pattern: direction of rotation depends on position relative to diagonals.",
+    options: [
+      "medium-red-up",
+      "medium-red-right",
+      "large-red-up",
+      "medium-blue-up"
+    ],
+    correct: 0,
+    timeLimit: 150,
+  }, { R: 4, T: 5, B: 7, N: 4, D: 4, factor: "Gf" }),
+
+  // PM13: Recursive embedding — the pattern IS the rule
+  // Each cell contains a miniature 2×2 grid. The arrangement of elements
+  // in each mini-grid follows the SAME rule as the arrangement of cells
+  // in the outer grid. Self-similar / fractal pattern.
+  // R=5 (outer pattern + inner pattern + mapping between them), T=5 (recursive self-reference),
+  // B=8 (outer 3×3 positions + inner 2×2 positions tracked simultaneously), N=4, D=4
+  // b = -3.0 + 0.50×5 + 0.30×5 + 0.25×6 + 0.35×4 + 0.20×4 = +4.30 → IQ ~165
+  item({
+    id: "pm13",
+    grid: [
+      ["[AB|CD]", "[BC|DA]", "[CA|BD]"],
+      ["[BC|DA]", "[CA|BD]", "[AB|CD]"],
+      ["[CA|BD]", "[AB|CD]", "?"]
+    ],
+    rule: "Each cell is a 2×2 mini-grid. The outer 3×3 arrangement is a Latin square of mini-grid types. Within each mini-grid, elements follow the same cyclic permutation rule as the outer grid. The pattern is self-similar: the rule at the inner level mirrors the rule at the outer level.",
+    options: [
+      "[BC|DA]",
+      "[AB|DA]",
+      "[CB|DA]",
+      "[BC|AD]"
+    ],
+    correct: 0,
+    timeLimit: 180,
+  }, { R: 5, T: 5, B: 8, N: 4, D: 4, factor: "Gf" }),
 ];
 
 // ========================================
@@ -1237,8 +1318,8 @@ export const subtests = [
     factor: "Gf-WM",
     description: "Visual pattern completion requiring simultaneous rule tracking and active manipulation in working memory",
     icon: "🧩",
-    itemCount: 13,
-    estimatedTime: "10 min",
+    itemCount: 16,
+    estimatedTime: "12 min",
     weight: 0.20,
   },
   {
